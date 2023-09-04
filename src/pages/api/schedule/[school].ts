@@ -32,7 +32,7 @@ export default function handler(
   }
 
   try {
-    const schoolFolder = path.join(__dirname, `../../../../../src/database/${school}`);
+    const schoolFolder = path.join(process.cwd(), `/database/${school}`);
     const scheduleDB = JSON.parse(fs.readFileSync(path.join(schoolFolder, "/schedule.json"), "utf-8"));
 
     for (const scheduleName in scheduleDB) {
