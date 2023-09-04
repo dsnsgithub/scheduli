@@ -1,0 +1,62 @@
+{
+	"about": {
+		"startDate": "6/5/2023",
+		"endDate": "8/10/2023",
+		"noSchool": [
+			"9/4/2023",
+			["9/25/2023", "9/26/2023"],
+			"11/1/2023",
+			"11/10/2023",
+			["11/20/2023", "11/24/2023"],
+			["12/21/2023", "1/8/2024"],
+			"1/15/2024",
+			["2/19/2024", "2/20/2024"],
+			"3/15/2024",
+			"3/29/2024",
+			["4/1/2024", "4/5/2024"],
+			"5/24/2024",
+			"5/27/2024"
+		],
+		"avaliablePeriods": ["1", "2", "3", "4", "5", "6", "B"]
+	},
+	"regular": {
+		"officialName": "Regular",
+		"days": [1, 2, 5]
+	},
+	"wednesday": {
+		"officialName": "Wednesday Block",
+		"days": [3]
+	},
+	"thursday": {
+		"officialName": "Thursday Block",
+		"days": [4]
+	},
+	"minimum": {
+		"officialName": "Minimum Day",
+		"days": ["8/10", "6/5"]
+	},
+	"rally": {
+		"officialName": "Rally",
+		"days": ["8/18", "10/13", "2/16", "5/28"]
+	},
+	"assembly": {
+		"officialName": "Assembly",
+		"days": ["10/3"]
+	},
+	"finalShort1+4": {
+		"officialName": "Final Periods 1/4",
+		"days": ["12/18", "6/3"]
+	},
+	"finalShort2+5": {
+		"officialName": "Final Periods 2/5",
+		"days": ["12/19", "6/4"]
+	},
+	"finalShort3+6": {
+		"officialName": "Final Periods 3/6",
+		"days": ["12/20", "6/5"]
+	},
+	"finalReverse": {
+		"officialName": "B Period Final - Reverse",
+		"days": ["12/15", "5/31"]
+	}
+}
