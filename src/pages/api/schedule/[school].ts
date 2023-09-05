@@ -17,7 +17,7 @@ function createCustomDate(inputTime: string) {
 		hour -= 12;
 	}
 
-	currentDate.setHours(hour, parseInt(inputMinute), 0, 0);
+	currentDate.setUTCHours(hour + 7, parseInt(inputMinute), 0, 0);
 	return currentDate.getTime();
 }
 

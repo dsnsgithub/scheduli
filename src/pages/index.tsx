@@ -80,7 +80,7 @@ function timeBetweenDates(firstDate: number, secondDate: number) {
 		return `${minuteString}:${secondString}`;
 	}
 
-	return `${hours}:${minutes}:${seconds}`;
+	return `${hours}:${minuteString}:${secondString}`;
 }
 
 function sameDay(d1: Date, d2: Date) {
@@ -341,8 +341,8 @@ export default function Home() {
 	}
 
 	//? all necessary prereqs are collected
-	// const currentDate = new Date();
-	const currentDate = new Date(new Date().setDate(new Date().getDate() + 1));
+	const currentDate = new Date();
+	// const currentDate = new Date(new Date().setDate(new Date().getDate() + 1));
 	const currentTime = currentDate.getTime();
 
 	if (!localStorage.getItem("periodNames")) createAvaliablePeriodsDB(scheduleDB);
