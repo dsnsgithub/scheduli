@@ -349,16 +349,18 @@ export default function Home() {
 	if (!localStorage.getItem("removedPeriods")) createRemovedPeriodsDB();
 
 	// parse schedules, fixing names and other issues
+	// must loop backwards to avoid weird index issues
+
 	for (const scheduleName in scheduleDB as ScheduleDB) {
 		if (scheduleName == "about") continue;
 
 		// @ts-ignore
-		for (const index in scheduleDB[scheduleName]["times"]) {
-			const rawPeriodName = scheduleDB[scheduleName]["times"][index]["rawPeriodName"];
+		for (let i = scheduleDB[scheduleName]["times"].length - 1; i >= 0; i--) {
+			const rawPeriodName = scheduleDB[scheduleName]["times"][i]["rawPeriodName"];
 			// @ts-ignore
 			if (checkRemovedPeriods(rawPeriodName)) {
 				// @ts-ignore
-				scheduleDB[scheduleName]["times"].splice(index, 1);
+				scheduleDB[scheduleName]["times"].splice(i, 1);
 				continue;
 			}
 
@@ -366,15 +368,11 @@ export default function Home() {
 			if (periodName.length == 1) periodName = `${getOrdinalNumber(periodName)} period`;
 			if (periodName == "Passing") {
 				// @ts-ignore
-				scheduleDB[scheduleName]["times"].splice(index, 1);
+				scheduleDB[scheduleName]["times"].splice(i, 1);
 				continue;
 			}
-
-			// console.log(scheduleDB[scheduleName]["times"]);
-			// console.log(index)
-
 			// @ts-ignore
-			scheduleDB[scheduleName]["times"][Number(index)]["periodName"] = periodName;
+			scheduleDB[scheduleName]["times"][Number(i)]["periodName"] = periodName;
 		}
 
 		const times = scheduleDB[scheduleName]["times"] as UpdatedTime[];
