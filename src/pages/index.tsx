@@ -129,7 +129,7 @@ function Schedule(props: { scheduleTimes: UpdatedTime[] }) {
 			<tbody className="bg-wedgewood-200">
 				{props.scheduleTimes.map(({ rawPeriodName, startTime, endTime, periodName }) => {
 					return (
-						<tr key={rawPeriodName} className="border-0">
+						<tr key={startTime} className="border-0">
 							<td scope="row" className="px-3 py-3 font-medium">
 								{periodName}
 							</td>
@@ -343,7 +343,6 @@ export default function Home() {
 	//? all necessary prereqs are collected
 	const currentDate = new Date();
 	// const currentDate = new Date(new Date().setDate(new Date().getDate() + 1));
-	const currentTime = currentDate.getTime();
 
 	if (!localStorage.getItem("periodNames")) createAvaliablePeriodsDB(scheduleDB);
 	if (!localStorage.getItem("removedPeriods")) createRemovedPeriodsDB();
@@ -371,6 +370,14 @@ export default function Home() {
 				scheduleDB[scheduleName]["times"].splice(i, 1);
 				continue;
 			}
+
+			if (typeof scheduleDB[scheduleName]["times"][Number(i)]["startTime"] == "string") {
+				// @ts-ignore
+				scheduleDB[scheduleName]["times"][Number(i)]["startTime"] = createCustomDate(scheduleDB[scheduleName]["times"][Number(i)]["startTime"]);
+				// @ts-ignore
+				scheduleDB[scheduleName]["times"][Number(i)]["endTime"] = createCustomDate(scheduleDB[scheduleName]["times"][Number(i)]["endTime"]);
+			}
+				
 			// @ts-ignore
 			scheduleDB[scheduleName]["times"][Number(i)]["periodName"] = periodName;
 		}

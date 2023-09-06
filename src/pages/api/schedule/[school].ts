@@ -3,24 +3,6 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import fs from "fs";
 import path from "path";
 
-function createCustomDate(inputTime: string) {
-	const currentDate = new Date();
-
-	const [inputHourRaw, inputMinuteRaw] = inputTime.split(":");
-	const inputMinute = inputMinuteRaw.replace(/[A-Za-z]/g, ""); // Remove any non-numeric characters
-	const isPM = inputTime.includes("PM");
-
-	let hour = parseInt(inputHourRaw);
-	if (isPM && hour !== 12) {
-		hour += 12;
-	} else if (hour == 12 && !isPM) {
-		hour -= 12;
-	}
-
-	currentDate.setUTCHours(hour + 7, parseInt(inputMinute), 0, 0);
-	return currentDate.getTime();
-}
-
 export default function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -44,8 +26,8 @@ export default function handler(
         let [rawPeriodName, startTime, endTime] = line.split(" ");
         scheduleDB[scheduleName]["times"].push({
           rawPeriodName: rawPeriodName,
-          startTime: createCustomDate(startTime),
-          endTime: createCustomDate(endTime)
+          startTime: startTime,
+          endTime: endTime
         });
       }
     }
