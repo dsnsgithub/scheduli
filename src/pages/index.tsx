@@ -110,36 +110,56 @@ function getOrdinalNumber(number: any) {
 }
 
 // @ts-ignore
-function Schedule(props: { scheduleTimes: UpdatedTime[] }) {
+function Schedule(props: { scheduleTimes: UpdatedTime[], scheduleDB: ScheduleDB }) {
+	let title = "Today's Schedule:"
+	const currentDate = new Date();
+	const currentTime = currentDate.getTime();
+
+	let scheduleTimes = props.scheduleTimes;
+
+	// School is over
+	if (props.scheduleTimes[props.scheduleTimes.length - 1]["endTime"] < currentTime) {
+		const tomorrowScheduleName = findCorrectSchedule(props.scheduleDB, new Date(currentDate.setDate(currentDate.getDate() + 1)));
+		if (tomorrowScheduleName != null) {
+			// @ts-ignore
+			scheduleTimes = props.scheduleDB[tomorrowScheduleName]["times"];
+			title = "Tomorrow's Schedule:"
+		}
+	}
+
 	return (
-		<table className="w-full text-sm text-center">
-			<thead className="text-lg bg-wedgewood-300">
-				<tr>
-					<td scope="col" className="px-3 py-3">
-						<b>Period</b>
-					</td>
-					<td scope="col" className="px-3 py-3">
-						<b>Start Time</b>
-					</td>
-					<td scope="col" className="px-3 py-3">
-						<b>End Time</b>
-					</td>
-				</tr>
-			</thead>
-			<tbody className="bg-wedgewood-200">
-				{props.scheduleTimes.map(({ rawPeriodName, startTime, endTime, periodName }) => {
-					return (
-						<tr key={startTime} className="border-0">
-							<td scope="row" className="px-3 py-3 font-medium">
-								{periodName}
-							</td>
-							<td className="px-3 py-3 font-medium">{formatDate(startTime)}</td>
-							<td className="px-3 py-3 font-medium ">{formatDate(endTime)}</td>
-						</tr>
-					);
-				})}
-			</tbody>
-		</table>
+		<>
+			<h2 className="font-bold text-3xl flex justify-center mb-2">{title}</h2>
+
+			<table className="w-full text-sm text-center">
+				<thead className="text-lg bg-wedgewood-300">
+					<tr>
+						<td scope="col" className="px-3 py-3">
+							<b>Period</b>
+						</td>
+						<td scope="col" className="px-3 py-3">
+							<b>Start Time</b>
+						</td>
+						<td scope="col" className="px-3 py-3">
+							<b>End Time</b>
+						</td>
+					</tr>
+				</thead>
+				<tbody className="bg-wedgewood-200">
+					{scheduleTimes.map(({ rawPeriodName, startTime, endTime, periodName }) => {
+						return (
+							<tr key={startTime} className="border-0">
+								<td scope="row" className="px-3 py-3 font-medium">
+									{periodName}
+								</td>
+								<td className="px-3 py-3 font-medium">{formatDate(startTime)}</td>
+								<td className="px-3 py-3 font-medium ">{formatDate(endTime)}</td>
+							</tr>
+						);
+					})}
+				</tbody>
+			</table>
+		</>
 	);
 }
 
@@ -412,7 +432,7 @@ export default function Home() {
 
 					<div className="table-fixed px-0 mt-8 lg:px-64 xl:px-96 shadow-xl p-10">
 						<h2 className="font-bold text-3xl flex justify-center mb-2">{"Tomorrow's Schedule:"}</h2>
-						<Schedule scheduleTimes={scheduleTimes}></Schedule>
+						<Schedule scheduleTimes={scheduleTimes} scheduleDB={scheduleDB}></Schedule>
 					</div>
 				</div>
 			);
@@ -440,8 +460,7 @@ export default function Home() {
 			<Countdown scheduleTimes={scheduleTimes}></Countdown>
 
 			<div className="table-fixed px-0 mt-8 lg:px-64 xl:px-96 shadow-xl p-10">
-				<h2 className="font-bold text-3xl flex justify-center mb-2">{"Today's Schedule:"}</h2>
-				<Schedule scheduleTimes={scheduleTimes}></Schedule>
+				<Schedule scheduleTimes={scheduleTimes} scheduleDB={scheduleDB}></Schedule>
 			</div>
 		</div>
 	);
