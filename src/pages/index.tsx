@@ -332,12 +332,19 @@ export default function Home() {
 	const [isLoading, setLoading] = React.useState(true);
 
 	React.useEffect(() => {
-		fetch("/api/schedule/dvhs")
-			.then((res) => res.json())
-			.then((data) => {
-				setScheduleDB(data);
-				setLoading(false);
-			});
+
+		// if (!localStorage.getItem("currentSchedule")) {
+			fetch("/api/schedule/dvhs")
+				.then((res) => res.json())
+				.then((data) => {
+					setScheduleDB(data);
+					setLoading(false);
+				});
+		// } else {
+		// 	setScheduleDB(JSON.parse(localStorage.getItem("currentSchedule") || "{}"));
+		// 	setLoading(false);
+		// }
+		
 	}, []);
 
 	if (isLoading) {
