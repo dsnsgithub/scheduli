@@ -51,6 +51,11 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 			scheduleDB["routines"][scheduleName]["events"] = [];
 			for (const line of scheduleArray) {
 				let [rawPeriodName, startTime, endTime] = line.split(" ");
+
+				rawPeriodName = rawPeriodName.replace(/(\r\n|\n|\r)/gm, "");
+				startTime = startTime.replace(/(\r\n|\n|\r)/gm, "");
+				endTime = endTime.replace(/(\r\n|\n|\r)/gm, "");
+
 				if (rawPeriodName == "Passing") continue;
 
 				let [startHour, startMinute] = startTime.split(":");
@@ -86,6 +91,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
 		return res.status(200).json(scheduleDB);
 	} catch (error) {
+		// console.error(error)
 		return res.status(400).json({ error: "Invalid request!!" });
 	}
 }

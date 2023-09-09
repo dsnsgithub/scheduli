@@ -232,6 +232,7 @@ export default function Home() {
 
 	//? all necessary prereqs are collected
 	const currentDate = new Date();
+	const currentTime = currentDate.getTime();
 	// const currentDate = new Date(new Date().setDate(new Date().getDate() + 1));
 
 	if (!localStorage.getItem("periodNames")) createAvaliablePeriodsDB(scheduleDB);
@@ -254,11 +255,6 @@ export default function Home() {
 
 			let periodName = findCorrectPeriodName(rawPeriodName);
 			if (periodName.length == 1) periodName = `${getOrdinalNumber(periodName)} period`;
-			if (periodName == "Passing") {
-				// @ts-ignore
-				scheduleDB[scheduleName]["times"].splice(i, 1);
-				continue;
-			}
 
 			if (typeof scheduleDB["routines"][scheduleName]["events"][Number(i)]["startTime"] == "string") {
 				// @ts-ignore
@@ -291,7 +287,7 @@ export default function Home() {
 	if (correctScheduleName == null) {
 		const tomorrowScheduleName = findCorrectSchedule(scheduleDB, new Date(currentDate.setDate(currentDate.getDate() + 1)));
 		if (tomorrowScheduleName != null) {
-			const scheduleTimes = scheduleDB["routines"][tomorrowScheduleName]["times"];
+			const scheduleTimes = scheduleDB["routines"][tomorrowScheduleName]["events"];
 
 			return (
 				<div className="container mx-auto mt-10 flex flex-col justify-center lg:p-8">
@@ -314,11 +310,29 @@ export default function Home() {
 
 	const scheduleTimes = scheduleDB["routines"][correctScheduleName]["events"];
 
+	// @ts-ignore
+	if (scheduleTimes[scheduleTimes.length - 1]["endTime"] < currentTime) {
+		const tomorrowScheduleName = findCorrectSchedule(scheduleDB, new Date(currentDate.setDate(currentDate.getDate() + 1)));
+		if (tomorrowScheduleName != null) {
+			return (
+				<div className="container mx-auto mt-10 flex flex-col justify-center lg:p-8">
+					<Countdown scheduleTimes={scheduleTimes}></Countdown>
+
+					<div className="table-fixed px-0 mt-8 lg:px-64 xl:px-96 shadow-xl p-10">
+						<h2 className="font-bold text-3xl flex justify-center mb-2">{"Tomorrow's Schedule:"}</h2>
+						<Schedule scheduleTimes={scheduleTimes} scheduleDB={scheduleDB}></Schedule>
+					</div>
+				</div>
+			);
+		}
+	}
+
 	return (
 		<div className="container mx-auto mt-10 flex flex-col justify-center lg:p-8">
 			<Countdown scheduleTimes={scheduleTimes}></Countdown>
 
 			<div className="table-fixed px-0 mt-8 lg:px-64 xl:px-96 shadow-xl p-10">
+				<h2 className="font-bold text-3xl flex justify-center mb-2">{"Today's Schedule:"}</h2>
 				<Schedule scheduleTimes={scheduleTimes} scheduleDB={scheduleDB}></Schedule>
 			</div>
 		</div>

@@ -105,26 +105,24 @@ function findCorrectSchedule(scheduleDB: ScheduleDB, currentDate: Date) {
 
 // @ts-ignore
 export default function Schedule(props: { scheduleTimes: UpdatedTime[]; scheduleDB: ScheduleDB }) {
-	let title = "Today's Schedule:";
-	const currentDate = new Date();
-	const currentTime = currentDate.getTime();
+	// let title = "Today's Schedule:";
+	// const currentDate = new Date();
+	// const currentTime = currentDate.getTime();
 
 	let scheduleTimes = props.scheduleTimes;
 
 	// School is over
-	if (props.scheduleTimes[props.scheduleTimes.length - 1]["endTime"] < currentTime) {
-		const tomorrowScheduleName = findCorrectSchedule(props.scheduleDB, new Date(currentDate.setDate(currentDate.getDate() + 1)));
-		if (tomorrowScheduleName != null) {
-			// @ts-ignore
-			scheduleTimes = props.scheduleDB["routines"][tomorrowScheduleName]["events"];
-			title = "Tomorrow's Schedule:";
-		}
-	}
+	// if (props.scheduleTimes[props.scheduleTimes.length - 1]["endTime"] < currentTime) {
+	// 	const tomorrowScheduleName = findCorrectSchedule(props.scheduleDB, new Date(currentDate.setDate(currentDate.getDate() + 1)));
+	// 	if (tomorrowScheduleName != null) {
+	// 		// @ts-ignore
+	// 		scheduleTimes = props.scheduleDB["routines"][tomorrowScheduleName]["events"];
+	// 		title = "Tomorrow's Schedule:";
+	// 	}
+	// }
 
 	return (
 		<>
-			<h2 className="font-bold text-3xl flex justify-center mb-2">{title}</h2>
-
 			<table className="w-full text-sm text-center">
 				<thead className="text-lg bg-wedgewood-300">
 					<tr>

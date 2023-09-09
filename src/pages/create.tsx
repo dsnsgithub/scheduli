@@ -152,7 +152,7 @@ export default function Create() {
 
 			<div>
 				<h3 className="text-xl mb-10">
-					If you used a school preset, use the{" "}
+					If you used a school preset, delete any non-applicable schedules and use the{" "}
 					<Link href="/settings" className="text-blue-700">
 						Settings page
 					</Link>{" "}

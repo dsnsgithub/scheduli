@@ -5,7 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 export default function ImportSchedule(props: { schedule: any; setSchedule: Function; isOpen: boolean; setIsOpen: Function; setCurrentRoutine: Function; setScheduleStartDate: Function, setScheduleEndDate: Function, setScheduleName: Function }) {
-	const schedulesArray = [{ id: "dvhs", name: "DVHS", unavailable: false }];
+	const schedulesArray = [
+		{ id: "dvhs", name: "DVHS", unavailable: false },
+		{ id: "grms", name: "GRMS", unavailable: false }
+	];
 	const [selectedSchedule, setSelectedSchedule] = React.useState(schedulesArray[0]);
 
 	return (
