@@ -29,7 +29,7 @@ export default function Event(props: { name: string; startTime: string; endTime:
 					<div>
 						<label className="text-lg">Name:</label>
 						<input
-							autoFocus={true}
+							// autoFocus={true}
 							className="rounded shadow appearance-none border w-64 p-2 ml-4"
 							onChange={(e) => modifyEvent(props.schedule, props.setSchedule, props.currentRoutine, props.eventIndex, "name", e.target.value)}
 							defaultValue={props.name}
