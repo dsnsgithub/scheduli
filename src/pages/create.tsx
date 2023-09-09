@@ -127,7 +127,7 @@ export default function Create() {
 	}
 
 	return (
-		<div className="container mx-auto mt-10 flex flex-col justify-center lg:p-8 shadow-lg bg-wedgewood-200 p-8">
+		<div className="container mx-auto mt-10 flex flex-col justify-center lg:p-8 shadow-lg bg-wedgewood-200 p-2">
 			<div className="flex justify-between items-center mb-10">
 				<h1 className="font-bold text-3xl">Create a New Schedule Plan</h1>
 
@@ -136,39 +136,62 @@ export default function Create() {
 				</button>
 			</div>
 
-			<div className="shadow-lg p-10 bg-wedgewood-300">
+			<div className="shadow-lg lg:p-10 bg-wedgewood-300 p-2">
 				<div className="flex flex-row justify-between">
 					<h2 className="font-bold text-2xl mb-10">General Information</h2>
 
 					<div>
-						<button className="bg-wedgewood-500 ml-4 p-3 px-4 rounded flex items-center " onClick={() => setIsImportOpen(true)}>
-							<h1>Import Preset</h1>
-							<FontAwesomeIcon icon={faPlus} className="ml-4"></FontAwesomeIcon>
+						<button className="bg-wedgewood-500 ml-4 p-4 lg:p-3 lg:px-4 rounded flex items-center" onClick={() => setIsImportOpen(true)}>
+							<FontAwesomeIcon icon={faPlus} className=""></FontAwesomeIcon>
+							<h4 className="hidden lg:inline lg:ml-4">Import</h4>
 						</button>
 						<ImportSchedule schedule={schedule} setSchedule={setSchedule} isOpen={isImportOpen} setIsOpen={setIsImportOpen} setCurrentRoutine={setCurrentRoutine}></ImportSchedule>
 					</div>
 				</div>
 
-				<div className="flex mt-4 items-center">
-					<label className="text-xl">Name: </label>
-					<input
-						className="rounded shadow appearance-none border w-64 p-2 ml-4"
-						// @ts-ignore
-						defaultValue={schedule["about"]["name"]}
-						onChange={(e) => updateAbout("name", e.target.value, schedule, setSchedule)}
-					></input>
-					<label className="text-xl ml-10 items-center">Start Date: </label>
-					{/* @ts-ignore */}
-					<input type="date" className="rounded shadow appearance-none border w-64 p-2 ml-4" defaultValue={schedule["about"]["startDate"]}></input>
-					<label className="text-xl ml-10 items-center">End Date: </label>
-					{/* @ts-ignore */}
-					<input type="date" className="rounded shadow appearance-none border w-64 p-2 ml-4" defaultValue={schedule["about"]["endDate"]}></input>
+				<div className="lg:flex mt-4">
+					<div>
+						<label className="text-xl lg:ml-10">Name: </label>
+						<input
+							className="rounded shadow outline-none border-2 border-wedgewood-500 focus:border-wedgewood-600 lg:w-64 p-2 md:ml-4 bg-wedgewood-300"
+							// @ts-ignore
+							defaultValue={schedule["about"]["name"]}
+							onChange={(e) => updateAbout("name", e.target.value, schedule, setSchedule)}
+						></input>
+					</div>
+
+					<div>
+						<label className="text-xl lg:ml-10 items-center">Start Date: </label>
+						<input
+							type="date"
+							className="rounded shadow outline-none border-2 border-wedgewood-500 focus:border-wedgewood-600 lg:w-64 p-2 md:ml-4 bg-wedgewood-300"
+							// @ts-ignore
+							defaultValue={schedule["about"]["startDate"]}
+						></input>
+					</div>
+
+					<div>
+						<label className="text-xl lg:ml-10 items-center">End Date: </label>
+						<input
+							type="date"
+							className="rounded shadow outline-none border-2 border-wedgewood-500 focus:border-wedgewood-600 lg:w-64 p-2 md:ml-4 bg-wedgewood-300"
+							// @ts-ignore
+							defaultValue={schedule["about"]["endDate"]}
+						></input>
+					</div>
 				</div>
 			</div>
 
 			<section className="mt-4">
-				<div className="shadow-lg p-10  bg-wedgewood-300">
-					<h2 className="font-bold text-2xl mb-8">Routines</h2>
+				<div className="shadow-lg p-2 lg:p-10  bg-wedgewood-300">
+					<div className="flex flex-row justify-between mb-6">
+						<h2 className="font-bold text-2xl">Routines</h2>
+
+						<button className="bg-wedgewood-500 p-4 lg:w-64 rounded" onClick={() => createNewRoutine(schedule, setSchedule)}>
+							<FontAwesomeIcon icon={faPlus} className=""></FontAwesomeIcon>
+							<h4 className="hidden lg:inline lg:ml-4">Create Routine</h4>
+						</button>
+					</div>
 					<h3 className="text-xl mb-10">
 						If you used a school preset, use the{" "}
 						<Link href="/settings" className="text-blue-700">
@@ -177,13 +200,7 @@ export default function Create() {
 						to customize period names and remove periods.
 					</h3>
 
-					<button className="bg-wedgewood-500 p-4 w-64 float-right rounded" onClick={() => createNewRoutine(schedule, setSchedule)}>
-						<FontAwesomeIcon icon={faPlus} className="mr-4"></FontAwesomeIcon>
-						Create New Routine
-					</button>
-
 					{routinesElemList}
-
 				</div>
 
 				<hr className="border-wedgewood-400"></hr>

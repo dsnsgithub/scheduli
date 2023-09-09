@@ -44,7 +44,7 @@ function PeriodNameCustomizer(props: { periodName: string; rawPeriodName: string
 		<div key={props.rawPeriodName} className="flex flex-row justify-center place-items-center items-center rounded bg-wedgewood-300 lg:m-3 lg:p-5">
 			<h1 className="py-5 lg:p-6 text-3xl font-bold">{props.rawPeriodName}:</h1>
 			<input
-				className="rounded shadow appearance-none border w-64 p-3"
+				className="rounded shadow outline-none border-2 border-wedgewood-500 focus:border-wedgewood-600 lg:w-64 p-2 bg-wedgewood-300"
 				defaultValue={props.periodName || ""}
 				onChange={(e) => updateName(props.rawPeriodName, e.target.value, props.setPeriodNamesDB)}
 			></input>

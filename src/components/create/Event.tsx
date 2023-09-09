@@ -24,13 +24,13 @@ function removeEvent(currentRoutine: string, schedule: any, setSchedule: Functio
 export default function Event(props: { name: string; startTime: string; endTime: string; schedule: any; setSchedule: Function; currentRoutine: string; eventIndex: number }) {
 	return (
 		<div className="flex flex-col mt-8">
-			<div className="shadow-xl p-10 mt-8 bg-wedgewood-400">
+			<div className="shadow-xl p-2 md:p-8 lg:p-10 mt-8 bg-wedgewood-400">
 				<div className="flex items-center justify-between">
 					<div>
 						<label className="text-lg">Name:</label>
 						<input
 							// autoFocus={true}
-							className="rounded shadow appearance-none border w-64 p-2 ml-4"
+							className="rounded shadow outline-none border-2 border-wedgewood-500 focus:border-wedgewood-600 lg:w-64 p-2 md:ml-4 bg-wedgewood-300 "
 							onChange={(e) => modifyEvent(props.schedule, props.setSchedule, props.currentRoutine, props.eventIndex, "name", e.target.value)}
 							defaultValue={props.name}
 						></input>
@@ -41,22 +41,26 @@ export default function Event(props: { name: string; startTime: string; endTime:
 					</button>
 				</div>
 
-				<div className="flex mt-6 items-center">
-					<label className="text-lg">Start Time:</label>
-					<input
-						className="rounded shadow appearance-none border w-64 p-2 ml-4"
-						type="time"
-						onChange={(e) => modifyEvent(props.schedule, props.setSchedule, props.currentRoutine, props.eventIndex, "startTime", e.target.value)}
-						defaultValue={props.startTime}
-					></input>
+				<div className="lg:flex mt-6 items-center">
+					<div>
+						<label className="text-lg">Start Time:</label>
+						<input
+							className="rounded shadow outline-none border-2 border-wedgewood-500 focus:border-wedgewood-600 lg:w-64 p-2 md:ml-4 bg-wedgewood-300"
+							type="time"
+							onChange={(e) => modifyEvent(props.schedule, props.setSchedule, props.currentRoutine, props.eventIndex, "startTime", e.target.value)}
+							defaultValue={props.startTime}
+						></input>
+					</div>
 
-					<label className="text-lg ml-4">End Time:</label>
-					<input
-						className="rounded shadow appearance-none border w-64 p-2 ml-4"
-						type="time"
-						onChange={(e) => modifyEvent(props.schedule, props.setSchedule, props.currentRoutine, props.eventIndex, "endTime", e.target.value)}
-						defaultValue={props.endTime}
-					></input>
+					<div>
+						<label className="text-lg lg:ml-4">End Time:</label>
+						<input
+							className="rounded shadow outline-none border-2 border-wedgewood-500 focus:border-wedgewood-600 lg:w-64 p-2 md:ml-4 bg-wedgewood-300"
+							type="time"
+							onChange={(e) => modifyEvent(props.schedule, props.setSchedule, props.currentRoutine, props.eventIndex, "endTime", e.target.value)}
+							defaultValue={props.endTime}
+						></input>
+					</div>
 				</div>
 			</div>
 		</div>

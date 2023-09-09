@@ -60,9 +60,9 @@ export default function Countdown(props: { scheduleTimes }) {
 			if (nextPeriod) {
 				return (
 					<Status
-						time={`${timeBetweenDates(currentTime, nextPeriod["startTime"])}.`}
+						time={`${timeBetweenDates(currentTime, nextPeriod["startTime"])}`}
 						timeRange={`${formatDate(period["startTime"])} to ${formatDate(period["endTime"])}`}
-						className={`${period["periodName"]} to ${nextPeriod["periodName"]}`}
+						className={`Until ${nextPeriod["periodName"]}`}
 					></Status>
 				);
 			} else {

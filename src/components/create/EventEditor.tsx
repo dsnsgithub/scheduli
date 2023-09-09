@@ -94,16 +94,16 @@ export default function EventEditor(props: { currentRoutine: string; schedule: a
 	}
 
 	return (
-		<div className="shadow-lg p-10 bg-wedgewood-300">
+		<div className="shadow-lg p-2 lg:p-10 bg-wedgewood-300">
 			<div className="flex justify-between items-center">
 				<div>
 					<h1 className="font-bold text-2xl">{props.schedule["routines"][props.currentRoutine]["officialName"] + "'s Events"}</h1>
 				</div>
 			</div>
 
-			<div className="p-6 shadow-lg bg-wedgewood-400 mt-4">
+			<div className="lg:p-6 p-4 shadow-lg bg-wedgewood-400 mt-4 lg:mt-10">
 				<h1 className="font-bold text-xl">{"Active Days for " + props.schedule["routines"][props.currentRoutine]["officialName"]}</h1> <br></br>
-				<div className="flex items-center">
+				<div className="md:flex items-center">
 					{activeWhenElemList}
 
 					<button className="bg-wedgewood-500 ml-4 p-3 px-4 rounded" onClick={() => setIsOpen(true)}>
