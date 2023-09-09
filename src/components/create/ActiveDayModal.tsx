@@ -2,7 +2,7 @@ import React from "react";
 import { Dialog, Tab, Listbox } from "@headlessui/react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown, faCalendarDay, faCalendarWeek } from "@fortawesome/free-solid-svg-icons";
 
 function createRoutineDay(currentRoutine: string, rawDayName: any, schedule: any, setSchedule: Function) {
 	const newSchedule = { ...schedule };
@@ -50,8 +50,14 @@ export default function ActiveDayModal(props: { currentRoutine: string; schedule
 							}}
 						>
 							<Tab.List className="flex space-x-1 bg-wedgewood-300 p-4">
-								<Tab className="rounded-xl bg-wedgewood-400 p-3 ui-selected:border-wedgewood-600 ui-selected:bg-wedgewood-500 ui-selected:border-2 ">Day of the Week</Tab>
-								<Tab className="rounded-xl bg-wedgewood-400 p-3 ui-selected:border-wedgewood-600 ui-selected:bg-wedgewood-500 ui-selected:border-2 ">Custom Date</Tab>
+								<Tab className="rounded-xl bg-wedgewood-400 p-3 ui-selected:border-wedgewood-600 ui-selected:bg-wedgewood-500 ui-selected:border-2 ">
+									<FontAwesomeIcon icon={faCalendarWeek} size="lg" className="mr-4"></FontAwesomeIcon>
+									Day of the Week
+								</Tab>
+								<Tab className="rounded-xl bg-wedgewood-400 p-3 ui-selected:border-wedgewood-600 ui-selected:bg-wedgewood-500 ui-selected:border-2 ">
+									<FontAwesomeIcon icon={faCalendarDay} size="lg" className="mr-4"></FontAwesomeIcon>
+									Custom Date
+								</Tab>
 							</Tab.List>
 							<Tab.Panels>
 								<Tab.Panel>
@@ -77,7 +83,12 @@ export default function ActiveDayModal(props: { currentRoutine: string; schedule
 								</Tab.Panel>
 								<Tab.Panel>
 									<div className="bg-wedgewood-300 p-10 mt-4">
-										<input type="date" className="rounded shadow appearance-none border w-64 p-2 ml-4" onChange={(e) => setSelectedDate(e.target.value)} defaultValue="2023-09-06"></input>
+										<input
+											type="date"
+											className="rounded shadow appearance-none border w-64 p-2 ml-4"
+											onChange={(e) => setSelectedDate(e.target.value)}
+											defaultValue="2023-09-06"
+										></input>
 									</div>
 								</Tab.Panel>
 							</Tab.Panels>

@@ -1,8 +1,8 @@
 import React from "react";
-import { Dialog, Tab, Listbox } from "@headlessui/react";
+import { Dialog, Tab } from "@headlessui/react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faCalendarDay, faCalendarWeek } from "@fortawesome/free-solid-svg-icons";
 
 function customDateSort(item: any) {
 	if (Array.isArray(item)) {
@@ -56,8 +56,14 @@ export default function InactiveDayModal(props: { schedule: any; setSchedule: Fu
 							}}
 						>
 							<Tab.List className="flex space-x-1 bg-wedgewood-300 p-4">
-								<Tab className="rounded-xl bg-wedgewood-400 p-3 ui-selected:border-wedgewood-600 ui-selected:bg-wedgewood-500 ui-selected:border-2 ">Single Date</Tab>
-								<Tab className="rounded-xl bg-wedgewood-400 p-3 ui-selected:border-wedgewood-600 ui-selected:bg-wedgewood-500 ui-selected:border-2 ">Date Range</Tab>
+								<Tab className="rounded-xl bg-wedgewood-400 p-3 ui-selected:border-wedgewood-600 ui-selected:bg-wedgewood-500 ui-selected:border-2 ">
+									<FontAwesomeIcon icon={faCalendarDay} size="lg" className="mr-4"></FontAwesomeIcon>
+									Single Date
+								</Tab>
+								<Tab className="rounded-xl bg-wedgewood-400 p-3 ui-selected:border-wedgewood-600 ui-selected:bg-wedgewood-500 ui-selected:border-2 ">
+									<FontAwesomeIcon icon={faCalendarWeek} size="lg" className="mr-4"></FontAwesomeIcon>
+									Date Range
+								</Tab>
 							</Tab.List>
 							<Tab.Panels>
 								<Tab.Panel>

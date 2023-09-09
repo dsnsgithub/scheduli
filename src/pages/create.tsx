@@ -7,7 +7,7 @@ import ImportSchedule from "../components/create/ImportSchedule";
 import InactiveDayEditor from "../components/create/InactiveDayEditor";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faRotateLeft } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faRotateLeft, faFileImport } from "@fortawesome/free-solid-svg-icons";
 
 function createNewRoutine(schedule: any, setSchedule: Function) {
 	const enteredName = prompt("Please enter a routine name:");
@@ -143,7 +143,7 @@ export default function Create() {
 	return (
 		<div className="container mx-auto mt-10 flex flex-col justify-center lg:p-8 shadow-lg bg-wedgewood-200 p-2">
 			<div className="flex justify-between items-center mb-10">
-				<h1 className="font-bold text-3xl">Create a New Schedule Plan</h1>
+				<h1 className="font-bold text-3xl">Create a Schedule Plan</h1>
 
 				<button onClick={() => reset(setSchedule, setCurrentRoutine, setScheduleName, setScheduleStartDate, setScheduleEndDate)}>
 					<FontAwesomeIcon icon={faRotateLeft} size="xl"></FontAwesomeIcon>
@@ -166,7 +166,7 @@ export default function Create() {
 
 					<div>
 						<button className="bg-wedgewood-500 ml-4 p-4 lg:p-3 lg:px-4 rounded flex items-center" onClick={() => setIsImportOpen(true)}>
-							<FontAwesomeIcon icon={faPlus} className=""></FontAwesomeIcon>
+							<FontAwesomeIcon icon={faFileImport} className=""></FontAwesomeIcon>
 							<h4 className="hidden lg:inline lg:ml-4">Import</h4>
 						</button>
 						<ImportSchedule
