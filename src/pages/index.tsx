@@ -1,23 +1,18 @@
 import React from "react";
+import Link from "next/link";
 export interface ScheduleDB {
 	about: About;
-	regular: Schedule;
-	wednesday: Schedule;
-	thursday: Schedule;
-	minimum: Schedule;
-	rally: Schedule;
-	assembly: Schedule;
-	"finalShort1+4": Schedule;
-	"finalShort2+5": Schedule;
-	"finalShort3+6": Schedule;
-	finalReverse: Schedule;
+	routines: Routines
 }
 
+export interface Routines {
+	[key: string]: Schedule
+}
 export interface About {
 	startDate: string;
 	endDate: string;
-	noSchool: any[];
-	avaliablePeriods: string[];
+	inactive: any[];
+	allEvents: string[];
 }
 
 export interface Schedule {
@@ -164,7 +159,7 @@ function Schedule(props: { scheduleTimes: UpdatedTime[], scheduleDB: ScheduleDB 
 }
 
 function createAvaliablePeriodsDB(scheduleDB: ScheduleDB) {
-	const avaliablePeriods = scheduleDB["about"]["avaliablePeriods"];
+	const avaliablePeriods = scheduleDB["about"]["allEvents"];
 	let entry: Record<string, null> = {};
 
 	for (const period of avaliablePeriods) {
@@ -204,7 +199,7 @@ function findCorrectSchedule(scheduleDB: ScheduleDB, currentDate: Date) {
 	}
 
 	// Check for off days
-	for (const item of scheduleDB["about"]["noSchool"]) {
+	for (const item of scheduleDB["about"]["inactive"]) {
 		if (typeof item === "object") {
 			let [startDate, endDate] = item;
 			startDate = new Date(startDate);
@@ -227,11 +222,11 @@ function findCorrectSchedule(scheduleDB: ScheduleDB, currentDate: Date) {
 		}
 	}
 
-	for (const schedule in scheduleDB) {
+	for (const schedule in scheduleDB["routines"]) {
 		if (schedule == "about") continue;
 
 		// @ts-ignore
-		const days = scheduleDB[schedule]["days"];
+		const days = scheduleDB["routines"][schedule]["days"];
 
 		for (const day of days) {
 			if (typeof day == "number") {
@@ -280,12 +275,12 @@ function Countdown(props: { scheduleTimes }) {
 	if (scheduleTimes[0]["startTime"] > currentTime) {
 		const timeTil = timeBetweenDates(currentTime, scheduleTimes[0]["startTime"]);
 
-		return <Status time={timeTil} timeRange="Make sure to complete your homework!" className={scheduleTimes[0]["periodName"]}></Status>;
+		return <Status time={timeTil} timeRange="" className={scheduleTimes[0]["periodName"]}></Status>;
 	}
 
 	// School is over
 	if (scheduleTimes[scheduleTimes.length - 1]["endTime"] < currentTime) {
-		return <Status time="The school day is over." timeRange="" className="Make sure to complete your homework!"></Status>;
+		return <Status time="" timeRange="" className="All events are over!"></Status>;
 	}
 
 	for (let periodIndex in scheduleTimes) {
@@ -298,17 +293,17 @@ function Countdown(props: { scheduleTimes }) {
 			if (nextPeriod) {
 				return (
 					<Status
-						time={`${nextPeriod["periodName"]} will start in ${timeBetweenDates(currentTime, nextPeriod["startTime"])}.`}
+						time={`${timeBetweenDates(currentTime, nextPeriod["startTime"])}.`}
 						timeRange={`${formatDate(period["startTime"])} to ${formatDate(period["endTime"])}`}
-						className={period["periodName"]}
+						className={`${period["periodName"]} to ${nextPeriod["periodName"]}`}
 					></Status>
 				);
 			} else {
 				return (
 					<Status
-						time={`School will end in ${timeBetweenDates(currentTime, period["endTime"])}`}
+						time={`${timeBetweenDates(currentTime, period["endTime"])}`}
 						timeRange={`${formatDate(period["startTime"])} to ${formatDate(period["endTime"])}`}
-						className={period["periodName"]}
+						className={`End of ${period["periodName"]}`}
 					></Status>
 				);
 			}
@@ -320,7 +315,7 @@ function Countdown(props: { scheduleTimes }) {
 				<Status
 					time={`${nextPeriod["periodName"]} will start in ${timeBetweenDates(currentTime, nextPeriod["startTime"])}.`}
 					timeRange={`${formatDate(nextPeriod["startTime"])} to ${formatDate(nextPeriod["endTime"])}`}
-					className={nextPeriod["periodName"]}
+					className={`Start of ${nextPeriod["periodName"]}`}
 				></Status>
 			);
 		}
@@ -332,18 +327,18 @@ export default function Home() {
 	const [isLoading, setLoading] = React.useState(true);
 
 	React.useEffect(() => {
-
-		// if (!localStorage.getItem("currentSchedule")) {
-			fetch("/api/schedule/dvhs")
+		if (!localStorage.getItem("currentSchedule")) {
+			fetch("/api/schedule/default")
 				.then((res) => res.json())
 				.then((data) => {
+					localStorage.setItem("currentSchedule", JSON.stringify(data))
 					setScheduleDB(data);
 					setLoading(false);
 				});
-		// } else {
-		// 	setScheduleDB(JSON.parse(localStorage.getItem("currentSchedule") || "{}"));
-		// 	setLoading(false);
-		// }
+		} else {
+			setScheduleDB(JSON.parse(localStorage.getItem("currentSchedule") || "{}"));
+			setLoading(false);
+		}
 		
 	}, []);
 
@@ -361,7 +356,7 @@ export default function Home() {
 		return (
 			<div className="container mx-auto mt-10 flex flex-col justify-center lg:p-8">
 				<div className="flex items-center justify-center flex-col shadow-xl rounded-lg p-10 lg:p-24 bg-wedgewood-300">
-					<h2 className="text-2xl mt-4">No schedule found...</h2>
+					<h2 className="text-2xl mt-4">No schedule found. Create a schedule <Link className="text-blue-700" href="/create">here.</Link></h2>
 				</div>
 			</div>
 		);
@@ -377,16 +372,16 @@ export default function Home() {
 	// parse schedules, fixing names and other issues
 	// must loop backwards to avoid weird index issues
 
-	for (const scheduleName in scheduleDB as ScheduleDB) {
+	for (const scheduleName in scheduleDB["routines"] as ScheduleDB) {
 		if (scheduleName == "about") continue;
 
 		// @ts-ignore
-		for (let i = scheduleDB[scheduleName]["times"].length - 1; i >= 0; i--) {
-			const rawPeriodName = scheduleDB[scheduleName]["times"][i]["rawPeriodName"];
+		for (let i = scheduleDB["routines"][scheduleName]["events"].length - 1; i >= 0; i--) {
+			const rawPeriodName = scheduleDB["routines"][scheduleName]["events"][i]["name"];
 			// @ts-ignore
 			if (checkRemovedPeriods(rawPeriodName)) {
 				// @ts-ignore
-				scheduleDB[scheduleName]["times"].splice(i, 1);
+				scheduleDB["routines"][scheduleName]["events"].splice(i, 1);
 				continue;
 			}
 
@@ -398,18 +393,18 @@ export default function Home() {
 				continue;
 			}
 
-			if (typeof scheduleDB[scheduleName]["times"][Number(i)]["startTime"] == "string") {
+			if (typeof scheduleDB["routines"][scheduleName]["events"][Number(i)]["startTime"] == "string") {
 				// @ts-ignore
-				scheduleDB[scheduleName]["times"][Number(i)]["startTime"] = createCustomDate(scheduleDB[scheduleName]["times"][Number(i)]["startTime"]);
+				scheduleDB["routines"][scheduleName]["events"][Number(i)]["startTime"] = createCustomDate(scheduleDB["routines"][scheduleName]["events"][Number(i)]["startTime"]);
 				// @ts-ignore
-				scheduleDB[scheduleName]["times"][Number(i)]["endTime"] = createCustomDate(scheduleDB[scheduleName]["times"][Number(i)]["endTime"]);
+				scheduleDB["routines"][scheduleName]["events"][Number(i)]["endTime"] = createCustomDate(scheduleDB["routines"][scheduleName]["events"][Number(i)]["endTime"]);
 			}
-				
+
 			// @ts-ignore
-			scheduleDB[scheduleName]["times"][Number(i)]["periodName"] = periodName;
+			scheduleDB["routines"][scheduleName]["events"][Number(i)]["periodName"] = periodName;
 		}
 
-		const times = scheduleDB[scheduleName]["times"] as UpdatedTime[];
+		const times = scheduleDB["routines"][scheduleName]["events"] as UpdatedTime[];
 		const firstPeriod = times[0]["periodName"];
 		const lastPeriod = times[times.length - 1]["periodName"];
 		if (firstPeriod == "Break") {
@@ -422,7 +417,7 @@ export default function Home() {
 	}
 
 	// @ts-ignore
-	scheduleDB["about"]["avaliablePeriods"] = scheduleDB["about"]["avaliablePeriods"].filter((element) => !checkRemovedPeriods(element));
+	scheduleDB["about"]["allEvents"] = scheduleDB["about"]["allEvents"].filter((element) => !checkRemovedPeriods(element));
 
 	const correctScheduleName = findCorrectSchedule(scheduleDB, currentDate);
 	console.log(correctScheduleName);
@@ -435,7 +430,7 @@ export default function Home() {
 
 			return (
 				<div className="container mx-auto mt-10 flex flex-col justify-center lg:p-8">
-					<Status time="No School!" timeRange="" className="Enjoy your time off!"></Status>
+					<Status time="" timeRange="" className="No events for today."></Status>
 
 					<div className="table-fixed px-0 mt-8 lg:px-64 xl:px-96 shadow-xl p-10">
 						<h2 className="font-bold text-3xl flex justify-center mb-2">{"Tomorrow's Schedule:"}</h2>
@@ -448,7 +443,7 @@ export default function Home() {
 
 		return (
 			<div className="container mx-auto mt-10 flex flex-col justify-center lg:p-8">
-				<Status time="No School!" timeRange="" className="Enjoy your time off!"></Status>
+				<Status time="" timeRange="" className="No events for today."></Status>
 
 				{/* <div className="table-fixed px-0 mt-8 lg:px-64 xl:px-96 rounded-full">
 					<Schedule></Schedule>
@@ -460,7 +455,7 @@ export default function Home() {
 		// return;
 	}
 
-	const scheduleTimes = scheduleDB[correctScheduleName]["times"];
+	const scheduleTimes = scheduleDB["routines"][correctScheduleName]["events"];
 
 	return (
 		<div className="container mx-auto mt-10 flex flex-col justify-center lg:p-8">

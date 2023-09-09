@@ -110,7 +110,15 @@ export default function Settings() {
 	for (const rawPeriodName in periodNamesDB) {
 		if (checkRemovedPeriods(rawPeriodName)) continue;
 
-		rows.push(<PeriodNameCustomizer periodName={periodNamesDB[rawPeriodName]} rawPeriodName={rawPeriodName} setPeriodNamesDB={setPeriodNamesDB} setRemovedPeriodsDB={setRemovedPeriodsDB}></PeriodNameCustomizer>);
+		rows.push(
+			<PeriodNameCustomizer
+				key={rawPeriodName}
+				periodName={periodNamesDB[rawPeriodName]}
+				rawPeriodName={rawPeriodName}
+				setPeriodNamesDB={setPeriodNamesDB}
+				setRemovedPeriodsDB={setRemovedPeriodsDB}
+			></PeriodNameCustomizer>
+		);
 	}
 
 	return (

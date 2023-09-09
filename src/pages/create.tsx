@@ -1,6 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faXmark, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
+import Link from "next/link";
+
 import React from "react";
 import { Dialog, Tab, Listbox } from "@headlessui/react";
 
@@ -101,6 +103,8 @@ function Modal(props: { currentRoutine: string; schedule: any; setSchedule: Func
 	];
 
 	const [selectedDay, setSelectedDay] = React.useState(days[1]);
+	const [selectedDate, setSelectedDate] = React.useState("2023-09-06");
+	const [currentSelection, setCurrentSelection] = React.useState(0);
 
 	// createRoutineDay(props.currentRoutine, props.schedule, props.setSchedule);
 
@@ -113,7 +117,11 @@ function Modal(props: { currentRoutine: string; schedule: any; setSchedule: Func
 					<Dialog.Title className="font-bold text-2xl">Choose New Active Day</Dialog.Title>
 
 					<div className="px-2 py-8 sm:px-0">
-						<Tab.Group>
+						<Tab.Group
+							onChange={(index) => {
+								setCurrentSelection(index);
+							}}
+						>
 							<Tab.List className="flex space-x-1 bg-wedgewood-300 p-4">
 								<Tab className="rounded-xl bg-wedgewood-400 p-3 ui-selected:border-wedgewood-600 ui-selected:bg-wedgewood-500 ui-selected:border-2 ">Day of the Week</Tab>
 								<Tab className="rounded-xl bg-wedgewood-400 p-3 ui-selected:border-wedgewood-600 ui-selected:bg-wedgewood-500 ui-selected:border-2 ">Custom Date</Tab>
@@ -140,13 +148,24 @@ function Modal(props: { currentRoutine: string; schedule: any; setSchedule: Func
 										</Listbox>
 									</div>
 								</Tab.Panel>
-								<Tab.Panel>Content 2</Tab.Panel>
+								<Tab.Panel>
+									<div className="bg-wedgewood-300 p-10 mt-4">
+										<input type="date" className="rounded shadow appearance-none border w-64 p-2 ml-4" onChange={(e) => setSelectedDate(e.target.value)} value="2023-09-06"></input>
+									</div>
+								</Tab.Panel>
 							</Tab.Panels>
 
 							<div className="grid justify-items-end">
 								<button
 									className="bg-wedgewood-400 ml-4 p-3 px-4 rounded mt-6"
-									onClick={() => { createRoutineDay(props.currentRoutine, selectedDay["id"], props.schedule, props.setSchedule); props.setIsOpen(false);}}
+									onClick={() => {
+										if (currentSelection == 0) {
+											createRoutineDay(props.currentRoutine, selectedDay["id"], props.schedule, props.setSchedule);
+										} else {
+											createRoutineDay(props.currentRoutine, selectedDate, props.schedule, props.setSchedule);
+										}
+										props.setIsOpen(false);
+									}}
 								>
 									Add Day
 								</button>
@@ -199,7 +218,7 @@ function EventEditor(props: { currentRoutine: string; schedule: any; setSchedule
 		const event = props.schedule["routines"][props.currentRoutine]["events"][index];
 		eventElemList.push(
 			<Event
-				key={event["name"]}
+				key={event["startTime"]}
 				name={event["name"]}
 				startTime={event["startTime"]}
 				endTime={event["endTime"]}
@@ -229,12 +248,12 @@ function EventEditor(props: { currentRoutine: string; schedule: any; setSchedule
 		<div className="shadow-lg p-10 bg-wedgewood-300">
 			<div className="flex justify-between items-center">
 				<div>
-					<h1 className="font-bold text-2xl">{props.currentRoutine + "'s Events"}</h1>
+					<h1 className="font-bold text-2xl">{props.schedule["routines"][props.currentRoutine]["officialName"] + "'s Events"}</h1>
 				</div>
 			</div>
 
 			<div className="p-6 shadow-lg bg-wedgewood-400 mt-4">
-				<h1 className="font-bold text-xl">{"Active Days for " + props.currentRoutine}</h1> <br></br>
+				<h1 className="font-bold text-xl">{"Active Days for " + props.schedule["routines"][props.currentRoutine]["officialName"]}</h1> <br></br>
 				<div className="flex items-center">
 					{activeWhenElemList}
 
@@ -330,15 +349,20 @@ function removeRoutine(name: string, schedule: any, setSchedule: Function) {
 }
 
 function selectRoutine(name: string, setCurrectlySelected: Function) {
+	console.log(name);
 	setCurrectlySelected(name);
 }
 
-function Routine(props: { name: string; schedule: any; currentlySelected: boolean; setCurrectlySelected: Function; setSchedule: Function }) {
+function Routine(props: { name: string; rawName: string;  schedule: any; currentlySelected: boolean; setCurrectlySelected: Function; setSchedule: Function }) {
 	if (props.currentlySelected) {
 		return (
-			<div key={props.name} className="rounded shadow-xl inline-block border-wedgewood-800 bg-wedgewood-500 border-2 ml-4 p-4" onClick={() => selectRoutine(props.name, props.setCurrectlySelected)}>
+			<div
+				key={props.rawName}
+				className="rounded shadow-xl inline-block border-wedgewood-800 bg-wedgewood-500 border-2 ml-4 p-4 mb-4"
+				onClick={() => selectRoutine(props.name, props.setCurrectlySelected)}
+			>
 				{props.name}
-				<button onClick={() => removeRoutine(props.name, props.schedule, props.setSchedule)}>
+				<button onClick={() => removeRoutine(props.rawName, props.schedule, props.setSchedule)}>
 					<FontAwesomeIcon className="ml-4" icon={faXmark} size="xl"></FontAwesomeIcon>
 				</button>
 			</div>
@@ -346,12 +370,12 @@ function Routine(props: { name: string; schedule: any; currentlySelected: boolea
 	}
 	return (
 		<div
-			key={props.name}
-			className="rounded shadow-xl inline-block hover:border-wedgewood-800 bg-wedgewood-500 hover:border ml-4 p-4"
-			onClick={() => selectRoutine(props.name, props.setCurrectlySelected)}
+			key={props.rawName}
+			className="rounded shadow-xl inline-block hover:border-wedgewood-800 bg-wedgewood-500 hover:border ml-4 p-4 mb-4"
+			onClick={() => selectRoutine(props.rawName, props.setCurrectlySelected)}
 		>
 			{props.name}
-			<button onClick={() => removeRoutine(props.name, props.schedule, props.setSchedule)}>
+			<button onClick={() => removeRoutine(props.rawName, props.schedule, props.setSchedule)}>
 				<FontAwesomeIcon className="ml-4" icon={faXmark} size="xl"></FontAwesomeIcon>
 			</button>
 		</div>
@@ -368,41 +392,47 @@ function updateAbout(property: string, newValue: string, schedule: any, setSched
 
 export default function Create() {
 	const [currentRoutine, setCurrentRoutine] = React.useState("Routine 1");
+	const [schedule, setSchedule] = React.useState({});
+	const [isLoading, setLoading] = React.useState(true);
 
-	const [schedule, setSchedule] = React.useState({
-		about: {
-			name: "New Schedule!",
-			allEvents: ["Event 1"],
-			startDate: "2023-09-06",
-			endDate: "2030-09-08"
-		},
-		routines: {
-			"Routine 1": {
-				officialName: "Routine 1",
-				days: [1, 2, 3],
-				events: [
-					{
-						name: "Event 1",
-						startTime: "08:40",
-						endTime: "08:45"
-					}
-				]
-			}
-		}
-	});
 
 	React.useEffect(() => {
 		if (localStorage.getItem("currentSchedule") != null) {
 			setSchedule(JSON.parse(localStorage.getItem("currentSchedule") || ""));
 
 			//! remove later
-			setCurrentRoutine("Routine 1");
+			setCurrentRoutine("");
+			setLoading(false);
 		} else {
+			setSchedule({
+				about: {
+					name: "New Schedule!",
+					inactive: [],
+					allEvents: ["Event 1"],
+					startDate: "2023-09-06",
+					endDate: "2030-09-08"
+				},
+				routines: {
+					"Routine 1": {
+						officialName: "Routine 1",
+						days: [1, 2, 3],
+						events: [
+							{
+								name: "Event 1",
+								startTime: "08:40",
+								endTime: "08:45"
+							}
+						]
+					}
+				}
+			});
+
 			localStorage.setItem(
 				"currentSchedule",
 				JSON.stringify({
 					about: {
 						name: "New Schedule!",
+						inactive: [],
 						allEvents: ["Event 1"],
 						startDate: "2023-09-06",
 						endDate: "2030-09-08"
@@ -423,18 +453,30 @@ export default function Create() {
 				})
 			);
 
-			setCurrentRoutine("Routine 1");
+			setCurrentRoutine("");
+			setLoading(false);
 		}
 	}, []);
 
-	let routinesElemList = [];
-	for (const routine in schedule["routines"]) {
+	if (isLoading) {
+		return (
+			<div className="container mx-auto mt-10 flex flex-col justify-center lg:p-8">
+				<div className="flex items-center justify-center flex-col shadow-xl rounded-lg p-10 lg:p-24 bg-wedgewood-300">
+					<h2 className="text-2xl mt-4">Loading...</h2>
+				</div>
+			</div>
+		);
+	}
 
+	let routinesElemList = [];
+	// @ts-ignore
+	for (const routine in schedule["routines"]) {
 		if (routine == currentRoutine) {
 			routinesElemList.push(
 				// @ts-ignore
 				<Routine
 					key={routine}
+					rawName={routine}
 					currentlySelected={true}
 					setCurrectlySelected={setCurrentRoutine}
 					// @ts-ignore
@@ -447,6 +489,7 @@ export default function Create() {
 			routinesElemList.push(
 				<Routine
 					key={routine}
+					rawName={routine}
 					// @ts-ignore
 					name={schedule["routines"][routine]["officialName"]}
 					schedule={schedule}
@@ -468,14 +511,17 @@ export default function Create() {
 					<label className="text-xl">Name: </label>
 					<input
 						className="rounded shadow appearance-none border w-64 p-2 ml-4"
+						// @ts-ignore
 						defaultValue={schedule["about"]["name"]}
 						onChange={(e) => updateAbout("name", e.target.value, schedule, setSchedule)}
 					></input>
 
 					<label className="text-xl ml-10 items-center">Start Date: </label>
+					{/* @ts-ignore */}
 					<input type="date" className="rounded shadow appearance-none border w-64 p-2 ml-4" defaultValue={schedule["about"]["startDate"]}></input>
 
 					<label className="text-xl ml-10 items-center">End Date: </label>
+					{/* @ts-ignore */}
 					<input type="date" className="rounded shadow appearance-none border w-64 p-2 ml-4" defaultValue={schedule["about"]["endDate"]}></input>
 				</div>
 			</div>
@@ -483,6 +529,13 @@ export default function Create() {
 			<section className="mt-4">
 				<div className="shadow-lg p-10  bg-wedgewood-300">
 					<h2 className="font-bold text-2xl mb-8">Routines</h2>
+					<h3 className="text-xl mb-10">
+						If you used a school preset, use the{" "}
+						<Link href="/settings" className="text-blue-700">
+							Settings page
+						</Link>{" "}
+						to customize period names.
+					</h3>
 
 					<button className="bg-wedgewood-500 p-4 w-64 float-right rounded" onClick={() => createNewRoutine(schedule, setSchedule)}>
 						<FontAwesomeIcon icon={faPlus} className="mr-4"></FontAwesomeIcon>
