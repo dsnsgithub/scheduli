@@ -1,10 +1,10 @@
 import React from "react";
 import Link from "next/link";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faXmark, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import Schedule from "../components/index/Schedule";
+import Status from "../components/index/Status";
+import Countdown from "../components/index/Countdown";
 
-import { Dialog, Listbox } from "@headlessui/react";
 export interface ScheduleDB {
 	about: About;
 	routines: Routines;
@@ -40,7 +40,6 @@ export interface UpdatedTime {
 }
 
 //? Utility Functions --------------------------------------------------------------
-
 function createCustomDate(inputTime: string) {
 	const currentDate = new Date();
 
@@ -57,30 +56,6 @@ function createCustomDate(inputTime: string) {
 
 	currentDate.setHours(hour, parseInt(inputMinute), 0, 0);
 	return currentDate.getTime();
-}
-
-function formatDate(timestamp: number) {
-	const date = new Date(timestamp); // Convert Unix timestamp to milliseconds
-	const timeString = date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
-	return timeString;
-}
-
-function timeBetweenDates(firstDate: number, secondDate: number) {
-	const timeDifference = secondDate - firstDate;
-
-	let hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-	let minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-	let seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-
-	let secondString = String(seconds);
-	let minuteString = String(minutes);
-	if (seconds < 10) secondString = `0${seconds}`;
-	if (minutes < 10) minuteString = `0${minutes}`;
-	if (!hours) {
-		return `${minuteString}:${secondString}`;
-	}
-
-	return `${hours}:${minuteString}:${secondString}`;
 }
 
 function sameDay(d1: Date, d2: Date) {
@@ -107,60 +82,6 @@ function getOrdinalNumber(number: any) {
 		default:
 			return number + "th";
 	}
-}
-
-// @ts-ignore
-function Schedule(props: { scheduleTimes: UpdatedTime[]; scheduleDB: ScheduleDB }) {
-	let title = "Today's Schedule:";
-	const currentDate = new Date();
-	const currentTime = currentDate.getTime();
-
-	let scheduleTimes = props.scheduleTimes;
-
-	// School is over
-	if (props.scheduleTimes[props.scheduleTimes.length - 1]["endTime"] < currentTime) {
-		const tomorrowScheduleName = findCorrectSchedule(props.scheduleDB, new Date(currentDate.setDate(currentDate.getDate() + 1)));
-		if (tomorrowScheduleName != null) {
-			// @ts-ignore
-			scheduleTimes = props.scheduleDB["routines"][tomorrowScheduleName]["events"];
-			title = "Tomorrow's Schedule:";
-		}
-	}
-
-	return (
-		<>
-			<h2 className="font-bold text-3xl flex justify-center mb-2">{title}</h2>
-
-			<table className="w-full text-sm text-center">
-				<thead className="text-lg bg-wedgewood-300">
-					<tr>
-						<td scope="col" className="px-3 py-3">
-							<b>Period</b>
-						</td>
-						<td scope="col" className="px-3 py-3">
-							<b>Start Time</b>
-						</td>
-						<td scope="col" className="px-3 py-3">
-							<b>End Time</b>
-						</td>
-					</tr>
-				</thead>
-				<tbody className="bg-wedgewood-200">
-					{scheduleTimes.map(({ rawPeriodName, startTime, endTime, periodName }) => {
-						return (
-							<tr key={startTime} className="border-0">
-								<td scope="row" className="px-3 py-3 font-medium">
-									{periodName}
-								</td>
-								<td className="px-3 py-3 font-medium">{formatDate(startTime)}</td>
-								<td className="px-3 py-3 font-medium ">{formatDate(endTime)}</td>
-							</tr>
-						);
-					})}
-				</tbody>
-			</table>
-		</>
-	);
 }
 
 function createAvaliablePeriodsDB(scheduleDB: ScheduleDB) {
@@ -253,80 +174,6 @@ function findCorrectSchedule(scheduleDB: ScheduleDB, currentDate: Date) {
 	return mostSpecificSchedule;
 }
 
-function Status(props: { time: string; className: string; timeRange: string }) {
-	return (
-		<div className="flex items-center justify-center flex-col shadow-xl rounded-lg p-10 lg:p-24 bg-wedgewood-300">
-			<h3 className="text-6xl font-bold">{props.time}</h3>
-			<h4 className="text-2xl mt-4">{props.className}</h4>
-			<h4 className="mt-4">{props.timeRange}</h4>
-		</div>
-	);
-}
-
-// @ts-ignore
-function Countdown(props: { scheduleTimes }) {
-	let scheduleTimes = props.scheduleTimes;
-	const [currentTime, setCurrentTime] = React.useState(new Date().getTime());
-
-	React.useEffect(() => {
-		const interval = setInterval(() => {
-			setCurrentTime(new Date().getTime());
-		}, 1000);
-
-		return () => clearInterval(interval);
-	}, []);
-
-	// School has started
-	if (scheduleTimes[0]["startTime"] > currentTime) {
-		const timeTil = timeBetweenDates(currentTime, scheduleTimes[0]["startTime"]);
-
-		return <Status time={timeTil} timeRange="" className={scheduleTimes[0]["periodName"]}></Status>;
-	}
-
-	// School is over
-	if (scheduleTimes[scheduleTimes.length - 1]["endTime"] < currentTime) {
-		return <Status time="" timeRange="" className="All events are over!"></Status>;
-	}
-
-	for (let periodIndex in scheduleTimes) {
-		// @ts-ignore
-		periodIndex = Number(periodIndex);
-		const period = scheduleTimes[periodIndex];
-		const nextPeriod = scheduleTimes[periodIndex + 1];
-
-		if (period["startTime"] <= currentTime && period["endTime"] >= currentTime) {
-			if (nextPeriod) {
-				return (
-					<Status
-						time={`${timeBetweenDates(currentTime, nextPeriod["startTime"])}.`}
-						timeRange={`${formatDate(period["startTime"])} to ${formatDate(period["endTime"])}`}
-						className={`${period["periodName"]} to ${nextPeriod["periodName"]}`}
-					></Status>
-				);
-			} else {
-				return (
-					<Status
-						time={`${timeBetweenDates(currentTime, period["endTime"])}`}
-						timeRange={`${formatDate(period["startTime"])} to ${formatDate(period["endTime"])}`}
-						className={`End of ${period["periodName"]}`}
-					></Status>
-				);
-			}
-		}
-
-		// if there is a break in the schedule
-		if (nextPeriod && period["endTime"] < currentTime && nextPeriod["startTime"] > currentTime) {
-			return (
-				<Status
-					time={`${timeBetweenDates(currentTime, nextPeriod["startTime"])}.`}
-					timeRange={`${formatDate(nextPeriod["startTime"])} to ${formatDate(nextPeriod["endTime"])}`}
-					className={`Start of ${nextPeriod["periodName"]}`}
-				></Status>
-			);
-		}
-	}
-}
-
 export default function Home() {
 	let [scheduleDB, setScheduleDB] = React.useState(null);
 	const [isLoading, setLoading] = React.useState(true);
@@ -392,7 +239,6 @@ export default function Home() {
 
 	// parse schedules, fixing names and other issues
 	// must loop backwards to avoid weird index issues
-
 	for (const scheduleName in scheduleDB["routines"] as ScheduleDB) {
 		if (scheduleName == "about") continue;
 
@@ -441,8 +287,6 @@ export default function Home() {
 	scheduleDB["about"]["allEvents"] = scheduleDB["about"]["allEvents"].filter((element) => !checkRemovedPeriods(element));
 
 	const correctScheduleName = findCorrectSchedule(scheduleDB, currentDate);
-	console.log(correctScheduleName);
-	console.log(scheduleDB);
 
 	if (correctScheduleName == null) {
 		const tomorrowScheduleName = findCorrectSchedule(scheduleDB, new Date(currentDate.setDate(currentDate.getDate() + 1)));
@@ -464,15 +308,8 @@ export default function Home() {
 		return (
 			<div className="container mx-auto mt-10 flex flex-col justify-center lg:p-8">
 				<Status time="" timeRange="" className="No events for today."></Status>
-
-				{/* <div className="table-fixed px-0 mt-8 lg:px-64 xl:px-96 rounded-full">
-					<Schedule></Schedule>
-				</div> */}
 			</div>
 		);
-
-		// await populateTomorrowSection(scheduleDB, currentDate);
-		// return;
 	}
 
 	const scheduleTimes = scheduleDB["routines"][correctScheduleName]["events"];

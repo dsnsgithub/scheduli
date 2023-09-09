@@ -28,9 +28,6 @@ export default function Navbar() {
 				<Link className="px-2 md:px-5 lg:px-6" href="/create">
 					<FontAwesomeIcon icon={faPlus} size="xl" />
 				</Link>
-				<Link className="px-2 md:px-5 lg:px-6" href="/settings">
-					<FontAwesomeIcon icon={faGear} size="xl" />
-				</Link>
 			</div>
 		</nav>
 	);
