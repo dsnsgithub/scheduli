@@ -3,7 +3,7 @@ import type { AppProps } from "next/app";
 import Navbar from "../components/Navbar";
 import { Analytics } from "@vercel/analytics/react";
 
-import Head from "next/head"
+import Head from "next/head";
 
 export default function App({ Component, pageProps }: AppProps) {
 	return (

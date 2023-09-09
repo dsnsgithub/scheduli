@@ -16,19 +16,24 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 				about: {
 					name: "New Schedule!",
 					inactive: [],
-					allEvents: ["Event 1"],
+					allEvents: ["Event 1", "Event 2"],
 					startDate: "2023-09-06",
 					endDate: "2030-09-08"
 				},
 				routines: {
 					"Routine 1": {
 						officialName: "Routine 1",
-						days: [1, 2, 3],
+						days: [0, 1, 2, 3, 4, 5, 6],
 						events: [
 							{
 								name: "Event 1",
 								startTime: "08:40",
 								endTime: "08:45"
+							},
+							{
+								name: "Event 2",
+								startTime: "09:40",
+								endTime: "10:45"
 							}
 						]
 					}

@@ -1,12 +1,17 @@
 import React from "react";
 import Link from "next/link";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faXmark, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+
+import { Dialog, Listbox } from "@headlessui/react";
 export interface ScheduleDB {
 	about: About;
-	routines: Routines
+	routines: Routines;
 }
 
 export interface Routines {
-	[key: string]: Schedule
+	[key: string]: Schedule;
 }
 export interface About {
 	startDate: string;
@@ -105,8 +110,8 @@ function getOrdinalNumber(number: any) {
 }
 
 // @ts-ignore
-function Schedule(props: { scheduleTimes: UpdatedTime[], scheduleDB: ScheduleDB }) {
-	let title = "Today's Schedule:"
+function Schedule(props: { scheduleTimes: UpdatedTime[]; scheduleDB: ScheduleDB }) {
+	let title = "Today's Schedule:";
 	const currentDate = new Date();
 	const currentTime = currentDate.getTime();
 
@@ -117,8 +122,8 @@ function Schedule(props: { scheduleTimes: UpdatedTime[], scheduleDB: ScheduleDB 
 		const tomorrowScheduleName = findCorrectSchedule(props.scheduleDB, new Date(currentDate.setDate(currentDate.getDate() + 1)));
 		if (tomorrowScheduleName != null) {
 			// @ts-ignore
-			scheduleTimes = props.scheduleDB[tomorrowScheduleName]["times"];
-			title = "Tomorrow's Schedule:"
+			scheduleTimes = props.scheduleDB["routines"][tomorrowScheduleName]["events"];
+			title = "Tomorrow's Schedule:";
 		}
 	}
 
@@ -313,7 +318,7 @@ function Countdown(props: { scheduleTimes }) {
 		if (nextPeriod && period["endTime"] < currentTime && nextPeriod["startTime"] > currentTime) {
 			return (
 				<Status
-					time={`${nextPeriod["periodName"]} will start in ${timeBetweenDates(currentTime, nextPeriod["startTime"])}.`}
+					time={`${timeBetweenDates(currentTime, nextPeriod["startTime"])}.`}
 					timeRange={`${formatDate(nextPeriod["startTime"])} to ${formatDate(nextPeriod["endTime"])}`}
 					className={`Start of ${nextPeriod["periodName"]}`}
 				></Status>
@@ -328,18 +333,18 @@ export default function Home() {
 
 	React.useEffect(() => {
 		if (!localStorage.getItem("currentSchedule")) {
-			fetch("/api/schedule/default")
-				.then((res) => res.json())
-				.then((data) => {
-					localStorage.setItem("currentSchedule", JSON.stringify(data))
-					setScheduleDB(data);
-					setLoading(false);
-				});
+			setLoading(false);
+			// fetch("/api/schedule/default")
+			// 	.then((res) => res.json())
+			// 	.then((data) => {
+			// 		localStorage.setItem("currentSchedule", JSON.stringify(data));
+			// 		setScheduleDB(data);
+			// 		setLoading(false);
+			// 	});
 		} else {
 			setScheduleDB(JSON.parse(localStorage.getItem("currentSchedule") || "{}"));
 			setLoading(false);
 		}
-		
 	}, []);
 
 	if (isLoading) {
@@ -356,7 +361,23 @@ export default function Home() {
 		return (
 			<div className="container mx-auto mt-10 flex flex-col justify-center lg:p-8">
 				<div className="flex items-center justify-center flex-col shadow-xl rounded-lg p-10 lg:p-24 bg-wedgewood-300">
-					<h2 className="text-2xl mt-4">No schedule found. Create a schedule <Link className="text-blue-700" href="/create">here.</Link></h2>
+					<h2 className="text-2xl mt-4 text-center">
+						It looks like you {"haven't"} set up a schedule yet. <br></br>
+						{/* You can either
+						<div className="flex items-center justify-around p-4">
+							<div>
+								<h2 className="text-xl font-bold">Create a New Schedule</h2>
+							</div>
+
+							<div>
+								<h2 className="text-xl font-bold">Select from a Preset</h2>
+							</div>
+						</div> */}
+						Create a schedule{" "}
+						<Link className="text-blue-700 mt-4" href="/create">
+							here.
+						</Link>
+					</h2>
 				</div>
 			</div>
 		);
@@ -426,7 +447,7 @@ export default function Home() {
 	if (correctScheduleName == null) {
 		const tomorrowScheduleName = findCorrectSchedule(scheduleDB, new Date(currentDate.setDate(currentDate.getDate() + 1)));
 		if (tomorrowScheduleName != null) {
-			const scheduleTimes = scheduleDB[tomorrowScheduleName]["times"];
+			const scheduleTimes = scheduleDB["routines"][tomorrowScheduleName]["times"];
 
 			return (
 				<div className="container mx-auto mt-10 flex flex-col justify-center lg:p-8">
@@ -438,8 +459,7 @@ export default function Home() {
 					</div>
 				</div>
 			);
-		};
-
+		}
 
 		return (
 			<div className="container mx-auto mt-10 flex flex-col justify-center lg:p-8">

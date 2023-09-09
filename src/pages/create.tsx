@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faXmark, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faXmark, faChevronDown, faRotateLeft } from "@fortawesome/free-solid-svg-icons";
 
 import Link from "next/link";
 
@@ -235,7 +235,7 @@ function EventEditor(props: { currentRoutine: string; schedule: any; setSchedule
 		let day = props.schedule["routines"][props.currentRoutine]["days"][index];
 		let cleanName = day;
 
-		if (Number(day)) {
+		if (Number(day) || Number(day) === 0) {
 			cleanName = convertDayToString(day);
 		}
 
@@ -353,7 +353,7 @@ function selectRoutine(name: string, setCurrectlySelected: Function) {
 	setCurrectlySelected(name);
 }
 
-function Routine(props: { name: string; rawName: string;  schedule: any; currentlySelected: boolean; setCurrectlySelected: Function; setSchedule: Function }) {
+function Routine(props: { name: string; rawName: string; schedule: any; currentlySelected: boolean; setCurrectlySelected: Function; setSchedule: Function }) {
 	if (props.currentlySelected) {
 		return (
 			<div
@@ -382,6 +382,65 @@ function Routine(props: { name: string; rawName: string;  schedule: any; current
 	);
 }
 
+function ImportSchedule(props: { schedule: any; setSchedule: Function; isOpen: boolean; setIsOpen: Function; setCurrentRoutine: Function }) {
+	const schedulesArray = [{ id: "dvhs", name: "DVHS", unavailable: false }];
+	const [selectedSchedule, setSelectedSchedule] = React.useState(schedulesArray[0]);
+
+	return (
+		<Dialog open={props.isOpen} onClose={() => props.setIsOpen(false)} className="relative z-50">
+			<div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+
+			<div className="fixed inset-0 flex w-screen items-center justify-center p-10">
+				<Dialog.Panel className="w-full max-w-lg bg-wedgewood-200 p-10">
+					<Dialog.Title className="font-bold text-2xl">Choose Schedule Preset</Dialog.Title>
+
+					<div className="bg-wedgewood-300 p-10 mt-4">
+						<Listbox value={selectedSchedule} onChange={setSelectedSchedule}>
+							<Listbox.Button className="bg-wedgewood-500 p-4 shadow-xl">
+								{selectedSchedule.name} <FontAwesomeIcon icon={faChevronDown} size="lg"></FontAwesomeIcon>
+							</Listbox.Button>
+							<Listbox.Options className="bg-wedgewood-400 p-4 shadow-xl">
+								{schedulesArray.map((schedule) => (
+									<Listbox.Option
+										key={schedule.id}
+										value={schedule}
+										disabled={schedule.unavailable}
+										className="shadow-xl mt-2 border-2 border-wedgewood-600 ui-active:bg-wedgewood-500 ui-not-active:bg-wedgewood-400 ui-not-active:text-black p-3 rounded"
+									>
+										{schedule.name}
+									</Listbox.Option>
+								))}
+							</Listbox.Options>
+						</Listbox>
+					</div>
+
+					<div className="grid justify-items-end">
+						<button
+							className="bg-wedgewood-400 ml-4 p-3 px-4 rounded mt-6"
+							onClick={() => {
+								fetch(`/api/schedule/${selectedSchedule.id}`)
+									.then((res) => res.json())
+									.then((data) => {
+										localStorage.setItem("currentSchedule", JSON.stringify(data));
+										props.setSchedule(data);
+
+										localStorage.setItem("periodNames", "");
+										localStorage.setItem("removedPeriods", "");
+
+										props.setCurrentRoutine(Object.keys(JSON.parse(localStorage.getItem("currentSchedule") || "")["routines"])[0]);
+									});
+								props.setIsOpen(false);
+							}}
+						>
+							Add Day
+						</button>
+					</div>
+				</Dialog.Panel>
+			</div>
+		</Dialog>
+	);
+}
+
 function updateAbout(property: string, newValue: string, schedule: any, setSchedule: Function) {
 	const newSchedule = { ...schedule };
 	newSchedule["about"][property] = newValue;
@@ -390,71 +449,47 @@ function updateAbout(property: string, newValue: string, schedule: any, setSched
 	localStorage.setItem("currentSchedule", JSON.stringify(newSchedule));
 }
 
+function reset(setScheduleDB: Function, setCurrentRoutine: Function) {
+	const result = confirm("Are you sure that you want to reset your entire schedule?");
+
+	if (result) {
+		localStorage.clear();
+		fetch("/api/schedule/default")
+			.then((res) => res.json())
+			.then((data) => {
+				setScheduleDB(data);
+				localStorage.setItem("currentSchedule", JSON.stringify(data));
+
+				setCurrentRoutine(Object.keys(JSON.parse(localStorage.getItem("currentSchedule") || "")["routines"])[0]);
+			});
+	}
+}
+
 export default function Create() {
 	const [currentRoutine, setCurrentRoutine] = React.useState("Routine 1");
 	const [schedule, setSchedule] = React.useState({});
 	const [isLoading, setLoading] = React.useState(true);
 
+	const [isImportOpen, setIsImportOpen] = React.useState(false);
 
 	React.useEffect(() => {
 		if (localStorage.getItem("currentSchedule") != null) {
 			setSchedule(JSON.parse(localStorage.getItem("currentSchedule") || ""));
 
 			//! remove later
-			setCurrentRoutine("");
+			// @ts-ignore
+			setCurrentRoutine(Object.keys(JSON.parse(localStorage.getItem("currentSchedule") || "")["routines"])[0]);
 			setLoading(false);
 		} else {
-			setSchedule({
-				about: {
-					name: "New Schedule!",
-					inactive: [],
-					allEvents: ["Event 1"],
-					startDate: "2023-09-06",
-					endDate: "2030-09-08"
-				},
-				routines: {
-					"Routine 1": {
-						officialName: "Routine 1",
-						days: [1, 2, 3],
-						events: [
-							{
-								name: "Event 1",
-								startTime: "08:40",
-								endTime: "08:45"
-							}
-						]
-					}
-				}
-			});
-
-			localStorage.setItem(
-				"currentSchedule",
-				JSON.stringify({
-					about: {
-						name: "New Schedule!",
-						inactive: [],
-						allEvents: ["Event 1"],
-						startDate: "2023-09-06",
-						endDate: "2030-09-08"
-					},
-					routines: {
-						"Routine 1": {
-							officialName: "Routine 1",
-							days: [1, 2, 3],
-							events: [
-								{
-									name: "Event 1",
-									startTime: "08:40",
-									endTime: "08:45"
-								}
-							]
-						}
-					}
-				})
-			);
-
-			setCurrentRoutine("");
-			setLoading(false);
+			fetch("/api/schedule/default")
+				.then((res) => res.json())
+				.then((data) => {
+					localStorage.setItem("currentSchedule", JSON.stringify(data));
+					setSchedule(data);
+					// @ts-ignore
+					setCurrentRoutine(Object.keys(JSON.parse(localStorage.getItem("currentSchedule") || "")["routines"])[0]);
+					setLoading(false);
+				});
 		}
 	}, []);
 
@@ -503,11 +538,28 @@ export default function Create() {
 
 	return (
 		<div className="container mx-auto mt-10 flex flex-col justify-center lg:p-8 shadow-lg bg-wedgewood-200 p-8">
-			<h1 className="font-bold text-3xl mb-10">Create a New Schedule Plan</h1>
+			<div className="flex justify-between items-center mb-10">
+				<h1 className="font-bold text-3xl">Create a New Schedule Plan</h1>
 
-			<div className="shadow-lg p-10  bg-wedgewood-300">
-				<h2 className="font-bold text-2xl mb-10">General Information</h2>
-				<div className="flex mt-10 items-center">
+				<button onClick={() => reset(setSchedule, setCurrentRoutine)}>
+					<FontAwesomeIcon icon={faRotateLeft} size="xl"></FontAwesomeIcon>
+				</button>
+			</div>
+
+			<div className="shadow-lg p-10 bg-wedgewood-300">
+				<div className="flex flex-row justify-between">
+					<h2 className="font-bold text-2xl mb-10">General Information</h2>
+
+					<div>
+						<button className="bg-wedgewood-500 ml-4 p-3 px-4 rounded flex items-center " onClick={() => setIsImportOpen(true)}>
+							<h1>Import Preset</h1>
+							<FontAwesomeIcon icon={faPlus} className="ml-4"></FontAwesomeIcon>
+						</button>
+						<ImportSchedule schedule={schedule} setSchedule={setSchedule} isOpen={isImportOpen} setIsOpen={setIsImportOpen} setCurrentRoutine={setCurrentRoutine}></ImportSchedule>
+					</div>
+				</div>
+
+				<div className="flex mt-4 items-center">
 					<label className="text-xl">Name: </label>
 					<input
 						className="rounded shadow appearance-none border w-64 p-2 ml-4"
@@ -515,11 +567,9 @@ export default function Create() {
 						defaultValue={schedule["about"]["name"]}
 						onChange={(e) => updateAbout("name", e.target.value, schedule, setSchedule)}
 					></input>
-
 					<label className="text-xl ml-10 items-center">Start Date: </label>
 					{/* @ts-ignore */}
 					<input type="date" className="rounded shadow appearance-none border w-64 p-2 ml-4" defaultValue={schedule["about"]["startDate"]}></input>
-
 					<label className="text-xl ml-10 items-center">End Date: </label>
 					{/* @ts-ignore */}
 					<input type="date" className="rounded shadow appearance-none border w-64 p-2 ml-4" defaultValue={schedule["about"]["endDate"]}></input>
@@ -534,7 +584,7 @@ export default function Create() {
 						<Link href="/settings" className="text-blue-700">
 							Settings page
 						</Link>{" "}
-						to customize period names.
+						to customize period names and remove periods.
 					</h3>
 
 					<button className="bg-wedgewood-500 p-4 w-64 float-right rounded" onClick={() => createNewRoutine(schedule, setSchedule)}>
