@@ -1,9 +1,24 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
+function sortByStartTime(array: any) {
+	return array.sort((a: any, b: any) => {
+		const startTimeA = a.startTime.split(":").map(Number);
+		const startTimeB = b.startTime.split(":").map(Number);
+
+		if (startTimeA[0] !== startTimeB[0]) {
+			return startTimeA[0] - startTimeB[0]; // Sort by hour
+		} else {
+			return startTimeA[1] - startTimeB[1]; // If hours are the same, sort by minute
+		}
+	});
+}
+
 function modifyEvent(schedule: any, setSchedule: Function, currentRoutine: string, eventIndex: number, property: string, newValue: string) {
 	const newSchedule = { ...schedule };
 	newSchedule["routines"][currentRoutine]["events"][eventIndex][property] = newValue;
+
+	newSchedule["routines"][currentRoutine]["events"] = sortByStartTime(newSchedule["routines"][currentRoutine]["events"]);
 
 	setSchedule(newSchedule);
 	localStorage.setItem("currentSchedule", JSON.stringify(newSchedule));

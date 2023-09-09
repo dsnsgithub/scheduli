@@ -1,7 +1,7 @@
 import React from "react";
 
 import Event from "./Event";
-import Modal from "./Modal";
+import ActiveDayModal from "./ActiveDayModal";
 import ActiveRoutineDay from "./ActiveRoutineDay";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -22,6 +22,20 @@ function convertDayToString(number: number) {
 	return days[Number(number)];
 }
 
+function sortByStartTime(array: any) {
+	return array.sort((a: any, b: any) => {
+		const startTimeA = a.startTime.split(":").map(Number);
+		const startTimeB = b.startTime.split(":").map(Number);
+
+		if (startTimeA[0] !== startTimeB[0]) {
+			return startTimeA[0] - startTimeB[0]; // Sort by hour
+		} else {
+			return startTimeA[1] - startTimeB[1]; // If hours are the same, sort by minute
+		}
+	});
+}
+
+
 function createNewEvent(currentRoutine: string, schedule: any, setSchedule: Function) {
 	const enteredName = prompt("Please enter an event name:");
 
@@ -32,6 +46,8 @@ function createNewEvent(currentRoutine: string, schedule: any, setSchedule: Func
 			startTime: "08:40",
 			endTime: "08:45"
 		});
+
+		newSchedule["routines"][currentRoutine]["events"] = sortByStartTime(newSchedule["routines"][currentRoutine]["events"]);
 
 		setSchedule(newSchedule);
 		localStorage.setItem("currentSchedule", JSON.stringify(newSchedule));
@@ -109,7 +125,7 @@ export default function EventEditor(props: { currentRoutine: string; schedule: a
 					<button className="bg-wedgewood-500 ml-4 p-3 px-4 rounded" onClick={() => setIsOpen(true)}>
 						<FontAwesomeIcon icon={faPlus} className=""></FontAwesomeIcon>
 					</button>
-					<Modal currentRoutine={props.currentRoutine} schedule={props.schedule} setSchedule={props.setSchedule} isOpen={isOpen} setIsOpen={setIsOpen}></Modal>
+					<ActiveDayModal currentRoutine={props.currentRoutine} schedule={props.schedule} setSchedule={props.setSchedule} isOpen={isOpen} setIsOpen={setIsOpen}></ActiveDayModal>
 				</div>
 			</div>
 

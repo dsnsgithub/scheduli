@@ -18,7 +18,7 @@ function createRoutineDay(currentRoutine: string, rawDayName: any, schedule: any
 	localStorage.setItem("currentSchedule", JSON.stringify(newSchedule));
 }
 
-export default function Modal(props: { currentRoutine: string; schedule: any; setSchedule: Function; isOpen: boolean; setIsOpen: Function }) {
+export default function ActiveDayModal(props: { currentRoutine: string; schedule: any; setSchedule: Function; isOpen: boolean; setIsOpen: Function }) {
 	const days = [
 		{ id: 0, name: "Sunday", unavailable: false },
 		{ id: 1, name: "Monday", unavailable: false },
@@ -77,7 +77,7 @@ export default function Modal(props: { currentRoutine: string; schedule: any; se
 								</Tab.Panel>
 								<Tab.Panel>
 									<div className="bg-wedgewood-300 p-10 mt-4">
-										<input type="date" className="rounded shadow appearance-none border w-64 p-2 ml-4" onChange={(e) => setSelectedDate(e.target.value)} value="2023-09-06"></input>
+										<input type="date" className="rounded shadow appearance-none border w-64 p-2 ml-4" onChange={(e) => setSelectedDate(e.target.value)} defaultValue="2023-09-06"></input>
 									</div>
 								</Tab.Panel>
 							</Tab.Panels>

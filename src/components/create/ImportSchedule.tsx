@@ -4,7 +4,7 @@ import { Dialog, Tab, Listbox } from "@headlessui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
-export default function ImportSchedule(props: { schedule: any; setSchedule: Function; isOpen: boolean; setIsOpen: Function; setCurrentRoutine: Function }) {
+export default function ImportSchedule(props: { schedule: any; setSchedule: Function; isOpen: boolean; setIsOpen: Function; setCurrentRoutine: Function; setScheduleStartDate: Function, setScheduleEndDate: Function, setScheduleName: Function }) {
 	const schedulesArray = [{ id: "dvhs", name: "DVHS", unavailable: false }];
 	const [selectedSchedule, setSelectedSchedule] = React.useState(schedulesArray[0]);
 
@@ -50,6 +50,10 @@ export default function ImportSchedule(props: { schedule: any; setSchedule: Func
 										localStorage.setItem("removedPeriods", "");
 
 										props.setCurrentRoutine(Object.keys(JSON.parse(localStorage.getItem("currentSchedule") || "")["routines"])[0]);
+
+										props.setScheduleName(JSON.parse(localStorage.getItem("currentSchedule") || "")["about"]["name"]);
+										props.setScheduleStartDate(JSON.parse(localStorage.getItem("currentSchedule") || "")["about"]["startDate"]);
+										props.setScheduleEndDate(JSON.parse(localStorage.getItem("currentSchedule") || "")["about"]["endDate"]);
 									});
 								props.setIsOpen(false);
 							}}

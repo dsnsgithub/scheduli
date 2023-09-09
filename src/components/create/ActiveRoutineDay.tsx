@@ -17,7 +17,7 @@ function removeRoutineDay(currentRoutine: string, rawDayName: any, schedule: any
 
 export default function ActiveRoutineDay(props: { currentRoutine: string; rawDayName: any; day: string; schedule: any; setSchedule: Function }) {
 	return (
-		<div className="flex justify-between flex-row shadow-lg p-4 rounded bg-wedgewood-500 lg:ml-4 ml-4">
+		<div className="flex justify-between flex-row shadow-lg p-4 bg-wedgewood-500 lg:ml-4 ml-4">
 			{props.day}
 			<button onClick={() => removeRoutineDay(props.currentRoutine, props.rawDayName, props.schedule, props.setSchedule)}>
 				<FontAwesomeIcon className="ml-4" icon={faXmark} size="xl"></FontAwesomeIcon>
