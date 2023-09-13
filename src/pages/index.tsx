@@ -45,16 +45,8 @@ function createCustomDate(inputTime: string) {
 
 	const [inputHourRaw, inputMinuteRaw] = inputTime.split(":");
 	const inputMinute = inputMinuteRaw.replace(/[A-Za-z]/g, ""); // Remove any non-numeric characters
-	const isPM = inputTime.includes("PM");
 
-	let hour = parseInt(inputHourRaw);
-	if (isPM && hour !== 12) {
-		hour += 12;
-	} else if (hour == 12 && !isPM) {
-		hour -= 12;
-	}
-
-	currentDate.setHours(hour, parseInt(inputMinute), 0, 0);
+	currentDate.setHours(parseInt(inputHourRaw), parseInt(inputMinute), 0, 0);
 	return currentDate.getTime();
 }
 
