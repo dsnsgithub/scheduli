@@ -300,12 +300,14 @@ export default function Home() {
 		);
 	}
 
-	const scheduleTimes = scheduleDB["routines"][correctScheduleName]["events"];
+	let scheduleTimes = scheduleDB["routines"][correctScheduleName]["events"];
 
 	// @ts-ignore
 	if (scheduleTimes[scheduleTimes.length - 1]["endTime"] < currentTime) {
 		const tomorrowScheduleName = findCorrectSchedule(scheduleDB, new Date(currentDate.setDate(currentDate.getDate() + 1)));
 		if (tomorrowScheduleName != null) {
+			scheduleTimes = scheduleDB["routines"][tomorrowScheduleName]["events"];
+			
 			return (
 				<div className="container mx-auto mt-10 flex flex-col justify-center lg:p-8">
 					<Countdown scheduleTimes={scheduleTimes}></Countdown>
