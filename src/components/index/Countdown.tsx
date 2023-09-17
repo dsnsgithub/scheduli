@@ -38,11 +38,11 @@ export default function Countdown(props: { scheduleTimes }) {
 		return () => clearInterval(interval);
 	}, []);
 
-	// School has started
+	// School has not started yet
 	if (scheduleTimes[0]["startTime"] > currentTime) {
 		const timeTil = timeBetweenDates(currentTime, scheduleTimes[0]["startTime"]);
 
-		return <Status time={timeTil} timeRange="" className={scheduleTimes[0]["periodName"]}></Status>;
+		return <Status time={timeTil} timeRange="" className={`Until ${scheduleTimes[0]["periodName"]}`}></Status>;
 	}
 
 	// School is over
@@ -80,9 +80,9 @@ export default function Countdown(props: { scheduleTimes }) {
 		if (nextPeriod && period["endTime"] < currentTime && nextPeriod["startTime"] > currentTime) {
 			return (
 				<Status
-					time={`${timeBetweenDates(currentTime, nextPeriod["startTime"])}.`}
+					time={`${timeBetweenDates(currentTime, nextPeriod["startTime"])}`}
 					timeRange={`${formatDate(nextPeriod["startTime"])} to ${formatDate(nextPeriod["endTime"])}`}
-					className={`Start of ${nextPeriod["periodName"]}`}
+					className={`Until ${nextPeriod["periodName"]}`}
 				></Status>
 			);
 		}
