@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 import Event from "./Event";
 import ActiveDayModal from "./ActiveDayModal";
@@ -35,7 +36,6 @@ function sortByStartTime(array: any) {
 	});
 }
 
-
 function createNewEvent(currentRoutine: string, schedule: any, setSchedule: Function) {
 	const enteredName = prompt("Please enter an event name:");
 
@@ -58,6 +58,22 @@ export default function EventEditor(props: { currentRoutine: string; schedule: a
 	const [isOpen, setIsOpen] = React.useState(false);
 
 	let eventElemList = [];
+
+	if (props.schedule["about"]["name"] == "DVHS Schedule" || props.schedule["about"]["name"] == "GRMS Schedule") {
+		return (
+			<div className="shadow-lg p-10 bg-wedgewood-300">
+				<div className="flex justify-between items-center">
+					<h1 className="text-xl mb-10">
+						Since you used a school preset, delete any non-applicable routines and use the{" "}
+						<Link href="/settings" className="text-blue-700">
+							Settings page
+						</Link>{" "}
+						to customize period names and remove periods.
+					</h1>
+				</div>
+			</div>
+		);
+	}
 
 	if (!props.schedule["routines"][props.currentRoutine]) {
 		return (

@@ -48,6 +48,7 @@ export default function Event(props: { name: string; startTime: string; endTime:
 							className="rounded shadow outline-none border-2 border-wedgewood-500 focus:border-wedgewood-600 lg:w-64 p-2 md:ml-4 bg-wedgewood-300 "
 							onChange={(e) => modifyEvent(props.schedule, props.setSchedule, props.currentRoutine, props.eventIndex, "name", e.target.value)}
 							defaultValue={props.name}
+							maxLength={32}
 						></input>
 					</div>
 

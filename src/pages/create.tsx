@@ -150,16 +150,6 @@ export default function Create() {
 				</button>
 			</div>
 
-			<div>
-				<h3 className="text-xl mb-10">
-					If you used a school preset, delete any non-applicable schedules and use the{" "}
-					<Link href="/settings" className="text-blue-700">
-						Settings page
-					</Link>{" "}
-					to customize period names and remove periods.
-				</h3>
-			</div>
-
 			<div className="shadow-lg lg:p-10 bg-wedgewood-300 p-2">
 				<div className="flex flex-row justify-between">
 					<h2 className="font-bold text-2xl mb-10">General Information</h2>

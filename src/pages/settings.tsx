@@ -47,6 +47,7 @@ function PeriodNameCustomizer(props: { periodName: string; rawPeriodName: string
 				className="rounded shadow outline-none border-2 border-wedgewood-500 focus:border-wedgewood-600 lg:w-64 p-2 bg-wedgewood-300 ml-2"
 				defaultValue={props.periodName || ""}
 				onChange={(e) => updateName(props.rawPeriodName, e.target.value, props.setPeriodNamesDB)}
+				maxLength={32}
 			></input>
 
 			<button onClick={() => removePeriodName(props.rawPeriodName, props.setRemovedPeriodsDB)}>
@@ -125,7 +126,7 @@ export default function Settings() {
 	return (
 		<div className="container mx-auto lg:mt-10 flex flex-col justify-center lg:p-8 shadow-xl bg-wedgewood-200 ">
 			<div className="flex justify-between items-center">
-				<h1 className="font-bold text-3xl m-4">Customize Period Names</h1>
+				<h1 className="font-bold text-3xl m-4">Bulk Customize Event Names</h1>
 				<button onClick={() => reset(setPeriodNamesDB, setRemovedPeriodsDB, createEventsDB, scheduleDB, setScheduleDB)}>
 					<FontAwesomeIcon icon={faRotateLeft} size="xl"></FontAwesomeIcon>
 				</button>
