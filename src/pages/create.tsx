@@ -157,7 +157,7 @@ export default function Create() {
 					<div>
 						<button className="bg-wedgewood-500 ml-4 p-4 lg:p-3 lg:px-4 rounded flex items-center" onClick={() => setIsImportOpen(true)}>
 							<FontAwesomeIcon icon={faFileImport} className=""></FontAwesomeIcon>
-							<h4 className="hidden lg:inline lg:ml-4">Import</h4>
+							<h4 className="hidden lg:inline lg:ml-4">Add Preset</h4>
 						</button>
 						<ImportSchedule
 							schedule={schedule}
