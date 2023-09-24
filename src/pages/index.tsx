@@ -310,7 +310,7 @@ export default function Home() {
 			
 			return (
 				<div className="container mx-auto mt-10 flex flex-col justify-center lg:p-8">
-					<Countdown scheduleTimes={scheduleTimes}></Countdown>
+					<Status time="" timeRange="" className="All events are over for today."></Status>
 
 					<div className="table-fixed px-0 mt-8 lg:px-64 xl:px-96 shadow-xl p-10">
 						<h2 className="font-bold text-3xl flex justify-center mb-2">{"Tomorrow's Schedule:"}</h2>
