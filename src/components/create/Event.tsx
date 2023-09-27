@@ -25,7 +25,7 @@ function modifyEvent(schedule: any, setSchedule: Function, currentRoutine: strin
 }
 
 function removeEvent(currentRoutine: string, schedule: any, setSchedule: Function, eventIndex: number) {
-	if (schedule["routines"][currentRoutine]["events"].length <= 0) {
+	if (schedule["routines"][currentRoutine]["events"].length <= 1) {
 		return alert("You must have at least one event.");
 	}
 
