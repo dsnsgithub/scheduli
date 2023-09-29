@@ -7,7 +7,8 @@ import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 export default function ImportSchedule(props: { schedule: any; setSchedule: Function; isOpen: boolean; setIsOpen: Function; setCurrentRoutine: Function; setScheduleStartDate: Function, setScheduleEndDate: Function, setScheduleName: Function }) {
 	const schedulesArray = [
 		{ id: "dvhs", name: "DVHS", unavailable: false },
-		{ id: "grms", name: "GRMS", unavailable: false }
+		{ id: "grms6", name: "GRMS 6th Grade", unavailable: false },
+		{ id: "grms78", name: "GRMS 7th-8th Grade", unavailable: false }
 	];
 	const [selectedSchedule, setSelectedSchedule] = React.useState(schedulesArray[0]);
 

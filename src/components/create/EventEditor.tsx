@@ -59,7 +59,7 @@ export default function EventEditor(props: { currentRoutine: string; schedule: a
 
 	let eventElemList = [];
 
-	if (props.schedule["about"]["name"] == "DVHS Schedule" || props.schedule["about"]["name"] == "GRMS Schedule") {
+	if (props.schedule["about"]["name"].includes("School Schedule")) {
 		return (
 			<div className="shadow-lg p-10 bg-wedgewood-300">
 				<div className="flex justify-between items-center">

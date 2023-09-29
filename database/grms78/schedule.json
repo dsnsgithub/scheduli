@@ -1,0 +1,49 @@
+{
+	"about": {
+		"name": "Gale Ranch 7th-8th Grade School Schedule",
+		"startDate": "2023-06-05",
+		"endDate": "2024-08-10",
+		"inactive": [
+			"2023-09-04",
+			["2023-09-25", "2023-09-26"],
+			"2023-11-01",
+			"2023-11-10",
+			["2023-11-20", "2023-11-24"],
+			["2023-12-21", "2024-01-08"],
+			"2024-01-15",
+			["2024-02-19", "2024-02-20"],
+			"2024-03-15",
+			"2024-03-29",
+			["2024-04-01", "2024-04-05"],
+			"2024-05-24",
+			"2024-05-27"
+		],
+		"allEvents": ["Homeroom", "1", "2", "3", "4", "5", "6", "7"]
+	},
+	"routines": {
+		"regular7-8": {
+			"officialName": "Regular",
+			"days": [1, 2, 5]
+		},
+		"wednesday7-8": {
+			"officialName": "Wednesday Block",
+			"days": [3]
+		},
+		"thursday7-8": {
+			"officialName": "Thursday Block",
+			"days": [4]
+		},
+		"minimum": {
+			"officialName": "Minimum",
+			"days": ["2023-08-10", ["2023-10-02", "2023-10-06"], "2023-10-31", "2023-12-20", ["2024-03-20", "2024-03-22"], "2023-06-05"]
+		},
+		"promotion": {
+			"officialName": "Promotion",
+			"days": ["2023-06-05"]
+		},
+		"rally7-8": {
+			"officialName": "Rally",
+			"days": ["2024-05-17"]
+		}
+	}
+}
