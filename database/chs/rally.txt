@@ -1,0 +1,12 @@
+Period 1/2,8:30AM,9:50AM
+Brunch,9:50AM,10:00AM
+Passing,10:00AM,10:05AM
+Assembly A,10:05AM,11:20AM
+Assembly A 3/4,11:20AM,12:40PM
+Assembly B 3/4,10:05AM,11:25AM
+Assembly B,11:25AM,12:40PM
+Lunch,12:40PM,1:10PM
+Passing,1:10PM,1:15PM
+Period 5/6,1:15PM,2:35PM
+Passing,2:35PM,2:40PM
+Period B,2:40PM,3:41PM

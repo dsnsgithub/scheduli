@@ -50,7 +50,13 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
 			scheduleDB["routines"][scheduleName]["events"] = [];
 			for (const line of scheduleArray) {
-				let [rawPeriodName, startTime, endTime] = line.split(" ");
+				let rawPeriodName, startTime, endTime;
+
+				if (school != "dvhs" && school != "grms6" && school != "grms78") {
+					[rawPeriodName, startTime, endTime] = line.split(",");
+				} else {
+					[rawPeriodName, startTime, endTime] = line.split(" ");
+				}
 
 				rawPeriodName = rawPeriodName.replace(/(\r\n|\n|\r)/gm, "");
 				startTime = startTime.replace(/(\r\n|\n|\r)/gm, "");

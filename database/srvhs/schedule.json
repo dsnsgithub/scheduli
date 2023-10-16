@@ -1,0 +1,78 @@
+{
+	"about": {
+		"name": "San Ramon Valley High School Schedule",
+		"startDate": "2023-06-05",
+		"endDate": "2024-08-10",
+		"inactive": [
+			"2023-09-04",
+			["2023-09-25", "2023-09-26"],
+			"2023-11-01",
+			"2023-11-10",
+			["2023-11-20", "2023-11-24"],
+			["2023-12-21", "2024-01-08"],
+			"2024-01-15",
+			["2024-02-19", "2024-02-20"],
+			"2024-03-15",
+			"2024-03-29",
+			["2024-04-01", "2024-04-05"],
+			"2024-05-24",
+			"2024-05-27"
+		],
+		"allEvents": ["1", "2", "3", "4", "5", "6", "7"]
+	},
+	"routines": {
+		"monday": {
+			"officialName": "Monday",
+			"days": [1, "2023-11-09", "2024-02-21", "2024-05-28", "2024-05-29", "2024-05-30"]
+		},
+		"tuesday": {
+			"officialName": "Tuesday",
+			"days": [2]
+		},
+		"wednesday": {
+			"officialName": "Wednesday",
+			"days": [3]
+		},
+		"thursday": {
+			"officialName": "Thursday",
+			"days": [4]
+		},
+		"friday": {
+			"officialName": "Friday",
+			"days": [5, "2023-09-27", "2023-12-11", "2024-03-11", "2024-03-25", "2024-05-13", "2024-05-20"]
+		},
+		"specialthursday": {
+			"officialName": "Special Thursday Schedule",
+			"days": ["2023-09-28", "2024-02-22"]
+		},
+		"rally": {
+			"officialName": "Rally",
+			"days": ["2023-08-11", "2024-05-17"]
+		},
+		"homecoming": {
+			"officialName": "Homecoming",
+			"days": ["2023-08-22"]
+		},
+		"earlyrelease": {
+			"officialName": "Early Release",
+			"days": ["2023-08-10"]
+		},
+		"final2": {
+			"officialName": "Finals Day 2",
+			"days": ["2023-12-18", "2024-06-03"]
+		},
+		"final3": {
+			"officialName": "Finals Day 3",
+			"days": ["2023-12-19", "2024-06-04"]
+		},
+		"final4": {
+			"officialName": "Finals Day 4",
+			"days": ["2023-12-20", "2024-06-05"]
+		},
+		"final1": {
+			"officialName": "Finals Day 1",
+			"days": ["2023-12-15", "2024-05-31"]
+		}
+	}
+	
+}
