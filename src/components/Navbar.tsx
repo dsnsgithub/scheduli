@@ -3,7 +3,7 @@ import scheduliIcon from "../../public/schedule.svg";
 import Link from "next/link";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendarDays, faCircleInfo, faHome } from "@fortawesome/free-solid-svg-icons";
+import { faBook, faCalendarDays, faCircleInfo, faHome } from "@fortawesome/free-solid-svg-icons";
 import { faCreativeCommonsBy } from "@fortawesome/free-brands-svg-icons";
 
 
@@ -27,6 +27,9 @@ export default function Navbar() {
 				</Link>
 				<Link className="px-2 md:px-5 lg:px-6" href="/create">
 					<FontAwesomeIcon icon={faCalendarDays} size="xl" />
+				</Link>
+				<Link className="px-2 md:px-5 lg:px-6" href="/privacy">
+					<FontAwesomeIcon icon={faBook} size="xl" />
 				</Link>
 			</div>
 		</nav>
