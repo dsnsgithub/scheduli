@@ -23,7 +23,7 @@
 	"routines": {
 		"regular": {
 			"officialName": "Regular",
-			"days": [1, 2, 5]
+			"days": [1, 2, 5, "2023-11-02"]
 		},
 		"wednesday": {
 			"officialName": "Wednesday Block",
