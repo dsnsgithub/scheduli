@@ -14,6 +14,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 		if (school == "default") {
 			return res.status(200).json({
 				about: {
+					sync: false,
 					name: "New Schedule!",
 					inactive: [],
 					allEvents: ["Event 1", "Event 2"],
