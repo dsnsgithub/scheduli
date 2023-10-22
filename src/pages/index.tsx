@@ -214,7 +214,7 @@ export default function Home() {
 		return (
 			<>
 				<div className="container mx-auto flex flex-col justify-center">
-					<h2 className="text-2xl text-center bg-wedgewood-300 border-wedgewood-400 border-2 p-4 rounded m-4">
+					<h2 className="text-2xl text-center bg-wedgewood-200 border-wedgewood-300 border-2 p-4 rounded m-4">
 						If you want to try out the web version, create a schedule{" "}
 						<Link className="text-blue-700 mt-4" href="/create">
 							here.
