@@ -8,6 +8,7 @@ import homepagelight from "../../public/mobile/homepagelight.png";
 import importschedule from "../../public/mobile/importschedule.png";
 import notification from "../../public/mobile/notification.png";
 import scheduledark from "../../public/mobile/scheduledark.png";
+import googlePlayBadge from "../../public/mobile/google-play-badge.png";
 
 export default function About() {
 	return (
@@ -21,7 +22,10 @@ export default function About() {
 							Scheduli is a <b>general-purpose</b> schedule app avaliable on iOS and Android that keeps you informed about your daily schedule, even during the most chaotic days.
 						</h2>
 
-						<h2 className="text-2xl mt-4">Avaliable on the App Store & Google Play Store soon.</h2>
+						<a href="https://play.google.com/store/apps/details?id=com.scheduli.schedulimobile&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1">
+							<Image alt="Get it on Google Play" width={300} src={googlePlayBadge} />
+						</a>
+						<h2 className="text-2xl mt-4">Avaliable on the App Store soon.</h2>
 					</div>
 					<div className="flex flex-row items-center">
 						<Image src={homepagelight} alt="Scheduli Home page dark" height={600} className="mr-4"></Image>
