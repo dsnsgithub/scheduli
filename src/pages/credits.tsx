@@ -1,7 +1,7 @@
 export default function Credits() {
 	return (
 		<div className="container mx-auto mt-10">
-			<div className="shadow-xl flex flex-col items-center justify-center bg-wedgewood-200 p-8">
+			<div className="shadow-xl flex flex-col items-center justify-center bg-wedgewood-200 border-wedgewood-300 border-2 p-8">
 				<h1 className="text-4xl font-bold mb-2">Credits</h1>
 
 				<ul className="mt-10 text-lg">

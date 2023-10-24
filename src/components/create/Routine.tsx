@@ -22,7 +22,7 @@ export default function Routine(props: { name: string; rawName: string; schedule
 		return (
 			<div
 				key={props.rawName}
-				className="rounded shadow-xl inline-block border-wedgewood-800 bg-wedgewood-500 border-2 hover:cursor-pointer ml-4 p-4 mb-4"
+				className="rounded shadow-xl inline-block border-wedgewood-600 bg-wedgewood-400 border-2 hover:cursor-pointer ml-4 p-4 mb-4"
 				onClick={() => selectRoutine(props.name, props.setCurrectlySelected)}
 			>
 				{props.name}
@@ -35,7 +35,7 @@ export default function Routine(props: { name: string; rawName: string; schedule
 	return (
 		<div
 			key={props.rawName}
-			className="rounded shadow-xl inline-block hover:border-wedgewood-800 bg-wedgewood-500 hover:border hover:cursor-pointer ml-4 p-4 mb-4"
+			className="rounded shadow-xl inline-block hover:border-wedgewood-600 bg-wedgewood-400 hover:border hover:cursor-pointer ml-4 p-4 mb-4"
 			onClick={() => selectRoutine(props.rawName, props.setCurrectlySelected)}
 		>
 			{props.name}

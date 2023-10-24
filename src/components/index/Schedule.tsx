@@ -123,7 +123,7 @@ export default function Schedule(props: { scheduleTimes: UpdatedTime[]; schedule
 
 	return (
 		<>
-			<table className="w-full text-sm text-center rounded-md">
+			<table className="w-full text-sm text-center rounded-md bg-wedgewood-200 border-wedgewood-300 border-2">
 				<thead className="text-lg bg-wedgewood-300">
 					<tr>
 						<td scope="col" className="px-3 py-3">
@@ -140,8 +140,8 @@ export default function Schedule(props: { scheduleTimes: UpdatedTime[]; schedule
 				<tbody className="bg-wedgewood-200">
 					{scheduleTimes.map(({ rawPeriodName, startTime, endTime, periodName }) => {
 						return (
-							<tr key={startTime} className="border-0">
-								<td scope="row" className="px-3 py-3 font-medium overflow-hidden text-ellipsis inline-block w-32 lg:w-64">
+							<tr key={startTime} className="border-wedgewood-300 border-2">
+								<td scope="row" className="px-3 py-3 font-medium">
 									{periodName}
 								</td>
 								<td className="px-3 py-3 font-medium">{formatDate(startTime)}</td>

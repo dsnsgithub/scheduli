@@ -21,13 +21,13 @@ export default function InactiveDayEditor(props: { schedule: any; setSchedule: F
 	}
 
 	return (
-		<div className="lg:p-6 p-4 shadow-lg bg-wedgewood-400 mt-4 lg:mt-10">
+		<div className="lg:p-6 p-4 shadow-lg bg-wedgewood-300 mt-4 lg:mt-10">
 			<h1 className="font-bold text-xl mb-4">Inactive Days:</h1>
 
 			<div>
 				{inactiveDaysElemList}
 
-				<button className="bg-wedgewood-500 ml-4 p-3 px-4 rounded inline-block" onClick={() => setIsOpen(true)}>
+				<button className="bg-wedgewood-400 ml-4 p-3 px-4 rounded inline-block" onClick={() => setIsOpen(true)}>
 					<FontAwesomeIcon icon={faPlus} className=""></FontAwesomeIcon>
 				</button>
 				<InactiveDayModal schedule={props.schedule} setSchedule={props.setSchedule} isOpen={isOpen} setIsOpen={setIsOpen}></InactiveDayModal>

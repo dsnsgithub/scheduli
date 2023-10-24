@@ -141,34 +141,29 @@ export default function Create() {
 	}
 
 	return (
-		<div className="container mx-auto mt-10 flex flex-col justify-center lg:p-8 shadow-lg bg-wedgewood-200 p-2">
-			<div className="flex justify-between items-center mb-10">
-				<h1 className="font-bold text-3xl">Create a Schedule Plan</h1>
-
-				<button onClick={() => reset(setSchedule, setCurrentRoutine, setScheduleName, setScheduleStartDate, setScheduleEndDate)}>
-					<FontAwesomeIcon icon={faRotateLeft} size="xl"></FontAwesomeIcon>
-				</button>
-			</div>
-
-			<div className="shadow-lg lg:p-10 bg-wedgewood-300 p-2">
+		<div className="container mx-auto mt-10 flex flex-col justify-center lg:p-8 p-2">
+			<ImportSchedule
+				schedule={schedule}
+				setSchedule={setSchedule}
+				isOpen={isImportOpen}
+				setIsOpen={setIsImportOpen}
+				setCurrentRoutine={setCurrentRoutine}
+				setScheduleStartDate={setScheduleStartDate}
+				setScheduleEndDate={setScheduleEndDate}
+				setScheduleName={setScheduleName}
+			></ImportSchedule>
+			<div className="shadow-lg lg:p-10 bg-wedgewood-200 border-wedgewood-300 border-2 p-2">
 				<div className="flex flex-row justify-between">
-					<h2 className="font-bold text-2xl mb-10">General Information</h2>
+					<h2 className="font-bold text-3xl mb-10">General Information</h2>
 
-					<div>
-						<button className="bg-wedgewood-500 ml-4 p-4 lg:p-3 lg:px-4 rounded flex items-center" onClick={() => setIsImportOpen(true)}>
+					<div className="flex flex-row items-center">
+						<button className="bg-wedgewood-400 ml-4 p-4 lg:p-3 lg:px-4 rounded flex items-center mr-4" onClick={() => setIsImportOpen(true)}>
 							<FontAwesomeIcon icon={faFileImport} className=""></FontAwesomeIcon>
-							<h4 className="hidden lg:inline lg:ml-4">Add Preset</h4>
+							<h4 className="hidden lg:inline lg:ml-4">Import Schedule</h4>
 						</button>
-						<ImportSchedule
-							schedule={schedule}
-							setSchedule={setSchedule}
-							isOpen={isImportOpen}
-							setIsOpen={setIsImportOpen}
-							setCurrentRoutine={setCurrentRoutine}
-							setScheduleStartDate={setScheduleStartDate}
-							setScheduleEndDate={setScheduleEndDate}
-							setScheduleName={setScheduleName}
-						></ImportSchedule>
+						<button onClick={() => reset(setSchedule, setCurrentRoutine, setScheduleName, setScheduleStartDate, setScheduleEndDate)}>
+							<FontAwesomeIcon icon={faRotateLeft} size="xl"></FontAwesomeIcon>
+						</button>
 					</div>
 				</div>
 
@@ -183,6 +178,7 @@ export default function Create() {
 								updateAbout("name", e.target.value, schedule, setSchedule);
 								setScheduleName(e.target.value);
 							}}
+							maxLength={32}
 						></input>
 					</div>
 
@@ -218,15 +214,15 @@ export default function Create() {
 				<InactiveDayEditor schedule={schedule} setSchedule={setSchedule}></InactiveDayEditor>
 			</div>
 
-			<section className="mt-4">
-				<div className="shadow-lg p-2 lg:p-10  bg-wedgewood-300">
+			<section className="mt-4 bg-wedgewood-200 border-wedgewood-300 border-2">
+				<div className="shadow-lg p-2 lg:p-10 ">
 					<div className="flex flex-row justify-between mb-6">
-						<h2 className="font-bold text-2xl">Routines</h2>
+						<h2 className="font-bold text-3xl">Routines</h2>
 					</div>
 
 					{routinesElemList}
 
-					<button className="bg-wedgewood-500 ml-4 p-3 px-4 rounded" onClick={() => createNewRoutine(schedule, setSchedule)}>
+					<button className="bg-wedgewood-400 ml-4 p-3 px-4 rounded" onClick={() => createNewRoutine(schedule, setSchedule)}>
 						<FontAwesomeIcon icon={faPlus} className=""></FontAwesomeIcon>
 						{/* <h4 className="hidden lg:inline lg:ml-4">Create Routine</h4> */}
 					</button>

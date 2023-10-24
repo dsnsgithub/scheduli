@@ -13,7 +13,7 @@ function removeInactiveDay(rawName: string, schedule: any, setSchedule: Function
 
 export default function InactiveDay(props: { rawName: string; schedule: any; name: string, setSchedule: Function }) {
 	return (
-		<div className="shadow-lg p-4 bg-wedgewood-500 lg:ml-4 ml-4 mt-2 inline-block">
+		<div className="shadow-lg p-4 bg-wedgewood-400 lg:ml-4 ml-4 mt-2 inline-block">
 			{props.name}
 			<button onClick={() => removeInactiveDay(props.rawName, props.schedule, props.setSchedule)}>
 				<FontAwesomeIcon className="ml-4" icon={faXmark} size="xl"></FontAwesomeIcon>
