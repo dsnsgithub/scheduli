@@ -8,7 +8,12 @@ export default function ImportSchedule(props: { schedule: any; setSchedule: Func
 	const schedulesArray = [
 		{ id: "dvhs", name: "DVHS", unavailable: false },
 		{ id: "grms6", name: "GRMS 6th Grade", unavailable: false },
-		{ id: "grms78", name: "GRMS 7th-8th Grade", unavailable: false }
+		{ id: "grms78", name: "GRMS 7th-8th Grade", unavailable: false },
+		{ id: "chs", name: "Cal High Schedule", unavailable: false },
+		{ id: "srvhs", name: "SRVHS Schedule", unavailable: false },
+		{ id: "delamigo", name: "Del Amigo Schedule", unavailable: false },
+		{ id: "mvhs", name: "MVHS Schedule", unavailable: false },
+		{ id: "srtransition", name: "SR Transition Schedule", unavailable: false }
 	];
 	const [selectedSchedule, setSelectedSchedule] = React.useState(schedulesArray[0]);
 

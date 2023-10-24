@@ -191,7 +191,7 @@ export default function Home() {
 	if (isLoading) {
 		return (
 			<div className="container mx-auto mt-10 flex flex-col justify-center lg:p-8">
-				<div className="flex items-center justify-center flex-col shadow-xl rounded-lg p-10 lg:p-24 bg-wedgewood-300">
+				<div className="flex items-center justify-center flex-col shadow-xl rounded-lg p-10 lg:p-24 bg-wedgewood-200 border-wedgewood-300 border-2">
 					<h2 className="text-2xl mt-4">Loading...</h2>
 				</div>
 			</div>
@@ -289,7 +289,7 @@ export default function Home() {
 				<div className="container mx-auto mt-10 flex flex-col justify-center lg:p-8">
 					<Status time="" timeRange="" className="No events for today."></Status>
 
-					<div className="table-fixed px-0 mt-8 lg:px-64 xl:px-96 shadow-xl p-10">
+					<div className="table-fixed px-0 mt-8 lg:px-64 xl:px-96 p-10">
 						<h2 className="font-bold text-3xl flex justify-center mb-2">{"Tomorrow's Schedule:"}</h2>
 						<Schedule scheduleTimes={scheduleTimes} scheduleDB={scheduleDB}></Schedule>
 					</div>
@@ -316,7 +316,7 @@ export default function Home() {
 				<div className="container mx-auto mt-10 flex flex-col justify-center lg:p-8">
 					<Status time="" timeRange="" className="All events are over for today."></Status>
 
-					<div className="table-fixed px-0 mt-8 lg:px-64 xl:px-96 shadow-xl p-10">
+					<div className="table-fixed px-0 mt-8 lg:px-64 xl:px-96 p-10">
 						<h2 className="font-bold text-3xl flex justify-center mb-2">{"Tomorrow's Schedule:"}</h2>
 						<Schedule scheduleTimes={scheduleTimes} scheduleDB={scheduleDB}></Schedule>
 					</div>
@@ -329,7 +329,7 @@ export default function Home() {
 		<div className="container mx-auto mt-10 flex flex-col justify-center lg:p-8">
 			<Countdown scheduleTimes={scheduleTimes}></Countdown>
 
-			<div className="table-fixed px-0 mt-8 lg:px-64 xl:px-96 shadow-xl p-10">
+			<div className="table-fixed px-0 mt-8 lg:px-64 xl:px-96 p-10">
 				<h2 className="font-bold text-3xl flex justify-center mb-2">{"Today's Schedule:"}</h2>
 				<Schedule scheduleTimes={scheduleTimes} scheduleDB={scheduleDB}></Schedule>
 			</div>

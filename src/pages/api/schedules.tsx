@@ -9,7 +9,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 			"DVHS Schedule": "dvhs",
 			"GRMS 6th Grade Schedule": "grms6",
 			"GRMS 7th-8th Grade Schedule": "grms78",
-			"Cal High Schedule": "dvhs",
+			"Cal High Schedule": "chs",
 			"SRVHS Schedule": "srvhs",
 			"Del Amigo Schedule": "delamigo",
 			"MVHS Schedule": "mvhs",
