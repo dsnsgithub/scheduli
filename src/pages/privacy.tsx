@@ -6,7 +6,7 @@ export default function Privacy() {
 
 				<h3 className="text-xl">
 					{
-						"We collect minimal data about you. We use Vercel Analytics, but it is anonymized. We don't store any user information on our servers. Our app even works offline, only accessing the internet to download a schedule."
+						"We collect minimal data about you. We use Vercel Analytics on the web only, and it is anonymized. We don't store any user information on our servers. Our app even works offline, only accessing the internet to download a schedule."
 					}
 				</h3>
 			</div>
