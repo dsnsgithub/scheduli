@@ -78,11 +78,11 @@ function getOrdinalNumber(number: any) {
 	}
 }
 
-function createAvaliablePeriodsDB(scheduleDB: ScheduleDB) {
-	const avaliablePeriods = scheduleDB["about"]["allEvents"];
+function createAvailablePeriodsDB(scheduleDB: ScheduleDB) {
+	const availablePeriods = scheduleDB["about"]["allEvents"];
 	let entry: Record<string, null> = {};
 
-	for (const period of avaliablePeriods) {
+	for (const period of availablePeriods) {
 		entry[period] = null;
 	}
 
@@ -109,7 +109,7 @@ function checkRemovedPeriods(period: string) {
 
 function findCorrectSchedule(scheduleDB: ScheduleDB, currentDate: Date) {
 	const currentTime = currentDate.getTime();
-	const dayofTheWeek = currentDate.getDay();
+	const dayOfTheWeek = currentDate.getDay();
 	let mostSpecificSchedule = null;
 	let mostSpecificDate = null;
 
@@ -150,16 +150,16 @@ function findCorrectSchedule(scheduleDB: ScheduleDB, currentDate: Date) {
 
 		for (const day of days) {
 			if (typeof day == "number") {
-				if (day == dayofTheWeek) {
+				if (day == dayOfTheWeek) {
 					if (typeof mostSpecificDate != "string") {
 						mostSpecificSchedule = schedule;
-						mostSpecificDate = dayofTheWeek;
+						mostSpecificDate = dayOfTheWeek;
 					}
 				}
 			} else {
 				if (sameDay(currentDate, new Date(`${day}/${currentDate.getFullYear()}`))) {
 					mostSpecificSchedule = schedule;
-					mostSpecificDate = dayofTheWeek;
+					mostSpecificDate = dayOfTheWeek;
 				}
 			}
 		}
@@ -198,18 +198,6 @@ export default function Home() {
 		);
 	}
 
-	// ## What is Scheduli
-	// Scheduli is a **general-purpose** schedule app avaliable on iOS and Android that keeps you informed about your daily schedule, even during the most chaotic days.
-
-	// ## Why Scheduli over competing apps?
-	// Scheduli offers a number of benefits against competing apps like Saturn.
-	// - Scheduli is a general-purpose schedule app, routines are **completely customizable** and can be used for home, work, and school.
-	// - Cross platform, avaliable on both Android and iOS
-	// - Notifications that display current event/progress to next event
-	// - Notifications that warn you if you don't have school tomorrow (planned feature)
-	// - School schedule presets are more updated/accurate
-	// - Doesn't require internet access to use core functionality
-
 	if (!scheduleDB) {
 		return (
 			<>
@@ -226,12 +214,10 @@ export default function Home() {
 		);
 	}
 
-	//? all necessary prereqs are collected
 	const currentDate = new Date();
 	const currentTime = currentDate.getTime();
-	// const currentDate = new Date(new Date().setDate(new Date().getDate() + 1));
 
-	if (!localStorage.getItem("periodNames")) createAvaliablePeriodsDB(scheduleDB);
+	if (!localStorage.getItem("periodNames")) createAvailablePeriodsDB(scheduleDB);
 	if (!localStorage.getItem("removedPeriods")) createRemovedPeriodsDB();
 
 	// parse schedules, fixing names and other issues

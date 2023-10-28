@@ -117,7 +117,7 @@ export default function Create() {
 					key={routine}
 					rawName={routine}
 					currentlySelected={true}
-					setCurrectlySelected={setCurrentRoutine}
+					setCurrentlySelected={setCurrentRoutine}
 					// @ts-ignore
 					name={schedule["routines"][routine]["officialName"]}
 					schedule={schedule}
@@ -134,7 +134,7 @@ export default function Create() {
 					schedule={schedule}
 					setSchedule={setSchedule}
 					currentlySelected={false}
-					setCurrectlySelected={setCurrentRoutine}
+					setCurrentlySelected={setCurrentRoutine}
 				></Routine>
 			);
 		}
