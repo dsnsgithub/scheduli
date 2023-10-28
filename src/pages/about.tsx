@@ -11,8 +11,8 @@ export default function About() {
 	return (
 		<div className="container mx-auto mt-10 flex flex-col justify-center lg:p-8">
 			<div className="flex items-center justify-center flex-col shadow-xl rounded-lg p-10 lg:p-24 bg-wedgewood-200 border-wedgewood-300 border-2">
-				<div className="flex flex-row items-center">
-					<div className="w-2/4 mr-10">
+				<div className="lg:flex lg:flex-row items-center">
+					<div className="lg:w-2/4 lg:mr-10">
 						<h2 className="text-4xl mt-4 font-bold">What is Scheduli? </h2>
 
 						<h2 className="text-2xl mt-4">
@@ -28,7 +28,7 @@ export default function About() {
 							</a>
 						</div>
 					</div>
-					<div className="flex flex-row items-center">
+					<div className="md:flex flex-row items-center md:visible hidden">
 						<Image src={homepageLight} alt="Scheduli Home page dark" height={600} className="mr-4"></Image>
 						<Image src={homepageDark} alt="Scheduli Home page dark" height={600}></Image>
 					</div>
