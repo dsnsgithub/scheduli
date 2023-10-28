@@ -16,6 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
 				<meta name="description" content="Scheduli keeps you informed about your daily schedule, even during the most chaotic days." />
 				<meta property="og:url" content="https://scheduli.dsns.dev" />
 				<meta property="og:image" content="https://scheduli.dsns.dev/scheduli.png" />
+				<meta name="apple-itunes-app" content="app-id=6470429917"></meta>
 			</Head>
 			<main className="min-h-screen ">
 				<Navbar />
