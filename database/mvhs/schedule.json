@@ -1,8 +1,9 @@
 {
 	"about": {
 		"sync": true,
-		"lastUpdated": "2023-10-22",
+		"lastUpdated": "2023-10-29",
 		"link": "/api/schedule/mvhs",
+		"compatibleVersion": "1.4.3",
 		"name": "Monte Vista High School Schedule",
 		"startDate": "2023-06-05",
 		"endDate": "2024-08-10",
@@ -21,7 +22,25 @@
 			"2024-05-24",
 			"2024-05-27"
 		],
-		"allEvents": ["1", "2", "3", "4", "5", "6", "7"]
+		"inactiveDays": [
+			{ "description": "Labor Day", "days": "2023-09-04" },
+			{ "description": "School Recess", "days": "2023-09-25" },
+			{ "description": "Floating Work Day", "days": "2023-09-26" },
+			{ "description": "School Recess", "days": "2023-11-01" },
+			{ "description": "Veterans Day", "days": "2023-11-10" },
+			{ "description": "Thanksgiving Break", "days": ["2023-11-20", "2023-11-24"] },
+			{ "description": "Winter Break", "days": ["2023-12-21", "2024-01-05"] },
+			{ "description": "Floating Work Day", "days": "2024-01-08" },
+			{ "description": "MLK Jr. Day", "days": "2024-01-15" },
+			{ "description": "President's Day", "days": "2024-02-19" },
+			{ "description": "Staff Development Day", "days": "2024-02-20" },
+			{ "description": "Floating Work Day", "days": "2024-03-15" },
+			{ "description": "School Recess", "days": "2024-03-29" },
+			{ "description": "Spring Break", "days": ["2024-04-01", "2024-04-05"] },
+			{ "description": "School Recess", "days": "2024-05-24" },
+			{ "description": "Memorial Day", "days": "2024-05-27" }
+		],
+		"allEvents": ["1", "2", "3", "4", "5", "6", "B"]
 	},
 	"routines": {
 		"monday": {

@@ -10,6 +10,8 @@ export default function Credits() {
 						<a href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0</a>, via Wikimedia Commons
 					</li>
 				</ul>
+
+				<h3 className="text-lg mt-10"> Created by Dominic Seung</h3>
 			</div>
 		</div>
 	);

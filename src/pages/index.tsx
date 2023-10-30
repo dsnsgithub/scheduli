@@ -18,7 +18,7 @@ export interface Routines {
 export interface About {
 	startDate: string;
 	endDate: string;
-	inactive: any[];
+	inactiveDays: any[];
 	allEvents: string[];
 }
 
@@ -78,15 +78,37 @@ function getOrdinalNumber(number: any) {
 	}
 }
 
-function createAvailablePeriodsDB(scheduleDB: ScheduleDB) {
-	const availablePeriods = scheduleDB["about"]["allEvents"];
+function createAvailablePeriodsDB(scheduleDB: any) {
+	let availablePeriods = new Set();
+
+	for (const routineName in scheduleDB["routines"]) {
+		const routine = scheduleDB["routines"][routineName];
+		for (const event of routine.events) {
+			availablePeriods.add(event.name);
+		}
+	}
+
 	let entry: Record<string, null> = {};
 
+	// @ts-ignore
 	for (const period of availablePeriods) {
+		// @ts-ignore
 		entry[period] = null;
 	}
 
-	localStorage.setItem("periodNames", JSON.stringify(entry));
+	return entry;
+}
+
+function mergeObjects(objectA: any, objectB: any) {
+	const result = { ...objectB };
+
+	for (const key in objectA) {
+		if (objectB.hasOwnProperty(key)) {
+			result[key] = objectA[key];
+		}
+	}
+
+	return result;
 }
 
 function createRemovedPeriodsDB() {
@@ -107,6 +129,22 @@ function checkRemovedPeriods(period: string) {
 	return removedPeriodNames.includes(period);
 }
 
+function parseUserDate(dateString: string) {
+	// Create a new Date object from the input date string
+	const userDate = new Date(dateString);
+
+	// Get the user's timezone offset in minutes
+	const userTimezoneOffset = userDate.getTimezoneOffset();
+
+	// Calculate the user's actual timezone offset in milliseconds
+	const userTimezoneOffsetMs = userTimezoneOffset * 60000;
+
+	// Adjust the Date object to represent the date in the user's timezone
+	const userTimezoneDate = new Date(userDate.getTime() + userTimezoneOffsetMs);
+
+	return userTimezoneDate;
+}
+
 function findCorrectSchedule(scheduleDB: ScheduleDB, currentDate: Date) {
 	const currentTime = currentDate.getTime();
 	const dayOfTheWeek = currentDate.getDay();
@@ -119,11 +157,11 @@ function findCorrectSchedule(scheduleDB: ScheduleDB, currentDate: Date) {
 	}
 
 	// Check for off days
-	for (const item of scheduleDB["about"]["inactive"]) {
-		if (typeof item === "object") {
-			let [startDate, endDate] = item;
-			startDate = new Date(startDate);
-			endDate = new Date(endDate);
+	for (const item of scheduleDB["about"]["inactiveDays"]) {
+		if (typeof item["days"] === "object") {
+			let [startDate, endDate] = item["days"];
+			startDate = parseUserDate(startDate);
+			endDate = parseUserDate(endDate);
 
 			// add one because the entire day of the endDate considered "off" still
 			endDate = new Date(endDate.setDate(endDate.getDate() + 1));
@@ -132,9 +170,11 @@ function findCorrectSchedule(scheduleDB: ScheduleDB, currentDate: Date) {
 				return null;
 			}
 		} else {
-			const startDate = new Date(item);
-			let endDate = new Date(item);
+			const startDate = parseUserDate(item["days"]);
+			let endDate = parseUserDate(item["days"]);
 			endDate = new Date(endDate.setDate(endDate.getDate() + 1));
+
+			console.log(startDate, endDate)
 
 			if (new Date(startDate).getTime() < currentTime && new Date(endDate).getTime() > currentTime) {
 				return null;
@@ -260,9 +300,6 @@ export default function Home() {
 			times.pop();
 		}
 	}
-
-	// @ts-ignore
-	scheduleDB["about"]["allEvents"] = scheduleDB["about"]["allEvents"].filter((element) => !checkRemovedPeriods(element));
 
 	const correctScheduleName = findCorrectSchedule(scheduleDB, currentDate);
 

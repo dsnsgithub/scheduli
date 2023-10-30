@@ -9,7 +9,7 @@ export interface Routines {
 export interface About {
 	startDate: string;
 	endDate: string;
-	inactive: any[];
+	inactiveDays: any[];
 	allEvents: string[];
 }
 
@@ -54,7 +54,7 @@ function findCorrectSchedule(scheduleDB: ScheduleDB, currentDate: Date) {
 	}
 
 	// Check for off days
-	for (const item of scheduleDB["about"]["inactive"]) {
+	for (const item of scheduleDB["about"]["inactiveDays"]) {
 		if (typeof item === "object") {
 			let [startDate, endDate] = item;
 			startDate = new Date(startDate);
