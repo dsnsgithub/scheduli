@@ -1,16 +1,18 @@
-import Image from "next/image";
 import Link from "next/link";
+import React from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBook, faCalendarDays, faCircleInfo, faComment, faHome } from "@fortawesome/free-solid-svg-icons";
 import { faCreativeCommonsBy } from "@fortawesome/free-brands-svg-icons";
 
 export default function Navbar() {
+	const [currentDate, setCurrentDate] = React.useState(new Date().getDate());
+
 	return (
 		<nav className="flex justify-around items-center mt-8 py-4 px-4">
 			<Link className="flex items-center" href="/">
 				{/* if you don't do this, vercel will auto optimize and ruin it */}
-				<img src={`/dynamic/scheduli${new Date().getDate()}.png`} alt="Scheduli Icon" width="80" />
+				<img src={`/dynamic/scheduli${currentDate}.png`} alt="Scheduli Icon" width="80" />
 				<h1 className="px-4 text-4xl font-bold hidden lg:inline">Scheduli</h1>
 			</Link>
 
