@@ -174,8 +174,6 @@ function findCorrectSchedule(scheduleDB: ScheduleDB, currentDate: Date) {
 			let endDate = parseUserDate(item["days"]);
 			endDate = new Date(endDate.setDate(endDate.getDate() + 1));
 
-			console.log(startDate, endDate)
-
 			if (new Date(startDate).getTime() < currentTime && new Date(endDate).getTime() > currentTime) {
 				return null;
 			}
@@ -324,7 +322,7 @@ export default function Home() {
 					<Status time="" timeRange="" className="No events for today."></Status>
 
 					<div className="table-fixed px-0 mt-8 lg:px-64 xl:px-96 p-10">
-						<h2 className="font-bold text-3xl flex justify-center mb-2">{"Tomorrow's Schedule:"}</h2>
+						<h2 className="font-bold text-3xl flex justify-center mb-2 text-center">{"Tomorrow's Schedule:"}</h2>
 						<Schedule scheduleTimes={scheduleTimes} scheduleDB={scheduleDB}></Schedule>
 					</div>
 				</div>
@@ -351,7 +349,7 @@ export default function Home() {
 					<Status time="" timeRange="" className="All events are over for today."></Status>
 
 					<div className="table-fixed px-0 mt-8 lg:px-64 xl:px-96 p-10">
-						<h2 className="font-bold text-3xl flex justify-center mb-2">{"Tomorrow's Schedule:"}</h2>
+						<h2 className="font-bold text-3xl flex justify-center mb-2 text-center">{"Tomorrow's Schedule:"}</h2>
 						<Schedule scheduleTimes={scheduleTimes} scheduleDB={scheduleDB}></Schedule>
 					</div>
 				</div>
@@ -364,7 +362,7 @@ export default function Home() {
 			<Countdown scheduleTimes={scheduleTimes}></Countdown>
 
 			<div className="table-fixed px-0 mt-8 lg:px-64 xl:px-96 p-10">
-				<h2 className="font-bold text-3xl flex justify-center mb-2">{"Today's Schedule:"}</h2>
+				<h2 className="font-bold text-3xl flex justify-center mb-2 text-center">{"Today's Schedule:"}</h2>
 				<Schedule scheduleTimes={scheduleTimes} scheduleDB={scheduleDB}></Schedule>
 			</div>
 		</div>
