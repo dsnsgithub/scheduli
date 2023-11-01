@@ -6,19 +6,22 @@ import { faBook, faCalendarDays, faCircleInfo, faComment, faHome } from "@fortaw
 import { faCreativeCommonsBy } from "@fortawesome/free-brands-svg-icons";
 
 export default function Navbar() {
-	const [currentDate, setCurrentDate] = React.useState(new Date().getDate());
+	const [currentDate, setCurrentDate] = React.useState(new Date());
 
 	React.useEffect(() => {
-		if (new Date().getDate() != currentDate) {
-			setCurrentDate(new Date().getDate());
-		}
+		const interval = setInterval(() => {
+			setCurrentDate(new Date());
+		}, 1000); // Update every second, or adjust as needed
+
+		// Clean up the interval when the component unmounts
+		return () => clearInterval(interval);
 	}, []);
 
 	return (
 		<nav className="flex justify-around items-center mt-8 py-4 px-4">
 			<Link className="flex items-center" href="/">
 				{/* if you don't do this, vercel will auto optimize and ruin it */}
-				<img src={`/dynamic/scheduli${currentDate}.png`} alt="Scheduli Icon" width="80" />
+				<img src={`/dynamic/scheduli${currentDate.getDate()}.png`} alt="Scheduli Icon" width="80" />
 				<h1 className="px-4 text-4xl font-bold hidden lg:inline">Scheduli</h1>
 			</Link>
 
