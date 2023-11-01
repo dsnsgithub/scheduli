@@ -7,10 +7,15 @@ import { faCreativeCommonsBy } from "@fortawesome/free-brands-svg-icons";
 
 export default function Navbar() {
 	const [currentDate, setCurrentDate] = React.useState(new Date());
+	const [isLoading, setIsLoading] = React.useState(true);
 
 	React.useEffect(() => {
+		setCurrentDate(new Date());
+		setIsLoading(false);
+
 		const interval = setInterval(() => {
 			setCurrentDate(new Date());
+			setIsLoading(false);
 		}, 1000); // Update every second, or adjust as needed
 
 		// Clean up the interval when the component unmounts
@@ -21,7 +26,7 @@ export default function Navbar() {
 		<nav className="flex justify-around items-center mt-8 py-4 px-4">
 			<Link className="flex items-center" href="/">
 				{/* if you don't do this, vercel will auto optimize and ruin it */}
-				<img src={`/dynamic/scheduli${currentDate.getDate()}.png`} alt="Scheduli Icon" width="80" />
+				{isLoading ? <></> : <img src={`/dynamic/scheduli${currentDate.getDate()}.png`} alt="Scheduli Icon" width="80" />}
 				<h1 className="px-4 text-4xl font-bold hidden lg:inline">Scheduli</h1>
 			</Link>
 
