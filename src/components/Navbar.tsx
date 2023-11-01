@@ -5,14 +5,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBook, faCalendarDays, faCircleInfo, faComment, faHome } from "@fortawesome/free-solid-svg-icons";
 import { faCreativeCommonsBy } from "@fortawesome/free-brands-svg-icons";
 
-import ScheduleIcon from "./scheduleicon";
-
 export default function Navbar() {
 	return (
 		<nav className="flex justify-around items-center mt-8 py-4 px-4">
 			<Link className="flex items-center" href="/">
-				{/* <img src={`/dynamic/scheduli${new Date().getDate()}.png`} alt="Scheduli Icon" width="80" /> */}
-				<Image src={ScheduleIcon(new Date().getDate())} alt="Scheduli Icon" width="80" quality={100}></Image>
+				{/* if you don't do this, vercel will auto optimize and ruin it */}
+				<img src={`/dynamic/scheduli${new Date().getDate()}.png`} alt="Scheduli Icon" width="80" />
 				<h1 className="px-4 text-4xl font-bold hidden lg:inline">Scheduli</h1>
 			</Link>
 
