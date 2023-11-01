@@ -107,6 +107,18 @@ export default function Create() {
 		);
 	}
 
+	// backwards compatibility
+	// @ts-ignore
+	if (!schedule["about"]["inactiveDays"]) {
+		// @ts-ignore
+		schedule["about"]["inactiveDays"] = schedule["about"]["inactive"].map((item) => {
+			return { description: "Inactive Day", days: item };
+		});
+
+		localStorage.setItem("currentSchedule", JSON.stringify(schedule));
+		setSchedule(schedule);
+	}
+
 	let routinesElemList = [];
 	// @ts-ignore
 	for (const routine in schedule["routines"]) {

@@ -308,7 +308,7 @@ export default function Home() {
 			return { description: "Inactive Day", days: item };
 		});
 
-		localStorage.set("currentSchedule", JSON.stringify(scheduleDB));
+		localStorage.setItem("currentSchedule", JSON.stringify(scheduleDB));
 		setScheduleDB(scheduleDB);
 	}
 
