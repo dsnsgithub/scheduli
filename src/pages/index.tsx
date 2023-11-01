@@ -301,6 +301,17 @@ export default function Home() {
 		}
 	}
 
+	// backwards compatibility
+	if (!scheduleDB["about"]["inactiveDays"]) {
+		// @ts-ignore
+		scheduleDB["about"]["inactiveDays"] = scheduleDB["about"]["inactive"].map((item) => {
+			return { description: "Inactive Day", days: item };
+		});
+
+		localStorage.set("currentSchedule", JSON.stringify(scheduleDB));
+		setScheduleDB(scheduleDB);
+	}
+
 	const correctScheduleName = findCorrectSchedule(scheduleDB, currentDate);
 
 	if (correctScheduleName == null) {
