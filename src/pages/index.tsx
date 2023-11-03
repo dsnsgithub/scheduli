@@ -195,9 +195,18 @@ function findCorrectSchedule(scheduleDB: ScheduleDB, currentDate: Date) {
 					}
 				}
 			} else {
-				if (sameDay(currentDate, new Date(`${day}/${currentDate.getFullYear()}`))) {
-					mostSpecificSchedule = schedule;
-					mostSpecificDate = dayOfTheWeek;
+				if (typeof day == "object") {
+					const startDate = new Date(day[0]);
+					let endDate = new Date(day[1]);
+					endDate = new Date(endDate.setDate(endDate.getDate() + 1));
+
+					if (startDate.getTime() < currentTime && endDate.getTime() > currentTime) {
+						return schedule;
+					}
+				} else {
+					if (sameDay(currentDate, parseUserDate(day))) {
+						return schedule;
+					}
 				}
 			}
 		}
