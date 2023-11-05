@@ -2,10 +2,12 @@ import React from "react";
 import Link from "next/link";
 
 import Image from "next/image";
-import homepageDark from "../../public/mobile/homepageDark.png";
-import homepageLight from "../../public/mobile/homepageLight.png";
+
 import googlePlayBadge from "../../public/mobile/google-play-badge.png";
 import appleBadge from "../../public/mobile/black.svg";
+
+import mainImg from "../../public/mobile/5.png"; 
+import secondaryImg from "../../public/mobile/4.png"; 
 
 export default function About() {
 	return (
@@ -29,8 +31,8 @@ export default function About() {
 						</div>
 					</div>
 					<div className="md:flex flex-row items-center md:visible hidden">
-						<Image src={homepageLight} alt="Scheduli Home page dark" height={600} className="mr-4"></Image>
-						<Image src={homepageDark} alt="Scheduli Home page dark" height={600}></Image>
+						<Image src={mainImg} alt="Scheduli main image" height={600} className="mr-4"></Image>
+						<Image src={secondaryImg} alt="Scheduli secondary image" height={600}></Image>
 					</div>
 				</div>
 
