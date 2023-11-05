@@ -1,5 +1,5 @@
 # Scheduli
-![image](https://github.com/dsnsgithub/scheduli/assets/48170013/cca3557b-3c30-46bb-b269-b026b8433249)
+![image](https://github.com/dsnsgithub/scheduli/assets/48170013/45ab9cd1-b8f3-44b2-be60-d4b105ce2176)
 
 Scheduli keeps you informed about your daily schedule, even during the most chaotic days. This app was created using Next.js, React, and Tailwind.
 
