@@ -32,7 +32,7 @@ export default function InactiveDayEditor(props: { schedule: any; setSchedule: F
 			<div className="flex flex-wrap">
 				{inactiveDaysElemList}
 
-				<button className="bg-wedgewood-400 m-4 px-4 rounded inline-block" onClick={() => setIsOpen(true)}>
+				<button className="shadow-lg p-4 bg-wedgewood-400 lg:ml-4 ml-4 mt-2 flex flex-row items-center justify-center rounded" onClick={() => setIsOpen(true)}>
 					<FontAwesomeIcon icon={faPlus} className=""></FontAwesomeIcon>
 				</button>
 
