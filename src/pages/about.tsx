@@ -17,9 +17,7 @@ export default function About() {
 					<div className="lg:w-2/4 lg:mr-10">
 						<h2 className="text-4xl mt-4 font-bold">What is Scheduli? </h2>
 
-						<h2 className="text-2xl mt-4">
-							Scheduli is a <b>general-purpose</b> schedule app available on iOS and Android that keeps you informed about your daily schedule, even during the most chaotic days.
-						</h2>
+						<h2 className="text-2xl mt-4">Scheduli is an app to track complicated school schedules, even during the most chaotic days.</h2>
 
 						<div className="flex items-center">
 							<a href="https://apps.apple.com/us/app/scheduli/id6470429917?itsct=apps_box_badge&amp;itscg=30200">
@@ -42,11 +40,12 @@ export default function About() {
 
 				<h2 className="text-2xl mt-4 mb-4">Scheduli offers a number of benefits against competing apps.</h2>
 				<ul className="list-disc text-lg">
-					<li>Scheduli is a general-purpose schedule app, routines are completely customizable and can be used for home, work, and school.</li>
+					<li>Scheduli doesn{`'`}t lock you in to one schedule, routines are completely customizable and can be used for home, work, and school.</li>
 					<li>
 						Cross platform, <b>available on both Android and iOS</b>
 					</li>
-					<li>Notifications that display current event/progress to next event</li>
+					<li>Real-time Widgets to always stay on top of your schedule</li>
+					<li>Notifications that display current event/progress to next event (Android exclusive)</li>
 					<li>School schedule presets are more updated/accurate</li>
 					<li>Does not require internet access to use core functionality</li>
 				</ul>
