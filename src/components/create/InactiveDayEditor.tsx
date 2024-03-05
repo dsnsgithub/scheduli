@@ -26,7 +26,7 @@ export default function InactiveDayEditor(props: { schedule: any; setSchedule: F
 	}
 
 	return (
-		<div className="lg:p-6 p-4 shadow-lg bg-wedgewood-300 mt-4 lg:mt-10">
+		<div className="lg:p-6 p-4 shadow-lg bg-wedgewood-300 mt-4 lg:mt-10 rounded-lg">
 			<h1 className="font-bold text-xl mb-4">Inactive Days:</h1>
 
 			<div className="flex flex-wrap">

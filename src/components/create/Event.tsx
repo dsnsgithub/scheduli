@@ -39,7 +39,7 @@ function removeEvent(currentRoutine: string, schedule: any, setSchedule: Functio
 export default function Event(props: { name: string; startTime: string; endTime: string; schedule: any; setSchedule: Function; currentRoutine: string; eventIndex: number }) {
 	return (
 		<div className="flex flex-col mt-8">
-			<div className="shadow-xl p-2 md:p-8 lg:p-10 mt-8 bg-wedgewood-300">
+			<div className="shadow-xl p-2 md:p-8 lg:p-10 mt-8 bg-wedgewood-300 rounded-lg">
 				<div className="flex items-center justify-between">
 					<div>
 						<label className="text-lg">Name:</label>

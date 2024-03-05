@@ -133,7 +133,7 @@ export default function EventEditor(props: { currentRoutine: string; schedule: a
 				</div>
 			</div>
 
-			<div className="lg:p-6 p-4 shadow-lg bg-wedgewood-300 mt-4 lg:mt-10">
+			<div className="lg:p-6 p-4 shadow-lg bg-wedgewood-300 mt-4 lg:mt-10 rounded-lg">
 				<h1 className="font-bold text-xl">{"Active Days for " + props.schedule["routines"][props.currentRoutine]["officialName"]}</h1> <br></br>
 				<div className="md:flex items-center">
 					{activeWhenElemList}

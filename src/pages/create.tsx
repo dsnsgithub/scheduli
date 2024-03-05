@@ -164,7 +164,7 @@ export default function Create() {
 				setScheduleEndDate={setScheduleEndDate}
 				setScheduleName={setScheduleName}
 			></ImportSchedule>
-			<div className="shadow-lg lg:p-10 bg-wedgewood-200 border-wedgewood-300 border-2 p-2">
+			<div className="shadow-lg lg:p-10 bg-wedgewood-200 border-wedgewood-300 border-2 p-2 rounded-lg">
 				<div className="flex flex-row justify-between">
 					<h2 className="font-bold text-3xl mb-10">General Information</h2>
 
@@ -226,8 +226,8 @@ export default function Create() {
 				<InactiveDayEditor schedule={schedule} setSchedule={setSchedule}></InactiveDayEditor>
 			</div>
 
-			<section className="mt-4 bg-wedgewood-200 border-wedgewood-300 border-2">
-				<div className="shadow-lg p-2 lg:p-10 ">
+			<section className="mt-4 bg-wedgewood-200 border-wedgewood-300 border-2 rounded-lg">
+				<div className="shadow-lg p-2 lg:p-10">
 					<div className="flex flex-row justify-between mb-6">
 						<h2 className="font-bold text-3xl">Routines</h2>
 					</div>

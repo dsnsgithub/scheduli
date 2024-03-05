@@ -4,6 +4,11 @@ import Navbar from "../components/Navbar";
 import { Analytics } from "@vercel/analytics/react";
 
 import Head from "next/head";
+import { Poppins } from "next/font/google";
+const poppins = Poppins({
+	weight: ["400", "700"],
+	subsets: ["latin"]
+});
 
 export default function App({ Component, pageProps }: AppProps) {
 	return (
@@ -18,7 +23,7 @@ export default function App({ Component, pageProps }: AppProps) {
 				<meta property="og:image" content="https://scheduli.dsns.dev/scheduli.png" />
 				<meta name="apple-itunes-app" content="app-id=6470429917"></meta>
 			</Head>
-			<main className="min-h-screen">
+			<main className={"min-h-screen " + poppins.className}>
 				<Navbar />
 				<Component {...pageProps} />
 				<Analytics />
