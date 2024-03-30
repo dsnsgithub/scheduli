@@ -58,6 +58,7 @@ function createNewEvent(currentRoutine: string, schedule: any, setSchedule: Func
 export default function EventEditor(props: { currentRoutine: string; schedule: any; setSchedule: Function }) {
 	const [isOpen, setIsOpen] = React.useState(false);
 	const [parent] = useAutoAnimate();
+	const [activeDays] = useAutoAnimate();
 
 	let eventElemList = [];
 
@@ -137,7 +138,7 @@ export default function EventEditor(props: { currentRoutine: string; schedule: a
 
 			<div className="lg:p-6 p-4 shadow-lg bg-wedgewood-300 mt-4 lg:mt-10 rounded-lg">
 				<h1 className="font-bold text-xl">{"Active Days for " + props.schedule["routines"][props.currentRoutine]["officialName"]}</h1> <br></br>
-				<div className="md:flex items-center">
+				<div className="md:flex items-center" ref={activeDays}>
 					{activeWhenElemList}
 
 					<button className="bg-wedgewood-400 ml-4 p-3 px-4 rounded" onClick={() => setIsOpen(true)}>

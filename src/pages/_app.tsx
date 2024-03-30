@@ -12,8 +12,8 @@ const poppins = Poppins({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
-	const [parent] = useAutoAnimate();
-	
+	const [parent] = useAutoAnimate({ duration: 150 });
+
 	return (
 		<>
 			<Head>
