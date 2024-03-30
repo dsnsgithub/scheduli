@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import Navbar from "../components/Navbar";
 import { Analytics } from "@vercel/analytics/react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 import Head from "next/head";
 import { Poppins } from "next/font/google";
@@ -11,6 +12,8 @@ const poppins = Poppins({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+	const [parent] = useAutoAnimate();
+	
 	return (
 		<>
 			<Head>
@@ -23,7 +26,7 @@ export default function App({ Component, pageProps }: AppProps) {
 				<meta property="og:image" content="https://scheduli.dsns.dev/scheduli.png" />
 				<meta name="apple-itunes-app" content="app-id=6470429917"></meta>
 			</Head>
-			<main className={"min-h-screen " + poppins.className}>
+			<main className={"min-h-screen " + poppins.className} ref={parent}>
 				<Navbar />
 				<Component {...pageProps} />
 				<Analytics />

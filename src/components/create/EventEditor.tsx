@@ -7,6 +7,7 @@ import ActiveRoutineDay from "./ActiveRoutineDay";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 function convertDayToString(number: number) {
 	const days = {
@@ -56,6 +57,7 @@ function createNewEvent(currentRoutine: string, schedule: any, setSchedule: Func
 
 export default function EventEditor(props: { currentRoutine: string; schedule: any; setSchedule: Function }) {
 	const [isOpen, setIsOpen] = React.useState(false);
+	const [parent] = useAutoAnimate();
 
 	let eventElemList = [];
 
@@ -126,7 +128,7 @@ export default function EventEditor(props: { currentRoutine: string; schedule: a
 	}
 
 	return (
-		<div className="shadow-lg p-2 lg:p-10 bg-wedgewood-200">
+		<div className="shadow-lg p-2 lg:p-10 bg-wedgewood-200" ref={parent}>
 			<div className="flex justify-between items-center">
 				<div>
 					<h1 className="font-bold text-2xl">{props.schedule["routines"][props.currentRoutine]["officialName"] + "'s Events"}</h1>

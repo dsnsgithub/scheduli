@@ -8,6 +8,7 @@ import InactiveDayEditor from "../components/create/InactiveDayEditor";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faRotateLeft, faFileImport } from "@fortawesome/free-solid-svg-icons";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 function createNewRoutine(schedule: any, setSchedule: Function) {
 	const enteredName = prompt("Please enter a routine name:");
@@ -69,6 +70,8 @@ export default function Create() {
 	const [scheduleName, setScheduleName] = React.useState("");
 	const [scheduleStartDate, setScheduleStartDate] = React.useState("");
 	const [scheduleEndDate, setScheduleEndDate] = React.useState("");
+
+	const [routines] = useAutoAnimate();
 
 	React.useEffect(() => {
 		if (localStorage.getItem("currentSchedule") != null) {
@@ -227,7 +230,7 @@ export default function Create() {
 			</div>
 
 			<section className="mt-4 bg-wedgewood-200 border-wedgewood-300 border-2 rounded-lg">
-				<div className="shadow-lg p-2 lg:p-10">
+				<div className="shadow-lg p-2 lg:p-10" ref={routines}>
 					<div className="flex flex-row justify-between mb-6">
 						<h2 className="font-bold text-3xl">Routines</h2>
 					</div>
