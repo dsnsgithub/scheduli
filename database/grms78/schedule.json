@@ -1,51 +1,35 @@
 {
 	"about": {
 		"sync": true,
-		"lastUpdated": "2023-12-01",
+		"lastUpdated": "2024-06-07",
 		"link": "/api/schedule/grms78",
 		"compatibleVersion": "1.5.5",
 		"name": "Gale Ranch 7th-8th Grade School Schedule",
-		"startDate": "2023-08-10",
-		"endDate": "2024-06-05",
-		"inactive": [
-			"2023-09-04",
-			["2023-09-25", "2023-09-26"],
-			"2023-11-01",
-			"2023-11-10",
-			["2023-11-20", "2023-11-24"],
-			["2023-12-21", "2024-01-08"],
-			"2024-01-15",
-			["2024-02-19", "2024-02-20"],
-			"2024-03-15",
-			"2024-03-29",
-			["2024-04-01", "2024-04-05"],
-			"2024-05-24",
-			"2024-05-27"
-		],
+		"startDate": "2024-08-14",
+		"endDate": "2025-06-05",
 		"inactiveDays": [
-			{ "description": "Labor Day", "days": "2023-09-04" },
-			{ "description": "School Recess", "days": "2023-09-25" },
-			{ "description": "Floating Work Day", "days": "2023-09-26" },
-			{ "description": "School Recess", "days": "2023-11-01" },
-			{ "description": "Veterans Day", "days": "2023-11-10" },
-			{ "description": "Thanksgiving Break", "days": ["2023-11-20", "2023-11-24"] },
-			{ "description": "Winter Break", "days": ["2023-12-21", "2024-01-05"] },
-			{ "description": "Floating Work Day", "days": "2024-01-08" },
-			{ "description": "MLK Jr. Day", "days": "2024-01-15" },
-			{ "description": "President's Day", "days": "2024-02-19" },
-			{ "description": "Staff Development Day", "days": "2024-02-20" },
-			{ "description": "Floating Work Day", "days": "2024-03-15" },
-			{ "description": "School Recess", "days": "2024-03-29" },
-			{ "description": "Spring Break", "days": ["2024-04-01", "2024-04-05"] },
-			{ "description": "School Recess", "days": "2024-05-24" },
-			{ "description": "Memorial Day", "days": "2024-05-27" }
+			{ "description": "Labor Day", "days": "2024-09-02" },
+			{ "description": "Floating Work Day", "days": "2024-10-03" },
+			{ "description": "School Recess", "days": "2024-10-04" },
+			{ "description": "School Recess", "days": "2024-11-01" },
+			{ "description": "Veterans Day", "days": "2024-11-11" },
+			{ "description": "Thanksgiving Break", "days": ["2024-11-25", "2024-11-29"] },
+			{ "description": "Winter Break", "days": ["2024-12-23", "2025-01-03"] },
+			{ "description": "Floating Work Day", "days": "2025-01-06" },
+			{ "description": "MLK Jr. Day", "days": "2025-01-20" },
+			{ "description": "President's Day", "days": "2025-02-17" },
+			{ "description": "Staff Development Day", "days": "2025-02-18" },
+			{ "description": "Floating Work Day", "days": "2025-03-14" },
+			{ "description": "Spring Break", "days": ["2025-04-07", "2025-04-11"] },
+			{ "description": "School Recess", "days": "2025-05-23" },
+			{ "description": "Memorial Day", "days": "2025-05-26" }
 		],
-		"allEvents": ["1", "2", "3", "4", "5", "6", "B"]
+		"allEvents": ["1", "2", "3", "4", "5", "6", "7"]
 	},
 	"routines": {
 		"regular7-8": {
 			"officialName": "Regular",
-			"days": [1, 2, 5]
+			"days": [1, 2, 5, "2024-10-02", "2024-10-30", "2025-06-04"]
 		},
 		"wednesday7-8": {
 			"officialName": "Wednesday Block",
@@ -57,15 +41,15 @@
 		},
 		"minimum": {
 			"officialName": "Minimum",
-			"days": ["2023-08-10", ["2023-10-02", "2023-10-06"], "2023-10-31", "2023-12-20", ["2024-03-20", "2024-03-22"], "2023-06-05"]
+			"days": [["2024-08-14", "2024-08-16"], ["2024-10-07", "2024-10-11"], "2024-10-31", "2024-11-22", "2024-12-20", "2025-02-14", ["2025-03-17", "2025-03-21"], "2025-04-04"]
 		},
 		"promotion": {
 			"officialName": "Promotion",
-			"days": ["2023-06-05"]
+			"days": ["2025-06-05"]
 		},
 		"rally7-8": {
 			"officialName": "Rally",
-			"days": ["2024-05-17"]
+			"days": ["2024-12-06", "2025-05-16"]
 		}
 	}
 }

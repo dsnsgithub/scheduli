@@ -53,7 +53,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 			for (const line of scheduleArray) {
 				let rawPeriodName, startTime, endTime;
 
-				if (school != "dvhs" && school != "grms6" && school != "grms78") {
+				if (school != "dvhs") {
 					[rawPeriodName, startTime, endTime] = line.split(",");
 				} else {
 					[rawPeriodName, startTime, endTime] = line.split(" ");

@@ -7,4 +7,4 @@ Lunch,12:25PM,12:55PM
 Passing,12:55PM,1:00PM
 Period 5/6,1:00PM,2:35PM
 Passing,2:35PM,2:40PM
-B Period,2:40PM,3:41PM
+B Period,2:40PM,3:40PM
