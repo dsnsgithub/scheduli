@@ -42,7 +42,7 @@ function formatDate(timestamp: number) {
 export default function Schedule(props: { scheduleTimes: UpdatedTime[]; scheduleDB: ScheduleDB }) {
 	return (
 		<>
-			<table className="w-full text-sm text-center rounded-md bg-wedgewood-200 border-wedgewood-300 border-2">
+			<table className="w-full text-sm text-center bg-wedgewood-300 border-2 rounded-lg overflow-hidden shadow-md">
 				<thead className="text-lg bg-wedgewood-300">
 					<tr>
 						<td scope="col" className="px-3 py-3">
@@ -59,12 +59,12 @@ export default function Schedule(props: { scheduleTimes: UpdatedTime[]; schedule
 				<tbody className="bg-wedgewood-200">
 					{props.scheduleTimes.map(({ rawPeriodName, startTime, endTime, periodName }) => {
 						return (
-							<tr key={startTime} className="border-wedgewood-300 border-2">
+							<tr key={startTime} className="border-wedgewood-300 border-t">
 								<td scope="row" className="px-3 py-3 font-medium">
 									{periodName}
 								</td>
 								<td className="px-3 py-3 font-medium">{formatDate(startTime)}</td>
-								<td className="px-3 py-3 font-medium ">{formatDate(endTime)}</td>
+								<td className="px-3 py-3 font-medium">{formatDate(endTime)}</td>
 							</tr>
 						);
 					})}
