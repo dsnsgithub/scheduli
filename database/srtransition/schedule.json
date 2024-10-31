@@ -1,7 +1,7 @@
 {
 	"about": {
 		"sync": true,
-		"lastUpdated": "2024-06-07",
+		"lastUpdated": "2024-10-31",
 		"link": "/api/schedule/srtransition",
 		"compatibleVersion": "1.7.0",
 		"name": "San Ramon Transition School Schedule",
