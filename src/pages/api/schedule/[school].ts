@@ -63,7 +63,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 				startTime = startTime.replace(/(\r\n|\n|\r)/gm, "");
 				endTime = endTime.replace(/(\r\n|\n|\r)/gm, "");
 
-				if (rawPeriodName == "Passing") continue;
+				// if (rawPeriodName == "Passing") continue;
 
 				let [startHour, startMinute] = startTime.split(":");
 

@@ -26,12 +26,16 @@ export interface Schedule {
 	officialName: string;
 	days: any[];
 	times: Time[];
+	events: Time[];
 }
 
 export interface Time {
 	rawPeriodName: string;
+	name: string;
 	startTime: number;
 	endTime: number;
+	periodName: string;
+	userCreated?: boolean;
 }
 
 export interface UpdatedTime {
@@ -109,6 +113,19 @@ function mergeObjects(objectA: any, objectB: any) {
 	}
 
 	return result;
+}
+
+function removePassing(scheduleDB: ScheduleDB) {
+	for (const scheduleName in scheduleDB["routines"]) {
+		for (let i = scheduleDB["routines"][scheduleName]["events"].length - 1; i >= 0; i--) {
+			const event = scheduleDB["routines"][scheduleName]["events"][i];
+			if (event.periodName.startsWith("Passing")) {
+				scheduleDB["routines"][scheduleName]["events"].splice(i, 1);
+			}
+		}
+	}
+
+	return scheduleDB;
 }
 
 function createRemovedPeriodsDB() {
@@ -216,7 +233,7 @@ function findCorrectSchedule(scheduleDB: ScheduleDB, currentDate: Date) {
 }
 
 export default function Home() {
-	let [scheduleDB, setScheduleDB] = React.useState(null);
+	let [scheduleDB, setScheduleDB] = React.useState<null | ScheduleDB>();
 	const [isLoading, setLoading] = React.useState(true);
 
 	React.useEffect(() => {
@@ -269,7 +286,7 @@ export default function Home() {
 
 	// parse schedules, fixing names and other issues
 	// must loop backwards to avoid weird index issues
-	for (const scheduleName in scheduleDB["routines"] as ScheduleDB) {
+	for (const scheduleName in scheduleDB["routines"]) {
 		if (scheduleName == "about") continue;
 
 		// @ts-ignore
@@ -294,6 +311,29 @@ export default function Home() {
 
 			// @ts-ignore
 			scheduleDB["routines"][scheduleName]["events"][Number(i)]["periodName"] = periodName;
+		}
+
+		// @ts-ignore
+		for (let i = scheduleDB["routines"][scheduleName]["events"].length - 1; i >= 0; i--) {
+			const event = scheduleDB["routines"][scheduleName]["events"][i];
+			// @ts-ignore
+			if (event.name == "Passing") {
+				// @ts-ignore
+				if (i == scheduleDB["routines"][scheduleName]["events"].length - 1) {
+					// @ts-ignore
+					scheduleDB["routines"][scheduleName]["events"].pop();
+					continue;
+				}
+
+				if (i == 0) {
+					// @ts-ignore
+					scheduleDB["routines"][scheduleName]["events"].shift();
+					continue;
+				}
+
+				// @ts-ignore
+				scheduleDB["routines"][scheduleName]["events"][i]["periodName"] = `Passing - ${scheduleDB["routines"][scheduleName]["events"][i + 1]["periodName"]}`;
+			}
 		}
 
 		const times = scheduleDB["routines"][scheduleName]["events"] as UpdatedTime[];
@@ -332,7 +372,7 @@ export default function Home() {
 
 					<div className="table-fixed px-0 mt-8 lg:px-64 xl:px-96 p-10">
 						<h2 className="font-bold text-3xl flex justify-center mb-2 text-center">{"Tomorrow's Schedule:"}</h2>
-						<Schedule scheduleTimes={scheduleTimes} scheduleDB={scheduleDB}></Schedule>
+						<Schedule scheduleTimes={scheduleTimes} scheduleDB={removePassing(scheduleDB)}></Schedule>
 					</div>
 				</div>
 			);
@@ -359,7 +399,7 @@ export default function Home() {
 
 					<div className="table-fixed px-0 mt-8 lg:px-64 xl:px-96 p-10">
 						<h2 className="font-bold text-3xl flex justify-center mb-2 text-center">{"Tomorrow's Schedule:"}</h2>
-						<Schedule scheduleTimes={scheduleTimes} scheduleDB={scheduleDB}></Schedule>
+						<Schedule scheduleTimes={scheduleTimes} scheduleDB={removePassing(scheduleDB)}></Schedule>
 					</div>
 				</div>
 			);
@@ -372,7 +412,7 @@ export default function Home() {
 
 			<div className="table-fixed px-0 mt-8 lg:px-64 xl:px-96 p-10">
 				<h2 className="font-bold text-3xl flex justify-center mb-2 text-center">{"Today's Schedule:"}</h2>
-				<Schedule scheduleTimes={scheduleTimes} scheduleDB={scheduleDB}></Schedule>
+				<Schedule scheduleTimes={scheduleTimes} scheduleDB={removePassing(scheduleDB)}></Schedule>
 			</div>
 		</div>
 	);

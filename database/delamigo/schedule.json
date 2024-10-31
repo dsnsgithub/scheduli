@@ -2,7 +2,7 @@
 	"about": {
 		"sync": true,
 		"lastUpdated": "2024-06-07",
-		"compatibleVersion": "1.5.5",
+		"compatibleVersion": "1.7.0",
 		"link": "/api/schedule/delamigo",
 		"name": "Del Amigo School Schedule",
 		"startDate": "2024-08-14",
