@@ -98,7 +98,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
 		return res.status(200).json(scheduleDB);
 	} catch (error) {
-		// console.error(error)
+		console.error(error)
 		return res.status(400).json({ error: "Invalid request!!" });
 	}
 }
