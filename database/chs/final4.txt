@@ -1,4 +1,0 @@
-Period 3,8:30AM,10:30AM
-Break,10:30AM,10:40AM
-Passing,10:40AM,10:45AM
-Period 6,10:45AM,12:45PM

@@ -1,0 +1,18 @@
+1 8:30 AM 9:20 AM 
+Passing 9:20 AM 9:26 AM 
+2 9:26 AM 10:16 AM 
+Break 10:16 AM 10:24 AM 
+Passing 10:24 AM 10:30 AM 
+3 10:30 AM 11:20 AM 
+Homeroom 11:20 AM 11:30 AM 
+Passing 11:30 AM 11:36 AM 
+4 11:36 AM 12:26 PM 
+Lunch 12:26 PM 12:56 PM 
+Passing 12:56 PM 1:02 PM 
+5 1:02 PM 1:52 PM 
+Passing 1:52 PM 1:58 PM 
+6 1:58 PM 2:48 PM 
+Break 2:48 PM 2:52 PM 
+Passing 2:52 PM 2:58 PM 
+B 2:58 PM 3:48 PM
+

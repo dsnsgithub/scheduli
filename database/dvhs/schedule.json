@@ -1,35 +1,36 @@
 {
 	"about": {
 		"sync": true,
-		"lastUpdated": "2025-03-03",
+		"lastUpdated": "2025-07-14",
 		"compatibleVersion": "1.7.0",
 		"link": "/api/schedule/dvhs",
 		"name": "DV School Schedule",
-		"startDate": "2024-08-14",
-		"endDate": "2025-06-05",
+		"startDate": "2025-08-13",
+		"endDate": "2026-06-04",
 		"inactiveDays": [
-			{ "description": "Labor Day", "days": "2024-09-02" },
-			{ "description": "Floating Work Day", "days": "2024-10-03" },
-			{ "description": "School Recess", "days": "2024-10-04" },
-			{ "description": "School Recess", "days": "2024-11-01" },
-			{ "description": "Veterans Day", "days": "2024-11-11" },
-			{ "description": "Thanksgiving Break", "days": ["2024-11-25", "2024-11-29"] },
-			{ "description": "Winter Break", "days": ["2024-12-23", "2025-01-03"] },
-			{ "description": "Floating Work Day", "days": "2025-01-06" },
-			{ "description": "MLK Jr. Day", "days": "2025-01-20" },
-			{ "description": "President's Day", "days": "2025-02-17" },
-			{ "description": "Staff Development Day", "days": "2025-02-18" },
-			{ "description": "Floating Work Day", "days": "2025-03-14" },
-			{ "description": "Spring Break", "days": ["2025-04-07", "2025-04-11"] },
-			{ "description": "School Recess", "days": "2025-05-23" },
-			{ "description": "Memorial Day", "days": "2025-05-26" }
+			{ "description": "Independence Day", "days": "2025-07-04" },
+			{ "description": "Floating Work Days", "days": ["2025-08-04", "2025-08-05", "2025-08-06", "2025-08-07", "2025-10-03", "2026-03-13", "2026-06-05"] },
+			{ "description": "TK-12 Staff Development", "days": ["2025-08-11", "2025-08-12", "2026-02-17"] },
+			{ "description": "Labor Day", "days": "2025-09-01" },
+			{ "description": "School Recess", "days": ["2025-10-10", "2025-11-10", "2026-05-22"] },
+			{ "description": "Veterans Day", "days": "2025-11-11" },
+			{ "description": "Thanksgiving Break", "days": ["2025-11-24", "2025-11-28"] },
+			{ "description": "Winter Break", "days": ["2025-12-22", "2026-01-02"] },
+			{ "description": "MLK Jr. Day", "days": "2026-01-19" },
+			{ "description": "President's Day", "days": "2026-02-16" },
+			{ "description": "Spring Break", "days": ["2026-04-03", "2026-04-10"] },
+			{ "description": "Memorial Day", "days": "2026-05-25" }
 		],
 		"allEvents": ["1", "2", "3", "4", "5", "6", "B"]
 	},
 	"routines": {
+		"regularMon": {
+			"officialName": "Regular - Monday",
+			"days": [1]
+		},
 		"regular": {
-			"officialName": "Regular",
-			"days": [1, 2, 5, "2024-8-15", "2024-10-02"]
+			"officialName": "Regular - Tuesday/Friday",
+			"days": [2, 5, "2025-08-13"]
 		},
 		"wednesday": {
 			"officialName": "Wednesday Block",
@@ -41,35 +42,35 @@
 		},
 		"minimum": {
 			"officialName": "Minimum Day",
-			"days": ["2024-08-14"]
+			"days": ["2025-08-13", "2026-06-04"]
 		},
 		"rally": {
 			"officialName": "Rally",
-			"days": ["2024-08-23", "2024-09-27", "2025-05-27"]
-		},
-		"finalShort1+4": {
-			"officialName": "Final Periods 1/4",
-			"days": ["2024-12-18", "2025-06-03"]
-		},
-		"finalShort2+5": {
-			"officialName": "Final Periods 2/5",
-			"days": ["2024-12-19", "2025-06-04"]
-		},
-		"finalShort3+6": {
-			"officialName": "Final Periods 3/6",
-			"days": ["2024-12-20", "2025-06-05"]
+			"days": ["2025-08-22", "2025-09-26", "2026-05-26"]
 		},
 		"finalReverse": {
 			"officialName": "B Period Final - Reverse",
-			"days": ["2024-12-17", "2025-06-02"]
+			"days": ["2025-12-16", "2026-06-01"]
+		},
+		"finalShort1+4": {
+			"officialName": "Final Periods 1/4",
+			"days": ["2025-12-17", "2026-06-02"]
+		},
+		"finalShort2+5": {
+			"officialName": "Final Periods 2/5",
+			"days": ["2025-12-18", "2026-06-03"]
+		},
+		"finalShort3+6": {
+			"officialName": "Final Periods 3/6",
+			"days": ["2025-12-19", "2026-06-04"]
 		},
 		"caaspp-1-5-6": {
 			"officialName": "CAASPP 1-5-6",
-			"days": ["2025-03-04", "2025-03-06", "2025-03-10", "2025-03-12"]
+			"days": ["2026-03-03", "2026-03-05", "2026-03-09", "2026-03-11"]
 		},
 		"caaspp-2-3-4": {
 			"officialName": "CAASPP 2-3-4",
-			"days": ["2025-03-05", "2025-03-07", "2025-03-11", "2025-03-13"]
+			"days": ["2026-03-04", "2026-03-06", "2026-03-10", "2026-03-12"]
 		}
 	}
 }
