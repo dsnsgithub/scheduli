@@ -2,7 +2,7 @@
 	"about": {
 		"sync": true,
 		"lastUpdated": "2025-08-25",
-		"compatibleVersion": "1.7.0",
+		"compatibleVersion": "1.6.0",
 		"link": "/api/schedule/dvhs",
 		"name": "DV School Schedule",
 		"startDate": "2025-08-13",
