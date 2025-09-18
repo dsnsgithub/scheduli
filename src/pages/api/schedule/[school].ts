@@ -34,7 +34,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 							{
 								name: "Event 2",
 								startTime: "09:40",
-								endTime: "10:45"
+								endTime: "23:55"
 							}
 						]
 					}
