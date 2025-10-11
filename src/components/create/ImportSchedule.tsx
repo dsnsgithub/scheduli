@@ -1,8 +1,7 @@
-import React from "react";
-import { Dialog, Tab, Listbox } from "@headlessui/react";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Dialog, Listbox } from "@headlessui/react";
+import React from "react";
 
 async function convertStudyListToSchedule(studyList: string) {
   function daysToNumbers(s: string): number[] {
@@ -109,12 +108,13 @@ async function convertStudyListToSchedule(studyList: string) {
   ];
 
   for (const index in daysOfTheWeek) {
-    const classesToday = {};
+    const classesToday: Record<string, any> = {};
     for (const courseName in rawUCIData) {
       const days = daysToNumbers(rawUCIData[courseName]["days"]);
 
       if (days.includes(Number(index))) {
-        classesToday[courseName] = rawUCIData[courseName];
+        classesToday[courseName as keyof typeof rawUCIData] =
+          rawUCIData[courseName];
       }
     }
 
@@ -122,7 +122,10 @@ async function convertStudyListToSchedule(studyList: string) {
       continue;
     }
 
-    defaultSchedule["routines"][daysOfTheWeek[index]] = {
+    // @ts-ignore
+    defaultSchedule["routines"][
+      daysOfTheWeek[index] as keyof (typeof defaultSchedule)["routines"]
+    ] = {
       officialName: daysOfTheWeek[index],
       name: daysOfTheWeek[index],
       days: [index],
@@ -132,10 +135,13 @@ async function convertStudyListToSchedule(studyList: string) {
     for (const courseName in classesToday) {
       const { startTime, endTime } = rawUCIData[courseName];
 
+      // @ts-ignore
       defaultSchedule["routines"][daysOfTheWeek[index]].events.push({
         officialName: courseName,
         name: courseName,
+        // @ts-ignore
         startTime: formatTime(startTime),
+        // @ts-ignore
         endTime: formatTime(endTime),
       });
     }
@@ -243,14 +249,17 @@ export default function ImportSchedule(props: {
             >
               Add Schedule
             </button>
-            
-            
 
-            <p className="mt-10">Paste the contents of your Study List below to import it into Scheduli. To find your Study List, go to WebReg or StudentAccess, and click on Study List once you{"'}ve logged in. Copy everything below the column names (Code, Dept, etc.) under the Enrolled Classes section.</p>
+            <h2 className="mt-10 text-sm">
+              To find your Study List, go to WebReg or StudentAccess, and click
+              on Study List once you{"'"}ve logged in. Copy everything below the
+              column names (Code, Dept, etc.) under the Enrolled Classes
+              section.
+            </h2>
             {/* allow multiple lines */}
             <textarea
               rows={10}
-              placeholder=""
+              placeholder="Paste the contents of your Study List below to import it into Scheduli."
               className="border border-gray-300 rounded-md px-4 py-2 w-full "
               onChange={(e) => setStudyList(e.target.value)}
             />
@@ -258,7 +267,12 @@ export default function ImportSchedule(props: {
             <button
               className="bg-wedgewood-500 hover:bg-wedgewood-600 text-white font-bold py-2 px-4 rounded mt-4"
               onClick={async () => {
-                const data = await convertStudyListToSchedule(studyList);
+                const data = await convertStudyListToSchedule(studyList).catch(
+                  (error) => {
+                    alert("Error converting Study List to Schedule");
+                    props.setIsOpen(false);
+                  },
+                );
 
                 localStorage.setItem("currentSchedule", JSON.stringify(data));
                 props.setSchedule(data);
@@ -289,6 +303,8 @@ export default function ImportSchedule(props: {
                     "about"
                   ]["endDate"],
                 );
+
+                props.setIsOpen(false);
               }}
             >
               Import UCI Schedule
