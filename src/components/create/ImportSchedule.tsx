@@ -2,61 +2,78 @@ import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Dialog, Listbox } from "@headlessui/react";
 import React from "react";
+import { UnparsedSchedule, UnparsedEvent } from "@/types";
+import Link from "next/link";
 
-async function convertStudyListToSchedule(studyList: string) {
-  function daysToNumbers(s: string): number[] {
-    const daysMap: { [key: string]: number } = {
-      Su: 0,
-      M: 1,
-      Tu: 2,
-      W: 3,
-      Th: 4,
-      F: 5,
-      Sa: 6,
-    };
-    const result: number[] = [];
-    let i = 0;
-    while (i < s.length) {
-      // Check 2-letter abbreviation first (greedy)
-      if (i + 2 <= s.length && s.substring(i, i + 2) in daysMap) {
-        result.push(daysMap[s.substring(i, i + 2)]);
-        i += 2;
-      }
-      // Then check 1-letter
-      else if (i + 1 <= s.length && s.substring(i, i + 1) in daysMap) {
-        result.push(daysMap[s.substring(i, i + 1)]);
-        i += 1;
-      } else {
-        throw new Error(
-          `Invalid day abbreviation at position ${i}: '${s.substring(i)}'`,
-        );
-      }
-    }
-    return result;
-  }
-
-  function formatTime(time: { hour: number; minute: number }): string {
-    const hourStr = time.hour.toString().padStart(2, "0");
-    const minStr = time.minute.toString().padStart(2, "0");
-    return `${hourStr}:${minStr}`;
-  }
-
-  let defaultSchedule = {
-    about: {
-      sync: true,
-      lastUpdated: "2025-10-10",
-      compatibleVersion: "1.9.3",
-      name: "UCI Fall 2025 Schedule",
-      startDate: "2025-09-22",
-      endDate: "2025-12-13",
-      inactiveDays: [],
-      allEvents: [] as string[],
-    },
-    routines: {},
+function daysToNumbers(s: string): number[] {
+  const daysMap: { [key: string]: number } = {
+    Su: 0,
+    M: 1,
+    Tu: 2,
+    W: 3,
+    Th: 4,
+    F: 5,
+    Sa: 6,
   };
+  const result: number[] = [];
+  let i = 0;
+  while (i < s.length) {
+    // Check 2-letter abbreviation first (greedy)
+    if (i + 2 <= s.length && s.substring(i, i + 2) in daysMap) {
+      result.push(daysMap[s.substring(i, i + 2)]);
+      i += 2;
+    }
+    // Then check 1-letter
+    else if (i + 1 <= s.length && s.substring(i, i + 1) in daysMap) {
+      result.push(daysMap[s.substring(i, i + 1)]);
+      i += 1;
+    } else {
+      throw new Error(
+        `Invalid day abbreviation at position ${i}: '${s.substring(i)}'`,
+      );
+    }
+  }
+  return result;
+}
+
+function formatTime(time: { hour: number; minute: number }): string {
+  const hourStr = time.hour.toString().padStart(2, "0");
+  const minStr = time.minute.toString().padStart(2, "0");
+  return `${hourStr}:${minStr}`;
+}
+
+function sortByStartTime(array: UnparsedEvent[]) {
+  return array.sort((a, b) => {
+    const startTimeA = a.startTime.split(":").map(Number);
+    const startTimeB = b.startTime.split(":").map(Number);
+
+    if (startTimeA[0] !== startTimeB[0]) {
+      return startTimeA[0] - startTimeB[0]; // Sort by hour
+    } else {
+      return startTimeA[1] - startTimeB[1]; // If hours are the same, sort by minute
+    }
+  });
+}
+
+export async function convertStudyListToSchedule(
+  studyList: string,
+  quarterName: string,
+  year: Number,
+): Promise<UnparsedSchedule | null> {
+  const termCalendar = await fetch(
+    `https://anteaterapi.com/v2/rest/calendar?year=${year}&quarter=${quarterName}`,
+  ).then((response) => response.json());
+
+  let defaultSchedule: UnparsedSchedule = await fetch("/api/schedule/uci").then(
+    (response) => response.json(),
+  );
+
+  defaultSchedule.about.name = `UCI ${quarterName} ${year} Schedule`;
+  defaultSchedule.about.startDate = termCalendar.data.instructionStart;
+  defaultSchedule.about.endDate = termCalendar.data.instructionEnd;
 
   if (!studyList) {
-    return [];
+    return null;
   }
 
   let courseCodes = [];
@@ -67,12 +84,16 @@ async function convertStudyListToSchedule(studyList: string) {
     }
   }
 
-  let rawUCIData: Record<
-    string,
-    { days: string; startTime: string; endTime: string }
-  > = {};
+  interface CourseData {
+    name: string;
+    days: string;
+    startTime: { hour: number; minute: number };
+    endTime: { hour: number; minute: number };
+  }
+
+  let rawUCIData: CourseData[] = [];
   const courseData = await fetch(
-    `https://anteaterapi.com/v2/rest/websoc?quarter=Fall&sectionCodes=${courseCodes.join(",")}&year=2025`,
+    `https://anteaterapi.com/v2/rest/websoc?quarter=${quarterName}&sectionCodes=${courseCodes.join(",")}&year=${year}`,
   ).then((res) => res.json());
 
   if (courseData["ok"]) {
@@ -83,11 +104,12 @@ async function convertStudyListToSchedule(studyList: string) {
             for (const meeting of section["meetings"]) {
               const courseName =
                 `${course["deptCode"]} ${course["courseNumber"]} ${section["sectionType"]}` as string;
-              rawUCIData[courseName] = {
+              rawUCIData.push({
+                name: courseName,
                 days: meeting["days"],
                 startTime: meeting["startTime"],
                 endTime: meeting["endTime"],
-              };
+              });
             }
           }
         }
@@ -107,14 +129,13 @@ async function convertStudyListToSchedule(studyList: string) {
     "Saturday",
   ];
 
-  for (const index in daysOfTheWeek) {
-    const classesToday: Record<string, any> = {};
-    for (const courseName in rawUCIData) {
-      const days = daysToNumbers(rawUCIData[courseName]["days"]);
+  for (let index in daysOfTheWeek) {
+    const classesToday: CourseData[] = [];
+    for (const course of rawUCIData) {
+      const days = daysToNumbers(course["days"]);
 
       if (days.includes(Number(index))) {
-        classesToday[courseName as keyof typeof rawUCIData] =
-          rawUCIData[courseName];
+        classesToday.push(course);
       }
     }
 
@@ -122,29 +143,30 @@ async function convertStudyListToSchedule(studyList: string) {
       continue;
     }
 
-    // @ts-ignore
     defaultSchedule["routines"][
-      daysOfTheWeek[index] as keyof (typeof defaultSchedule)["routines"]
+      daysOfTheWeek[Number(index)] as keyof (typeof defaultSchedule)["routines"]
     ] = {
-      officialName: daysOfTheWeek[index],
-      name: daysOfTheWeek[index],
-      days: [index],
+      officialName: daysOfTheWeek[Number(index)],
+      days: [Number(index)],
       events: [],
     };
 
-    for (const courseName in classesToday) {
-      const { startTime, endTime } = rawUCIData[courseName];
+    for (const course of classesToday) {
+      const { startTime, endTime } = course;
 
-      // @ts-ignore
       defaultSchedule["routines"][daysOfTheWeek[index]].events.push({
-        officialName: courseName,
-        name: courseName,
-        // @ts-ignore
+        rawPeriodName: course.name,
+        name: course.name,
         startTime: formatTime(startTime),
-        // @ts-ignore
         endTime: formatTime(endTime),
       });
     }
+  }
+
+  for (const routine in defaultSchedule["routines"]) {
+    defaultSchedule["routines"][routine]["events"] = sortByStartTime(
+      defaultSchedule["routines"][routine]["events"],
+    );
   }
 
   return defaultSchedule;
@@ -164,7 +186,34 @@ export default function ImportSchedule(props: {
   const [selectedSchedule, setSelectedSchedule] = React.useState(
     schedulesArray[0],
   );
-  const [studyList, setStudyList] = React.useState("");
+
+  const [studyList, setStudyList] = React.useState("Paste here.");
+  const [selectedQuarter, setSelectedQuarter] = React.useState<string | null>(
+    null,
+  );
+
+  const [possibleQuartersData, setPossibleQuartersData] = React.useState<
+    { [key: string]: string }[] | null
+  >(null);
+
+  React.useEffect(() => {
+    const fetchQuarters = async () => {
+      const possibleQuartersData = await fetch(
+        "https://anteaterapi.com/v2/rest/websoc/terms",
+      ).then((res) => res.json());
+
+      setPossibleQuartersData(possibleQuartersData.data);
+      setSelectedQuarter(
+        possibleQuartersData ? possibleQuartersData.data[0].shortName : "",
+      );
+
+      console.log(
+        possibleQuartersData ? possibleQuartersData.data[0].shortName : "",
+      );
+    };
+
+    fetchQuarters();
+  }, []);
 
   return (
     <Dialog
@@ -251,11 +300,17 @@ export default function ImportSchedule(props: {
             </button>
 
             <h2 className="mt-10 text-sm">
-              To find your Study List, go to WebReg or StudentAccess, and click
-              on Study List once you{"'"}ve logged in. Copy everything below the
-              column names (Code, Dept, etc.) under the Enrolled Classes
-              section.
+              Log into{" "}
+              <Link
+                className="text-blue-500 hover:text-blue-700"
+                href="https://www.reg.uci.edu/cgi-bin/webreg-redirect.sh"
+              >
+                WebReg/StudentAccess
+              </Link>
+              , tap Study List, and copy everything below the headers (Code,
+              Dept, etc.)
             </h2>
+
             {/* allow multiple lines */}
             <textarea
               rows={10}
@@ -267,12 +322,21 @@ export default function ImportSchedule(props: {
             <button
               className="bg-wedgewood-500 hover:bg-wedgewood-600 text-white font-bold py-2 px-4 rounded mt-4"
               onClick={async () => {
-                const data = await convertStudyListToSchedule(studyList).catch(
-                  (error) => {
-                    alert("Error converting Study List to Schedule");
-                    props.setIsOpen(false);
-                  },
-                );
+                const data = await convertStudyListToSchedule(
+                  studyList,
+                  selectedQuarter?.split(" ")[1] || "Fall",
+                  Number(selectedQuarter?.split(" ")[0]) || 2025,
+                ).catch((error) => {
+                  console.error(error);
+                  alert("Error converting Study List to Schedule");
+                  props.setIsOpen(false);
+                  return;
+                });
+
+                if (!data || Object.keys(data.routines).length === 0) {
+                  alert("Error: Invalid schedule");
+                  return;
+                }
 
                 localStorage.setItem("currentSchedule", JSON.stringify(data));
                 props.setSchedule(data);
