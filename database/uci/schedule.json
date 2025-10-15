@@ -1,0 +1,12 @@
+{
+  "about": {
+    "sync": true,
+    "lastUpdated": "2025-10-10",
+    "compatibleVersion": "1.9.3",
+    "link": "/api/schedule/uci",
+    "inactive": [],
+    "inactiveDays": [],
+    "allEvents": []
+  },
+  "routines": {}
+}
