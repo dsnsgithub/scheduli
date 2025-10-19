@@ -9,15 +9,12 @@
     "endDate": "2026-06-04",
     "inactiveDays": [
       { "description": "Independence Day", "days": "2025-07-04" },
-      { "description": "Floating Work Day", "days": ["2025-08-04", "2025-08-08"] },
       { "description": "Floating Work Day", "days": "2025-10-03" },
       { "description": "Floating Work Day", "days": "2026-01-05" },
       { "description": "Floating Work Day", "days": "2026-03-13" },
       { "description": "Floating Work Day", "days": "2026-06-05" },
-      { "description": "Labor Day", "days": "2025-09-01" },
-      { "description": "Staff Development Day", "days": "2025-08-11" },
-      { "description": "Staff Development Day", "days": "2026-08-12" },
       { "description": "Staff Development Day", "days": "2026-02-17" },
+      { "description": "Labor Day", "days": "2025-09-01" },
       { "description": "School Recess", "days": "2025-11-10" },
       { "description": "School Recess", "days": "2026-05-22" },
       { "description": "Veterans Day", "days": "2025-11-11" },
@@ -52,7 +49,7 @@
     },
     "minimum": {
       "officialName": "Minimum Day",
-      "days": ["2025-08-13", "2026-06-04"]
+      "days": ["2025-08-13"]
     },
     "rally": {
       "officialName": "Rally",
