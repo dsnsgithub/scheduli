@@ -341,6 +341,7 @@ export default function Home() {
         // @ts-ignore
         scheduleDB["routines"][scheduleName]["events"][Number(i)]["startTime"] =
           createCustomDate(
+            // @ts-ignore
             scheduleDB["routines"][scheduleName]["events"][Number(i)][
               "startTime"
             ],
@@ -348,6 +349,7 @@ export default function Home() {
         // @ts-ignore
         scheduleDB["routines"][scheduleName]["events"][Number(i)]["endTime"] =
           createCustomDate(
+            // @ts-ignore
             scheduleDB["routines"][scheduleName]["events"][Number(i)][
               "endTime"
             ],
@@ -405,6 +407,7 @@ export default function Home() {
   if (!scheduleDB["about"]["inactiveDays"]) {
     // @ts-ignore
     scheduleDB["about"]["inactiveDays"] = scheduleDB["about"]["inactive"].map(
+      // @ts-ignore
       (item) => {
         return { description: "Inactive Day", days: item };
       },

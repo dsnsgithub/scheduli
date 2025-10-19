@@ -183,6 +183,7 @@ export default function Create() {
   if (!schedule["about"]["inactiveDays"]) {
     // @ts-ignore
     schedule["about"]["inactiveDays"] = schedule["about"]["inactive"].map(
+      // @ts-ignore
       (item) => {
         return { description: "Inactive Day", days: item };
       },
