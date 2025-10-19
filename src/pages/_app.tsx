@@ -10,42 +10,51 @@ import { PostHogProvider } from "posthog-js/react";
 import Head from "next/head";
 import { Poppins } from "next/font/google";
 const poppins = Poppins({
-	weight: ["400", "700"],
-	subsets: ["latin"]
+  weight: ["400", "700"],
+  subsets: ["latin"],
 });
 
 export default function App({ Component, pageProps }: AppProps) {
-	const [parent] = useAutoAnimate({ duration: 150 });
+  const [parent] = useAutoAnimate({ duration: 150 });
 
-	useEffect(() => {
-		posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
-			api_host: "/relay-xzT1",
-			ui_host: "https://us.posthog.com",
-			defaults: '2025-05-24',
-			capture_exceptions: true,
-			debug: process.env.NODE_ENV === "development",
-		});
-	}, []);
+  useEffect(() => {
+    posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
+      api_host: "/relay-xzT1",
+      ui_host: "https://us.posthog.com",
+      defaults: "2025-05-24",
+      capture_exceptions: true,
+      debug: process.env.NODE_ENV === "development",
+    });
+  }, []);
 
-	return (
-		<PostHogProvider client={posthog}>
-			<>
-				<Head>
-					<title>Scheduli</title>
-					<meta property="og:type" content="website" />
-					<meta property="og:title" content="Scheduli" />
-					<meta property="og:description" content="Scheduli keeps you informed about your daily schedule, even during the most chaotic days." />
-					<meta name="description" content="Scheduli keeps you informed about your daily schedule, even during the most chaotic days." />
-					<meta property="og:url" content="https://scheduli.dsns.dev" />
-					<meta property="og:image" content="https://scheduli.dsns.dev/scheduli.png" />
-					<meta name="apple-itunes-app" content="app-id=6470429917"></meta>
-				</Head>
-				<main className={"min-h-screen " + poppins.className} ref={parent}>
-					<Navbar />
-					<Component {...pageProps} />
-					<Analytics />
-				</main>
-			</>
-		</PostHogProvider>
-	);
+  return (
+    <PostHogProvider client={posthog}>
+      <>
+        <Head>
+          <title>Scheduli</title>
+          <meta property="og:type" content="website" />
+          <meta property="og:title" content="Scheduli" />
+          <meta
+            property="og:description"
+            content="Scheduli keeps you informed about your daily schedule, even during the most chaotic days."
+          />
+          <meta
+            name="description"
+            content="Scheduli keeps you informed about your daily schedule, even during the most chaotic days."
+          />
+          <meta property="og:url" content="https://scheduli.dsns.dev" />
+          <meta
+            property="og:image"
+            content="https://scheduli.dsns.dev/scheduli.png"
+          />
+          <meta name="apple-itunes-app" content="app-id=6470429917"></meta>
+        </Head>
+        <main className={"min-h-screen " + poppins.className} ref={parent}>
+          <Navbar />
+          <Component {...pageProps} />
+          <Analytics />
+        </main>
+      </>
+    </PostHogProvider>
+  );
 }

@@ -1,9 +1,8 @@
 import React from "react";
-
 import Image from "next/image";
 
 import googlePlayBadge from "../../public/mobile/google-play-badge.png";
-import appleBadge from "../../public/mobile/black.svg";
+import appleBadge from "../../public/mobile/apple.svg";
 
 import mainImg from "../../public/mobile/home.png";
 import secondaryImg from "../../public/mobile/schedule.png";
@@ -111,7 +110,8 @@ export default function About() {
                   Cross-Platform Support
                 </h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Cross-platform, available for download on iOS and Android, and on web.
+                  Cross-platform, available for download on iOS and Android, and
+                  on web.
                 </p>
               </div>
             </div>
@@ -139,7 +139,8 @@ export default function About() {
                   Real-Time Widgets
                 </h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Real-time widgets on both iOS and Android to always stay on top of your schedule.
+                  Real-time widgets on both iOS and Android to always stay on
+                  top of your schedule.
                 </p>
               </div>
             </div>
@@ -196,7 +197,8 @@ export default function About() {
                   School Presets
                 </h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Schedule presets are avaliable for schools and colleges, which are typically more accurate than competing apps.
+                  Schedule presets are avaliable for schools and colleges, which
+                  are typically more accurate than competing apps.
                 </p>
               </div>
             </div>
