@@ -3,7 +3,7 @@
 
 Scheduli keeps you informed about your daily schedule, even during the most chaotic days. This app was created using Next.js, React, and Tailwind.
 
-You can find the website at https://scheduli.dsns.dev/
+You can find the website at https://scheduli.dsns.dev/, as well as on [iOS](https://apps.apple.com/us/app/scheduli/id6470429917) and [Android](https://play.google.com/store/apps/details?id=com.scheduli.schedulimobile).
 
 ## Getting Started
 Run the development server:
