@@ -11,10 +11,10 @@ function customDateSort(item: any) {
   const days = item["days"];
   if (Array.isArray(days)) {
     // For date ranges, use the first date as the sorting key
-    return new Date(days[0]);
-  } else if (typeof days === "string") {
+    return new Date(days[0]).getTime();
+  } else {
     // For individual dates, use the date itself as the sorting key
-    return new Date(days);
+    return new Date(days).getTime();
   }
 }
 
