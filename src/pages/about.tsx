@@ -29,7 +29,7 @@ export default function About() {
             </h2>
 
             <div className="flex items-center">
-              <a href="https://apps.apple.com/us/app/scheduli/id6470429917?itsct=apps_box_badge&amp;itscg=30200">
+              <a href="https://apps.apple.com/us/app/scheduli/id6470429917?platform=iphone">
                 <Image
                   src={appleBadge}
                   alt="Download on the App Store"
