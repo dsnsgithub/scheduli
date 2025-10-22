@@ -104,6 +104,14 @@ export async function convertStudyListToSchedule(
             for (const meeting of section["meetings"]) {
               const courseName =
                 `${course["deptCode"]} ${course["courseNumber"]} ${section["sectionType"]}` as string;
+
+              if (
+                !meeting["days"] ||
+                !meeting["startTime"] ||
+                !meeting["endTime"]
+              )
+                continue;
+
               rawUCIData.push({
                 name: courseName,
                 days: meeting["days"],
