@@ -48,6 +48,7 @@ export default function About() {
           <div className="md:flex flex-row items-center md:visible hidden">
             <Image src={mainImg} alt="Scheduli main image" height={600}></Image>
             <Image
+              className="hidden xl:block"
               src={secondaryImg}
               alt="Scheduli secondary image"
               height={600}
