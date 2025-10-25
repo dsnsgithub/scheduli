@@ -119,7 +119,7 @@ export default function ActiveDayModal(props: {
                   <div className="bg-wedgewood-300 p-10 mt-4">
                     <input
                       type="date"
-                      className="rounded shadow appearance-none border w-64 p-2 ml-4"
+                      className="rounded shadow appearance-none border w-64 p-3 ml-4"
                       onChange={(e) => setSelectedDate(e.target.value)}
                       defaultValue="2023-09-06"
                     ></input>

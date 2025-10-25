@@ -32,7 +32,7 @@ export default function InactiveDay(props: {
   days: string | string[];
 }) {
   return (
-    <div className="shadow-lg p-4 bg-wedgewood-400 lg:ml-4 ml-4 mt-2 flex flex-row items-center justify-center">
+    <div className="shadow-lg p-4 bg-wedgewood-300 rounded-lg lg:ml-4 ml-4 mt-2 flex flex-row items-center justify-center">
       <div>
         <h4 className="text-md font-bold">{props.description}</h4>
         <h4 className="text-sm">

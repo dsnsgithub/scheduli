@@ -74,7 +74,7 @@ function PeriodNameCustomizer(props: {
     >
       <h1 className="py-5 lg:p-6 text-3xl font-bold">{props.rawPeriodName}:</h1>
       <input
-        className="rounded shadow outline-none border-2 border-wedgewood-500 focus:border-wedgewood-600 lg:w-64 p-2 bg-wedgewood-300 ml-2"
+        className="rounded shadow outline-none border-2 border-wedgewood-500 focus:border-wedgewood-600 lg:w-64 p-3 bg-wedgewood-300 ml-2"
         defaultValue={props.periodName || ""}
         onChange={(e) =>
           updateName(

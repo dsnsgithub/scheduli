@@ -15,7 +15,7 @@ export default function Feedback() {
         <div className="flex flex-row items-center">
           <h3 className="text-2xl font-bold">Contact Email:</h3>
           <input
-            className="rounded shadow outline-none border-2 border-wedgewood-500 focus:border-wedgewood-600 p-2 md:ml-4 bg-wedgewood-300 w-full"
+            className="rounded shadow outline-none border-2 border-wedgewood-500 focus:border-wedgewood-600 p-3 md:ml-4 bg-wedgewood-300 w-full"
             // @ts-ignore
             value={contactEmail}
             onChange={(e) => {
@@ -27,7 +27,7 @@ export default function Feedback() {
         <div className="flex flex-row items-center mt-4">
           <h3 className="text-2xl font-bold">Schedule Link (PDF/Website):</h3>
           <input
-            className="rounded shadow outline-none border-2 border-wedgewood-500 focus:border-wedgewood-600 p-2 md:ml-4 bg-wedgewood-300 w-full"
+            className="rounded shadow outline-none border-2 border-wedgewood-500 focus:border-wedgewood-600 p-3 md:ml-4 bg-wedgewood-300 w-full"
             // @ts-ignore
             value={linkToSchedule}
             onChange={(e) => {

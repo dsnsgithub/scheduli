@@ -244,7 +244,7 @@ export default function Create() {
 
           <div className="flex flex-row items-center">
             <button
-              className="bg-wedgewood-400 ml-4 p-4 lg:p-3 lg:px-4 rounded flex items-center mr-4"
+              className="border-2 border-wedgewood-400 bg-wedgewood-300 ml-4 p-4 lg:p-3 lg:px-4 rounded flex items-center mr-4"
               onClick={() => setIsImportOpen(true)}
             >
               <FontAwesomeIcon
@@ -273,7 +273,7 @@ export default function Create() {
           <div>
             <label className="text-xl lg:ml-10">Name: </label>
             <input
-              className="rounded shadow outline-none border-2 border-wedgewood-500 focus:border-wedgewood-600 lg:w-64 p-2 md:ml-4 bg-wedgewood-300"
+              className="rounded shadow outline-none border-2 border-wedgewood-500 focus:border-wedgewood-600 lg:w-64 p-3 md:ml-4 bg-wedgewood-200"
               // @ts-ignore
               value={scheduleName}
               onChange={(e) => {
@@ -290,7 +290,7 @@ export default function Create() {
             </label>
             <input
               type="date"
-              className="rounded shadow outline-none border-2 border-wedgewood-500 focus:border-wedgewood-600 lg:w-64 p-2 md:ml-4 bg-wedgewood-300"
+              className="rounded shadow outline-none border-2 border-wedgewood-500 focus:border-wedgewood-600 lg:w-64 p-3 md:ml-4 bg-wedgewood-200"
               // @ts-ignore
               value={scheduleStartDate}
               onChange={(e) => {
@@ -304,7 +304,7 @@ export default function Create() {
             <label className="text-xl lg:ml-10 items-center">End Date: </label>
             <input
               type="date"
-              className="rounded shadow outline-none border-2 border-wedgewood-500 focus:border-wedgewood-600 lg:w-64 p-2 md:ml-4 bg-wedgewood-300"
+              className="rounded shadow outline-none border-2 border-wedgewood-500 focus:border-wedgewood-600 lg:w-64 p-3 md:ml-4 bg-wedgewood-200"
               // @ts-ignore
               value={scheduleEndDate}
               onChange={(e) => {
@@ -327,15 +327,17 @@ export default function Create() {
             <h2 className="font-bold text-3xl">Routines</h2>
           </div>
 
-          {routinesElemList}
+          <div className="flex flex-wrap items-center lg:p-6 p-4 border-2 border-wedgewood-300 bg-wedgewood-100 rounded-lg shadow-xl mt-4 lg:mt-10 gap-4">
+            {routinesElemList}
 
-          <button
-            className="bg-wedgewood-400 ml-4 p-3 px-4 rounded"
-            onClick={() => createNewRoutine(schedule, setSchedule)}
-          >
-            <FontAwesomeIcon icon={faPlus} className=""></FontAwesomeIcon>
-            {/* <h4 className="hidden lg:inline lg:ml-4">Create Routine</h4> */}
-          </button>
+            <button
+              className="bg-wedgewood-400 p-3 px-4 rounded"
+              onClick={() => createNewRoutine(schedule, setSchedule)}
+            >
+              <FontAwesomeIcon icon={faPlus} className=""></FontAwesomeIcon>
+              {/* <h4 className="hidden lg:inline lg:ml-4">Create Routine</h4> */}
+            </button>
+          </div>
         </div>
 
         <hr className="border-wedgewood-400"></hr>

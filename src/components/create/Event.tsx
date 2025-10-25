@@ -62,13 +62,13 @@ export default function Event(props: {
 }) {
   return (
     <div className="flex flex-col mt-8">
-      <div className="shadow-xl p-2 md:p-8 lg:p-10 mt-8 bg-wedgewood-300 rounded-lg">
+      <div className="shadow-xl p-2 md:p-8 lg:p-10 mt-8 bg-wedgewood-100 rounded-lg border-2 border-wedgewood-300">
         <div className="flex items-center justify-between">
           <div>
             <label className="text-lg">Name:</label>
             <input
               // autoFocus={true}
-              className="rounded shadow outline-none border-2 border-wedgewood-500 focus:border-wedgewood-600 lg:w-64 p-2 md:ml-4 bg-wedgewood-300 "
+              className="rounded shadow outline-none border-2 border-wedgewood-500 focus:border-wedgewood-600 lg:w-64 p-3 md:ml-4 bg-wedgewood-200"
               onChange={(e) =>
                 modifyEvent(
                   props.schedule,
@@ -102,7 +102,7 @@ export default function Event(props: {
           <div>
             <label className="text-lg">Start Time:</label>
             <input
-              className="rounded shadow outline-none border-2 border-wedgewood-500 focus:border-wedgewood-600 lg:w-64 p-2 md:ml-4 bg-wedgewood-300"
+              className="rounded shadow outline-none border-2 border-wedgewood-500 focus:border-wedgewood-600 lg:w-64 p-3 md:ml-4 bg-wedgewood-200"
               type="time"
               onChange={(e) =>
                 modifyEvent(
@@ -121,7 +121,7 @@ export default function Event(props: {
           <div>
             <label className="text-lg lg:ml-4">End Time:</label>
             <input
-              className="rounded shadow outline-none border-2 border-wedgewood-500 focus:border-wedgewood-600 lg:w-64 p-2 md:ml-4 bg-wedgewood-300"
+              className="rounded shadow outline-none border-2 border-wedgewood-500 focus:border-wedgewood-600 lg:w-64 p-3 md:ml-4 bg-wedgewood-200"
               type="time"
               onChange={(e) =>
                 modifyEvent(

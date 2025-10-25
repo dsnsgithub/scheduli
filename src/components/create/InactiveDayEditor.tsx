@@ -31,17 +31,17 @@ export default function InactiveDayEditor(props: {
   }
 
   return (
-    <div className="lg:p-6 p-4 shadow-lg bg-wedgewood-300 mt-4 lg:mt-10 rounded-lg">
+    <div className="lg:p-6 p-4 border-2 border-wedgewood-300 bg-wedgewood-100 rounded-lg shadow-xl mt-4 lg:mt-10">
       <h1 className="font-bold text-xl mb-4">Inactive Days:</h1>
 
-      <div className="flex flex-wrap" ref={parent}>
+      <div className="flex flex-wrap items-center" ref={parent}>
         {inactiveDaysElemList}
 
         <button
-          className="shadow-lg p-4 bg-wedgewood-400 lg:ml-4 ml-4 mt-2 flex flex-row items-center justify-center rounded"
+          className="shadow-lg bg-wedgewood-400 lg:ml-4 ml-4 mt-2 flex flex-row items-center justify-center rounded-lg w-16 h-16"
           onClick={() => setIsOpen(true)}
         >
-          <FontAwesomeIcon icon={faPlus} className=""></FontAwesomeIcon>
+          <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
         </button>
 
         <InactiveDayModal

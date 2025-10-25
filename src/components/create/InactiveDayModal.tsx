@@ -84,10 +84,10 @@ export default function InactiveDayModal(props: {
             Choose New Inactive Day
           </Dialog.Title>
 
-          <div className="flex space-x-1 bg-wedgewood-300 p-4 items-center mt-4">
+          <div className="flex space-x-1 bg-wedgewood-300 p-4 items-center justify-between mt-4 rounded-lg">
             <label className="text-xl lg:ml-10">Name: </label>
             <input
-              className="rounded shadow outline-none border-2 border-wedgewood-500 focus:border-wedgewood-600 lg:w-64 p-2 md:ml-4 bg-wedgewood-300"
+              className="rounded shadow outline-none border-2 border-wedgewood-500 focus:border-wedgewood-600 lg:w-64 p-3 md:ml-4 bg-wedgewood-300"
               // @ts-ignore
               value={inactiveName}
               onChange={(e) => {
@@ -103,8 +103,8 @@ export default function InactiveDayModal(props: {
                 setCurrentSelection(index);
               }}
             >
-              <Tab.List className="flex space-x-1 bg-wedgewood-300 p-4">
-                <Tab className="rounded-xl bg-wedgewood-400 p-3 ui-selected:border-wedgewood-600 ui-selected:bg-wedgewood-500 ui-selected:border-2 ">
+              <Tab.List className="flex space-x-1 bg-wedgewood-300 p-6 rounded-lg">
+                <Tab className="rounded-xl bg-wedgewood-200 p-3 ui-selected:border-wedgewood-400 ui-selected:bg-wedgewood-300 ui-selected:border-2">
                   <FontAwesomeIcon
                     icon={faCalendarDay}
                     size="lg"
@@ -112,7 +112,7 @@ export default function InactiveDayModal(props: {
                   ></FontAwesomeIcon>
                   Single Date
                 </Tab>
-                <Tab className="rounded-xl bg-wedgewood-400 p-3 ui-selected:border-wedgewood-600 ui-selected:bg-wedgewood-500 ui-selected:border-2 ">
+                <Tab className="rounded-xl bg-wedgewood-200 p-3 ui-selected:border-wedgewood-400 ui-selected:bg-wedgewood-300 ui-selected:border-2">
                   <FontAwesomeIcon
                     icon={faCalendarWeek}
                     size="lg"
@@ -126,7 +126,7 @@ export default function InactiveDayModal(props: {
                   <div className="bg-wedgewood-300 p-10 mt-4">
                     <input
                       type="date"
-                      className="rounded shadow appearance-none border w-64 p-2 ml-4"
+                      className="rounded shadow appearance-none border w-64 p-3 ml-4"
                       onChange={(e) => setSelectedDate(e.target.value)}
                       defaultValue="2023-09-06"
                     ></input>
@@ -138,7 +138,7 @@ export default function InactiveDayModal(props: {
                       <label>Start Date:</label>
                       <input
                         type="date"
-                        className="rounded shadow appearance-none border w-64 p-2 ml-2"
+                        className="rounded shadow appearance-none border w-64 p-3 ml-2"
                         onChange={(e) => setSelectedDate1(e.target.value)}
                         defaultValue="2023-09-06"
                       ></input>
@@ -149,7 +149,7 @@ export default function InactiveDayModal(props: {
 
                       <input
                         type="date"
-                        className="rounded shadow appearance-none border w-64 p-2 ml-2"
+                        className="rounded shadow appearance-none border w-64 p-3 ml-2"
                         onChange={(e) => setSelectedDate2(e.target.value)}
                         defaultValue="2023-09-10"
                       ></input>

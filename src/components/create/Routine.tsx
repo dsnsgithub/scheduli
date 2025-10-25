@@ -29,7 +29,7 @@ export default function Routine(props: {
     return (
       <div
         key={props.rawName}
-        className="rounded shadow-xl inline-block border-wedgewood-600 bg-wedgewood-400 border-2 hover:cursor-pointer ml-4 p-4 mb-4"
+        className="rounded shadow-xl inline-block border-wedgewood-400 bg-wedgewood-300 border-2 hover:cursor-pointer p-4"
         onClick={() => selectRoutine(props.name, props.setCurrentlySelected)}
       >
         {props.name}
@@ -50,7 +50,7 @@ export default function Routine(props: {
   return (
     <div
       key={props.rawName}
-      className="rounded shadow-xl inline-block hover:border-wedgewood-600 bg-wedgewood-400 hover:border hover:cursor-pointer ml-4 p-4 mb-4"
+      className="rounded shadow-xl inline-block hover:border-wedgewood-400 bg-wedgewood-200 border-2 border-wedgewood-200 hover:cursor-pointer p-4"
       onClick={() => selectRoutine(props.rawName, props.setCurrentlySelected)}
     >
       {props.name}

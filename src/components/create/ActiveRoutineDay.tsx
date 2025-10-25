@@ -29,7 +29,7 @@ export default function ActiveRoutineDay(props: {
   setSchedule: Function;
 }) {
   return (
-    <div className="flex justify-between flex-row shadow-lg p-4 bg-wedgewood-400 lg:ml-4 ml-4 rounded">
+    <div className="flex justify-between flex-row shadow-lg p-4 bg-wedgewood-300 lg:ml-4 ml-4 rounded">
       {props.day}
       <button
         onClick={() =>
