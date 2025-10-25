@@ -55,10 +55,10 @@ export default function About() {
           </div>
         </div>
 
-        <hr className="border-2 w-full my-8 border-wedgewood-300"></hr>
+        <hr className="border-2 w-full my-12 border-wedgewood-300"></hr>
 
         <div className="grid md:grid-cols-2 gap-6">
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-wedgewood-100 hover:shadow-xl transition-shadow duration-300">
+          <div className="bg-wedgewood-50 rounded-2xl shadow-lg p-6 border-2 border-wedgewood-400 hover:shadow-xl transition-shadow duration-300">
             <div className="flex items-start space-x-4">
               <div className="flex-shrink-0 w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center mt-1">
                 <svg
@@ -80,15 +80,14 @@ export default function About() {
                   Fully Customizable Routines
                 </h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Scheduli doesn{"'"}t lock you in to one schedule. Routines are
-                  completely customizable and can be used for home, work, and
-                  school.
+                  Doesn{"'"}t lock you in to one schedule, completely
+                  customizable and can be used for home, work, and school.
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-wedgewood-100 hover:shadow-xl transition-shadow duration-300">
+          <div className="bg-wedgewood-50 rounded-2xl shadow-lg p-6 border-2 border-wedgewood-400 hover:shadow-xl transition-shadow duration-300">
             <div className="flex items-start space-x-4">
               <div className="flex-shrink-0 w-10 h-10 bg-wedgewood-100 rounded-lg flex items-center justify-center mt-1">
                 <svg
@@ -117,7 +116,7 @@ export default function About() {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow duration-300">
+          <div className="bg-wedgewood-50 rounded-2xl shadow-lg p-6 border-2 border-wedgewood-400 hover:shadow-xl transition-shadow duration-300">
             <div className="flex items-start space-x-4">
               <div className="flex-shrink-0 w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mt-1">
                 <svg
@@ -146,7 +145,7 @@ export default function About() {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow duration-300">
+          <div className="bg-wedgewood-50 rounded-2xl shadow-lg p-6 border-2 border-wedgewood-400 hover:shadow-xl transition-shadow duration-300">
             <div className="flex items-start space-x-4">
               <div className="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mt-1">
                 <svg
@@ -165,7 +164,7 @@ export default function About() {
               </div>
               <div className="flex-1">
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  Smart Notifications
+                  Live Notifications
                 </h3>
                 <p className="text-gray-600 leading-relaxed">
                   Notifications that display current event/progress to next
@@ -175,7 +174,7 @@ export default function About() {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow duration-300">
+          <div className="bg-wedgewood-50 rounded-2xl shadow-lg p-6 border-2 border-wedgewood-400 hover:shadow-xl transition-shadow duration-300">
             <div className="flex items-start space-x-4">
               <div className="flex-shrink-0 w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center mt-1">
                 <svg
@@ -204,7 +203,7 @@ export default function About() {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow duration-300">
+          <div className="bg-wedgewood-50 rounded-2xl shadow-lg p-6 border-2 border-wedgewood-400 hover:shadow-xl transition-shadow duration-300">
             <div className="flex items-start space-x-4">
               <div className="flex-shrink-0 w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center mt-1">
                 <svg
