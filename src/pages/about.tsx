@@ -110,8 +110,8 @@ export default function About() {
                   Cross-Platform Support
                 </h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Cross-platform, available for download on iOS and Android, and
-                  on web.
+                  Available on iOS, Android, and even web to always stay on
+                  top of your schedule.
                 </p>
               </div>
             </div>
@@ -139,8 +139,7 @@ export default function About() {
                   Real-Time Widgets
                 </h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Real-time widgets on both iOS and Android to always stay on
-                  top of your schedule.
+                  Countdown widgets on both iOS and Android to check the time remaining from your home or lock screen.
                 </p>
               </div>
             </div>
