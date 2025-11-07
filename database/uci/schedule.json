@@ -1,11 +1,41 @@
 {
   "about": {
     "sync": true,
-    "lastUpdated": "2025-10-10",
+    "lastUpdated": "2025-11-07",
     "compatibleVersion": "1.9.3",
     "link": "/api/schedule/uci",
     "inactive": [],
-    "inactiveDays": [],
+    "inactiveDays": [
+      { "description": "Veterans Day", "days": "2025-11-11" },
+      {
+        "description": "Thanksgiving Break",
+        "days": ["2025-11-27", "2025-11-28"]
+      },
+      {
+        "description": "Winter Break",
+        "days": ["2025-12-25", "2026-01-01"]
+      },
+      {
+        "description": "Martin Luther King Jr. Day",
+        "days": "2026-01-19"
+      },
+      {
+        "description": "Presidents Day",
+        "days": "2026-02-16"
+      },
+      {
+        "description": "Spring Break",
+        "days": ["2026-03-23", "2026-03-27"]
+      },
+      {
+        "description": "Cesar Chavez Day",
+        "days": "2025-03-27"
+      },
+      {
+        "description": "Memorial Day",
+        "days": "2025-05-25"
+      }
+    ],
     "allEvents": []
   },
   "routines": {}
