@@ -1,3 +1,5 @@
+import { ScheduleDB } from "@/components/index/Schedule";
+
 export function generateICSFile(scheduleDB: ScheduleDB): string {
   const header = `BEGIN:VCALENDAR
 VERSION:2.0
