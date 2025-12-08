@@ -15,7 +15,13 @@ export interface ScheduleDB {
 export interface Routines {
   [key: string]: Schedule;
 }
+
 export interface About {
+  sync: boolean;
+  lastUpdated: string;
+  compatibleVersion: string;
+  link: string;
+  name: string;
   startDate: string;
   endDate: string;
   inactiveDays: any[];
@@ -442,6 +448,7 @@ export default function Home() {
             </h2>
             <Schedule
               scheduleTimes={scheduleTimes}
+              // @ts-ignore
               scheduleDB={removePassing(scheduleDB)}
             ></Schedule>
           </div>
@@ -481,6 +488,7 @@ export default function Home() {
             </h2>
             <Schedule
               scheduleTimes={scheduleTimes}
+              // @ts-ignore
               scheduleDB={removePassing(scheduleDB)}
             ></Schedule>
           </div>
@@ -499,6 +507,7 @@ export default function Home() {
         </h2>
         <Schedule
           scheduleTimes={scheduleTimes}
+          // @ts-ignore
           scheduleDB={removePassing(scheduleDB)}
         ></Schedule>
       </div>

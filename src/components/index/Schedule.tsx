@@ -6,6 +6,7 @@ export interface ScheduleDB {
 export interface Routines {
   [key: string]: Schedule;
 }
+
 export interface About {
   sync: boolean;
   lastUpdated: string;
