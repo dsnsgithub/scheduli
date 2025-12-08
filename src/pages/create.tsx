@@ -12,6 +12,9 @@ import {
   faFileImport,
 } from "@fortawesome/free-solid-svg-icons";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import { generateICSFile } from "@/lib/generateICSFile";
+import { ScheduleDB } from "@/components/index/Schedule";
+import { faFileExport } from "@fortawesome/free-solid-svg-icons/faFileExport";
 
 function createNewRoutine(schedule: any, setSchedule: Function) {
   const enteredName = prompt("Please enter a routine name:");
@@ -96,7 +99,7 @@ function reset(
 
 export default function Create() {
   const [currentRoutine, setCurrentRoutine] = React.useState("Routine 1");
-  const [schedule, setSchedule] = React.useState({});
+  const [schedule, setSchedule] = React.useState<ScheduleDB | null>(null);
   const [isLoading, setLoading] = React.useState(true);
 
   const [isImportOpen, setIsImportOpen] = React.useState(false);
@@ -242,9 +245,9 @@ export default function Create() {
         <div className="flex flex-row justify-between">
           <h2 className="font-bold text-3xl mb-10">General Information</h2>
 
-          <div className="flex flex-row items-center">
+          <div className="flex flex-row items-center gap-4">
             <button
-              className="border-2 border-wedgewood-400 bg-wedgewood-300 ml-4 p-4 lg:p-3 lg:px-4 rounded flex items-center mr-4"
+              className="border-2 border-wedgewood-400 bg-wedgewood-300 ml-4 p-4 lg:p-3 lg:px-4 rounded flex items-center"
               onClick={() => setIsImportOpen(true)}
             >
               <FontAwesomeIcon
@@ -253,6 +256,35 @@ export default function Create() {
               ></FontAwesomeIcon>
               <h4 className="hidden lg:inline lg:ml-4">Import Schedule</h4>
             </button>
+
+            {schedule ? (
+              <button
+                className="border-2 border-wedgewood-400 bg-wedgewood-300 ml-4 p-4 lg:p-3 lg:px-4 rounded flex items-center mr-4"
+                onClick={() => {
+                  const icsContent = generateICSFile(schedule);
+                  const blob = new Blob([icsContent], {
+                    type: "text/calendar",
+                  });
+                  const url = URL.createObjectURL(blob);
+                  const link = document.createElement("a");
+                  link.href = url;
+                  link.download = `${schedule.about.name.replace(/\s+/g, "_")}.ics`;
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+                  URL.revokeObjectURL(url);
+                }}
+              >
+                <FontAwesomeIcon
+                  icon={faFileExport}
+                  className="mr-2"
+                ></FontAwesomeIcon>
+                Export Schedule to .ics
+              </button>
+            ) : (
+              <></>
+            )}
+
             <button
               onClick={() =>
                 reset(

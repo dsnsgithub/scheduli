@@ -7,6 +7,11 @@ export interface Routines {
   [key: string]: Schedule;
 }
 export interface About {
+  sync: boolean;
+  lastUpdated: string;
+  compatibleVersion: string;
+  link: string;
+  name: string;
   startDate: string;
   endDate: string;
   inactiveDays: any[];
