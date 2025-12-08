@@ -28,7 +28,9 @@ END:VTIMEZONE`;
 
   const events: string[] = [];
   const startDate = new Date(scheduleDB.about.startDate);
-  const endDate = new Date(scheduleDB.about.endDate);
+  const endDate = new Date(scheduleDB.about.endDate).setDate(
+    new Date(scheduleDB.about.endDate).getDate() + 1,
+  );
 
   for (const routineName in scheduleDB.routines) {
     const routine = scheduleDB.routines[routineName];
