@@ -21,7 +21,15 @@ export interface About {
 export interface Schedule {
   officialName: string;
   days: any[];
+  events: UnparsedEvent[];
   times: Time[];
+}
+
+export interface UnparsedEvent {
+  rawPeriodName: string;
+  name: string;
+  startTime: string;
+  endTime: string;
 }
 
 export interface Time {

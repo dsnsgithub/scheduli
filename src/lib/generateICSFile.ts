@@ -28,8 +28,10 @@ END:VTIMEZONE`;
 
   const events: string[] = [];
   const startDate = new Date(scheduleDB.about.startDate);
-  const endDate = new Date(scheduleDB.about.endDate).setDate(
-    new Date(scheduleDB.about.endDate).getDate() + 1,
+  const endDate = new Date(
+    new Date(scheduleDB.about.endDate).setDate(
+      new Date(scheduleDB.about.endDate).getDate() + 1,
+    ),
   );
 
   for (const routineName in scheduleDB.routines) {
@@ -61,7 +63,6 @@ DTSTART;TZID=America/Los_Angeles:${dtStart}
 DTEND;TZID=America/Los_Angeles:${dtEnd}
 SUMMARY:${escapeICS(event.name || event.rawPeriodName)}
 DESCRIPTION:${escapeICS(routine.officialName || "")}
-LOCATION:${escapeICS(event.location || "")}
 END:VEVENT`);
         }
       }
@@ -70,10 +71,6 @@ END:VEVENT`);
 
   return `${header}\n${events.join("\n")}\nEND:VCALENDAR`;
 }
-
-// ──────────────────────────────────────────────────
-// Helper functions (keep these too)
-// ──────────────────────────────────────────────────
 
 function getDatesForPattern(
   dayPattern: number | string | [string, string],
