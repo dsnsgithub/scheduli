@@ -1,17 +1,56 @@
-Copyright 2023-2026 Scheduli
+Scheduli License
 
-This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. 
-You are free to:
+Copyright (c) 2023-2026 Scheduli
 
-- **Share:** Copy and redistribute the Software in any medium or format.
+Permission is hereby granted, free of charge, to any person (the "Licensee")
+obtaining a copy of this software — including the source code, configuration
+files, assets, and associated documentation (collectively, the "Software") — to
+use, copy, modify, merge, publish, distribute, and sublicense the Software; to
+run, deploy, or otherwise modify the Software and create derivative works from
+it; and to permit persons to whom the Software is furnished to do so, in each
+case subject to the following conditions:
 
-Under the following terms:
+1. The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software. Licensee's use of the
+Software must comply with applicable laws and regulations.
 
-- **Attribution:** You must give appropriate credit by providing a clear and visible link to the original Software and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use of the Software.
+2. "Commercial Purpose" means any use primarily intended for or directed toward
+commercial advantage or monetary compensation. This includes, without
+limitation: selling, licensing, renting, or charging for access to the Software
+or any derivative work; offering the Software or a derivative work as part of
+any paid, subscription-based, advertising-supported, or otherwise monetized
+product or service; using the Software or a derivative work to provide services
+to paying customers; and bundling the Software or a derivative work with any
+product or service offered for a fee.
 
-- **NonCommercial:** You may not use the Software for commercial purposes. Commercial use is defined as any use primarily intended for commercial advantage or monetary compensation.
+The Licensee may not use the Software, or any derivative work thereof, for any
+Commercial Purpose without first entering into a separate written agreement
+with Scheduli.
 
-- **ShareAlike:** If you remix, transform, or build upon the Software, you must distribute your contributions under the same license as the original. Any derivatives you create must also be non-commercial in nature.
+3. Any public distribution or deployment of the Software or a derivative work
+must give appropriate credit by providing a clear and visible link to the
+original Software at https://github.com/dsnsgithub/scheduli, and must indicate
+whether changes were made. Credit may be given in any reasonable manner, but
+not in any way that suggests Scheduli endorses the Licensee or the Licensee's
+use of the Software.
 
-No warranties are provided for the Software. The licensor (the copyright holder) shall not be liable for any claims or damages arising from the use of the Software.
-To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/ or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+4. If the Licensee distributes or deploys a derivative work, that derivative
+work must be made available under the terms of this License.
+
+5. The rights granted under this License terminate automatically if the
+Licensee fails to comply with its terms. Those rights are reinstated
+automatically if the Licensee cures the violation within 30 days of discovering
+it, provided Scheduli has not previously notified the Licensee of the
+violation. This License does not affect any rights the Licensee may have under
+applicable copyright exceptions or limitations, such as fair use.
+
+6. THE SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
+EVENT SHALL SCHEDULI OR ITS CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+OR OTHER DEALINGS IN THE SOFTWARE.
+
+For any questions regarding this License, or to request a commercial license,
+please contact <scheduli@dsns.dev>.
