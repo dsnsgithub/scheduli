@@ -84,18 +84,15 @@ export default function App() {
 
   const { colorScheme, setColorScheme } = useColorScheme();
 
-  if (storage.getString("colorScheme")) {
-    Appearance.setColorScheme(storage.getString("colorScheme") as ColorSchemeName);
-    setColorScheme(storage.getString("colorScheme") as ColorSchemeName);
-  } else {
-    if (Appearance.getColorScheme()) {
-      storage.set("colorScheme", Appearance.getColorScheme());
-      setColorScheme(Appearance.getColorScheme());
-    } else {
-      storage.set("colorScheme", "light");
-      setColorScheme("light");
-    }
-  }
+  useEffect(() => {
+    const savedScheme = storage.getString("colorScheme");
+    const scheme = savedScheme ?? Appearance.getColorScheme() ?? "light";
+
+    if (!savedScheme) storage.set("colorScheme", scheme);
+
+    Appearance.setColorScheme(scheme as ColorSchemeName);
+    setColorScheme(scheme as ColorSchemeName);
+  }, [setColorScheme]);
 
   if (storage.getString("passingPeriods") == "undefined") storage.set("passingPeriods", "true");
 
@@ -110,7 +107,7 @@ export default function App() {
 
   return (
     <>
-      <StatusBar style={storage.getString("colorScheme") == "dark" ? "light" : "dark"} />
+      <StatusBar style={colorScheme == "dark" ? "light" : "dark"} />
       <GestureHandlerRootView style={{ flex: 1 }}>
         <NativeTabs
           backgroundColor={colorScheme == "dark" ? "#000000" : "#ddeff0"}
