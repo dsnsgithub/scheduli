@@ -10,8 +10,6 @@ You can find the website at https://scheduli.dsns.dev/, as well as on [iOS](http
 
 Scheduli is structured as a Next.js and Expo monorepo, enabling shared code, tooling, and configuration to support both web and mobile platforms.
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=dsnsgithub/scheduli-unified)
-
 **Core:**
 
 - **[TypeScript](https://www.typescriptlang.org/)**: For type-safe JavaScript development.
