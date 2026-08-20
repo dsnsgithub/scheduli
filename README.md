@@ -90,14 +90,3 @@ or
 ```bash
 bun run --filter @scheduli/mobile android
 ```
-
-## Self-hosted GitHub Actions Runners
-
-The self-hosted GitHub actions runners are powered by [Tart](https://tart.run/) and [Tartelet](https://github.com/shapehq/tartelet) using [macOS image templates](https://github.com/cirruslabs/macos-image-templates).
-
-```
-brew install cirruslabs/cli/tart
-tart clone ghcr.io/cirruslabs/macos-tahoe-xcode:26.2 tahoe-runner
-```
-
-Set SSH username and password to `admin` in Tartelet, follow [guide](https://github.com/shapehq/tartelet/wiki/Configuring-Tartelet) to add GitHub credentials.
