@@ -4,13 +4,6 @@ on:
   workflow_dispatch:
   pull_request:
 
-env:
-  BUN_VERSION: 1.3.14
-  JAVA_VERSION: 21.0.11
-  XCODE_VERSION: "26.6"
-  COCOAPODS_VERSION: "1.17.0"
-  MAESTRO_VERSION: "2.8.0"
-
 jobs:
   test:
     runs-on: macos-26
@@ -21,52 +14,23 @@ jobs:
       - uses: actions/setup-java@v5.7.0
         with:
           distribution: temurin
-          java-version: ${{ env.JAVA_VERSION }}
+          java-version: 21.0.11
 
       - uses: oven-sh/setup-bun@v2.2.0
         with:
-          bun-version: ${{ env.BUN_VERSION }}
+          bun-version: 1.3.14
 
       - name: Select Xcode
-        run: |
-          set -euo pipefail
-          xcode_app="/Applications/Xcode_${XCODE_VERSION}.app"
-          if [ ! -d "$xcode_app" ]; then
-            echo "::error::Xcode ${XCODE_VERSION} is not installed. Available:"
-            ls -d /Applications/Xcode*.app
-            exit 1
-          fi
-          sudo xcode-select --switch "$xcode_app"
-          xcodebuild -version
+        run: sudo xcode-select --switch /Applications/Xcode_26.6.app
 
       - name: Pin CocoaPods
-        run: |
-          set -euo pipefail
-          if ! gem list -i -v "$COCOAPODS_VERSION" cocoapods > /dev/null 2>&1; then
-            gem install cocoapods -v "$COCOAPODS_VERSION" --no-document \
-              || sudo gem install cocoapods -v "$COCOAPODS_VERSION" --no-document
-          fi
-          real_pod="$(command -v pod)"
-          shim_dir="$RUNNER_TEMP/pinned-bin"
-          mkdir -p "$shim_dir"
-          printf '#!/usr/bin/env bash\nexec "%s" _%s_ "$@"\n' "$real_pod" "$COCOAPODS_VERSION" > "$shim_dir/pod"
-          chmod +x "$shim_dir/pod"
-          echo "$shim_dir" >> "$GITHUB_PATH"
-          "$shim_dir/pod" --version
+        run: gem install cocoapods -v 1.17.0 --no-document
 
       - name: Install Maestro
         run: |
-          set -euo pipefail
-          download_dir="$RUNNER_TEMP/maestro-download"
-          mkdir -p "$download_dir"
-          curl -fsSL --retry 3 --retry-all-errors \
-            -o "$download_dir/maestro.zip" \
-            "https://github.com/mobile-dev-inc/maestro/releases/download/cli-${MAESTRO_VERSION}/maestro.zip"
-          unzip -q "$download_dir/maestro.zip" -d "$download_dir"
-          mkdir -p "$HOME/.maestro"
-          cp -rf "$download_dir/maestro/." "$HOME/.maestro/"
-          echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
-          "$HOME/.maestro/bin/maestro" --version
+          curl -fsSL https://github.com/mobile-dev-inc/maestro/releases/download/cli-2.8.0/maestro.zip -o "$RUNNER_TEMP/maestro.zip"
+          unzip -q "$RUNNER_TEMP/maestro.zip" -d "$HOME"
+          echo "$HOME/maestro/bin" >> "$GITHUB_PATH"
 
       - name: Install dependencies
         run: bun ci

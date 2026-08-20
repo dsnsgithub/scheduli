@@ -6,11 +6,6 @@ on:
     branches:
       - "main"
 
-env:
-  BUN_VERSION: 1.3.14
-  XCODE_VERSION: "26.6"
-  COCOAPODS_VERSION: "1.17.0"
-
 jobs:
   build:
     runs-on: macos-26
@@ -19,34 +14,13 @@ jobs:
 
       - uses: oven-sh/setup-bun@v2.2.0
         with:
-          bun-version: ${{ env.BUN_VERSION }}
+          bun-version: 1.3.14
 
       - name: Select Xcode
-        run: |
-          set -euo pipefail
-          xcode_app="/Applications/Xcode_${XCODE_VERSION}.app"
-          if [ ! -d "$xcode_app" ]; then
-            echo "::error::Xcode ${XCODE_VERSION} is not installed. Available:"
-            ls -d /Applications/Xcode*.app
-            exit 1
-          fi
-          sudo xcode-select --switch "$xcode_app"
-          xcodebuild -version
+        run: sudo xcode-select --switch /Applications/Xcode_26.6.app
 
       - name: Pin CocoaPods
-        run: |
-          set -euo pipefail
-          if ! gem list -i -v "$COCOAPODS_VERSION" cocoapods > /dev/null 2>&1; then
-            gem install cocoapods -v "$COCOAPODS_VERSION" --no-document \
-              || sudo gem install cocoapods -v "$COCOAPODS_VERSION" --no-document
-          fi
-          real_pod="$(command -v pod)"
-          shim_dir="$RUNNER_TEMP/pinned-bin"
-          mkdir -p "$shim_dir"
-          printf '#!/usr/bin/env bash\nexec "%s" _%s_ "$@"\n' "$real_pod" "$COCOAPODS_VERSION" > "$shim_dir/pod"
-          chmod +x "$shim_dir/pod"
-          echo "$shim_dir" >> "$GITHUB_PATH"
-          "$shim_dir/pod" --version
+        run: gem install cocoapods -v 1.17.0 --no-document
 
       - name: Install dependencies
         run: bun ci
