@@ -4,6 +4,14 @@ on:
   workflow_dispatch:
   pull_request:
 
+# Pinned tool versions for this workflow. See .github/README.md.
+env:
+  BUN_VERSION: 1.3.14 # keep in sync with "packageManager" in package.json
+  JAVA_VERSION: 21.0.11+10
+  XCODE_VERSION: "26.6"
+  COCOAPODS_VERSION: "1.17.0"
+  MAESTRO_VERSION: "2.8.0"
+
 jobs:
   test:
     # Pinned image, not `macos-latest`: that alias follows each new macOS
@@ -12,13 +20,66 @@ jobs:
     runs-on: macos-26
     timeout-minutes: 60
     steps:
-      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+      - uses: actions/checkout@v6.1.0
 
-      - uses: ./.github/actions/setup
+      # Maestro runs on the JVM.
+      - uses: actions/setup-java@v4.9.1
         with:
-          java: true # Maestro runs on the JVM
-          xcode: true
-          maestro: true
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+
+      - uses: oven-sh/setup-bun@v2.2.0
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
+
+      - name: Select Xcode
+        run: |
+          set -euo pipefail
+          xcode_app="/Applications/Xcode_${XCODE_VERSION}.app"
+          if [ ! -d "$xcode_app" ]; then
+            echo "::error::Xcode ${XCODE_VERSION} is not installed on this runner image."
+            echo "Available Xcode versions:"
+            ls -d /Applications/Xcode*.app
+            echo "Pick one of the above and update XCODE_VERSION in this workflow."
+            exit 1
+          fi
+          sudo xcode-select --switch "$xcode_app"
+          xcodebuild -version
+
+      # `pod` is resolved from PATH by the EAS build, so pinning the gem is not
+      # enough: a newer CocoaPods preinstalled on a future runner image would
+      # still win. A shim that always calls the exact gem version removes that.
+      - name: Pin CocoaPods
+        run: |
+          set -euo pipefail
+          if ! gem list -i -v "$COCOAPODS_VERSION" cocoapods > /dev/null 2>&1; then
+            gem install cocoapods -v "$COCOAPODS_VERSION" --no-document \
+              || sudo gem install cocoapods -v "$COCOAPODS_VERSION" --no-document
+          fi
+          real_pod="$(command -v pod)"
+          shim_dir="$RUNNER_TEMP/pinned-bin"
+          mkdir -p "$shim_dir"
+          printf '#!/usr/bin/env bash\nexec "%s" _%s_ "$@"\n' "$real_pod" "$COCOAPODS_VERSION" > "$shim_dir/pod"
+          chmod +x "$shim_dir/pod"
+          echo "$shim_dir" >> "$GITHUB_PATH"
+          "$shim_dir/pod" --version
+
+      # Deliberately not `curl https://get.maestro.mobile.dev | bash`: that
+      # installs whatever the newest release happens to be, and pipes a script
+      # that can change under us. This fetches one immutable release asset.
+      - name: Install Maestro
+        run: |
+          set -euo pipefail
+          download_dir="$RUNNER_TEMP/maestro-download"
+          mkdir -p "$download_dir"
+          curl -fsSL --retry 3 --retry-all-errors \
+            -o "$download_dir/maestro.zip" \
+            "https://github.com/mobile-dev-inc/maestro/releases/download/cli-${MAESTRO_VERSION}/maestro.zip"
+          unzip -q "$download_dir/maestro.zip" -d "$download_dir"
+          mkdir -p "$HOME/.maestro"
+          cp -rf "$download_dir/maestro/." "$HOME/.maestro/"
+          echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
+          "$HOME/.maestro/bin/maestro" --version
 
       - name: Install dependencies
         run: bun ci
@@ -30,9 +91,9 @@ jobs:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
         run: bunx turbo run build:ios:simulator
 
-      # `os` is pinned as well as `model`: without it the action boots whatever
-      # the newest installed runtime happens to be.
-      - uses: futureware-tech/simulator-action@dab10d813144ef59b48d401cd95da151222ef8cd # v4
+      # `os_version` is pinned as well as `model`: without it the action boots
+      # whatever the newest installed runtime happens to be.
+      - uses: futureware-tech/simulator-action@v4
         with:
           model: "iPhone 17 Pro"
           os: "iOS"
@@ -58,7 +119,7 @@ jobs:
 
       - name: Upload Debug Information
         if: failure()
-        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        uses: actions/upload-artifact@v6.0.0
         with:
           name: debug-info
           path: ./debug-info/
