@@ -20,8 +20,6 @@ Scheduli is structured as a Next.js and Expo monorepo, enabling shared code, too
 
 - **[Playwright](https://playwright.dev/)**: For E2E testing of web applications.
 - **[Maestro](https://maestro.dev/)**: For E2E mobile app testing.
-- **[Tart](https://tart.run/)**: For virtualizing macOS on Apple Silicon.
-- **[Tartelet](https://github.com/shapehq/tartelet)**: For managing Tart VMs.
 
 **Mobile (`apps/mobile`):**
 
