@@ -14,6 +14,7 @@ import {
 } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
+import { findEventConflict } from "@/src/utils/eventValidation";
 import storage from "@/src/utils/storage";
 
 import TextModal from "./TextModal";
@@ -43,16 +44,6 @@ function createCustomDate(timestamp: number) {
   return timeString;
 }
 
-function createCustomTime(inputTime: string) {
-  const currentDate = new Date();
-
-  const [inputHourRaw, inputMinuteRaw] = inputTime.split(":");
-  const inputMinute = inputMinuteRaw.replace(/[A-Za-z]/g, ""); // Remove any non-numeric characters
-
-  currentDate.setHours(parseInt(inputHourRaw), parseInt(inputMinute), 0, 0);
-  return currentDate.getTime();
-}
-
 function sortByStartTime(array: UnparsedEvent[]) {
   return array.sort((a, b) => {
     const startTimeA = a.startTime.split(":").map(Number);
@@ -64,35 +55,6 @@ function sortByStartTime(array: UnparsedEvent[]) {
       return startTimeA[1] - startTimeB[1]; // If hours are the same, sort by minute
     }
   });
-}
-
-function areEventsValid(events: UnparsedEvent[]) {
-  if (events.length <= 1) {
-    return true; // Single event is always valid
-  }
-
-  for (let i = 0; i < events.length; i++) {
-    const currentEvent = events[i];
-
-    const startTime = createCustomTime(currentEvent.startTime);
-    const endTime = createCustomTime(currentEvent.endTime);
-
-    if (startTime >= endTime) {
-      return false; // End time is not after start time
-    }
-
-    if (i < events.length - 1) {
-      // Check for event overlap
-      const nextEvent = events[i + 1];
-      const nextStartTime = createCustomTime(nextEvent.startTime);
-
-      if (endTime > nextStartTime) {
-        return false; // Events overlap
-      }
-    }
-  }
-
-  return true; // All events are valid
 }
 
 function addEvent(
@@ -116,15 +78,15 @@ function addEvent(
     newSchedule["routines"][currentRoutine]["events"],
   );
 
-  if (!areEventsValid(newSchedule["routines"][currentRoutine]["events"])) {
-    return Alert.alert(
-      "Error",
-      "This event overlaps with another event or has an invalid start/end time.",
-    );
-  } else {
-    setSchedule(newSchedule);
-    storage.set("currentSchedule", JSON.stringify(newSchedule));
+  const conflict = findEventConflict(newSchedule["routines"][currentRoutine]["events"]);
+  if (conflict) {
+    Alert.alert("Error", conflict);
+    return false;
   }
+
+  setSchedule(newSchedule);
+  storage.set("currentSchedule", JSON.stringify(newSchedule));
+  return true;
 }
 
 export default function AddEventModal(props: {
@@ -286,7 +248,7 @@ export default function AddEventModal(props: {
             accessibilityLabel="Finish"
             className="mt-3 bg-wedgewood-300 rounded shadow-xl p-4 border-2 border-wedgewood-400 active:bg-wedgewood-500 dark:active:bg-wedgewood-800 flex flex-row items-center justify-center dark:bg-wedgewood-950 dark:border-wedgewood-600"
             onPress={() => {
-              addEvent(
+              const added = addEvent(
                 props.scheduleDB,
                 props.setScheduleDB,
                 props.currentRoutine,
@@ -294,7 +256,8 @@ export default function AddEventModal(props: {
                 createCustomDate(startTime.getTime()),
                 createCustomDate(endTime.getTime()),
               );
-              props.setModalVisible(false);
+
+              if (added) props.setModalVisible(false);
             }}
           >
             <StyledText className="mr-2 font-poppinsBold text-center text-wedgewood-950 dark:text-wedgewood-300">
