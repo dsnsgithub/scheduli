@@ -1,9 +1,5 @@
 name: Typecheck
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 on:
   workflow_dispatch:
   pull_request:
