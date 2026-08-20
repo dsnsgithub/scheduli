@@ -2,7 +2,9 @@ name: Build and Submit Android App
 
 on:
   workflow_dispatch:
-  pull_request:
+  push:
+    branches:
+      - "main"
 
 jobs:
   build:
