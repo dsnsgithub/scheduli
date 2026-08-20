@@ -9,7 +9,7 @@ target "StatusWidget" do
   use_frameworks! :linkage => podfile_properties['ios.useFrameworks'].to_sym if podfile_properties['ios.useFrameworks']
   use_frameworks! :linkage => ENV['USE_FRAMEWORKS'].to_sym if ENV['USE_FRAMEWORKS']
 
-  pod "MMKVAppExtension"
+  pod "MMKVAppExtension", '2.4.0'
 end
 `;
 
