@@ -1,0 +1,86 @@
+{
+  "about": {
+    "sync": true,
+    "lastUpdated": "2026-07-21",
+    "compatibleVersion": "1.6.0",
+    "link": "/api/schedule/dvhs",
+    "name": "DV School Schedule",
+    "startDate": "2026-08-13",
+    "endDate": "2027-06-03",
+    "inactiveDays": [
+      { "description": "Independence Day", "days": "2026-07-03" },
+      { "description": "Floating Work Day", "days": "2026-10-02" },
+      { "description": "Floating Work Day", "days": "2027-01-04" },
+      { "description": "Floating Work Day", "days": "2027-03-12" },
+      { "description": "Floating Work Day", "days": "2027-06-04" },
+      { "description": "Staff Development Day", "days": "2027-02-16" },
+      { "description": "Labor Day", "days": "2026-09-07" },
+      { "description": "School Recess", "days": "2027-05-28" },
+      { "description": "Veterans Day", "days": "2026-11-11" },
+      {
+        "description": "Thanksgiving Break",
+        "days": ["2026-11-23", "2026-11-27"]
+      },
+      { "description": "Winter Break", "days": ["2026-12-21", "2027-01-01"] },
+      { "description": "MLK Jr. Day", "days": "2027-01-18" },
+      { "description": "President's Day", "days": "2027-02-15" },
+      { "description": "Spring Break", "days": ["2027-04-02", "2027-04-09"] },
+      { "description": "Memorial Day", "days": "2027-05-31" }
+    ],
+    "allEvents": ["1", "2", "3", "4", "5", "6", "B"]
+  },
+  "routines": {
+    "regularMon": {
+      "officialName": "Regular - Monday",
+      "days": [1]
+    },
+    "regular": {
+      "officialName": "Regular - Tuesday/Friday",
+      "days": [2, 5]
+    },
+    "wednesday": {
+      "officialName": "Wednesday Block",
+      "days": [3, "2026-11-10"]
+    },
+    "thursday": {
+      "officialName": "Thursday Block",
+      "days": [4, "2026-09-29"]
+    },
+    "minimum": {
+      "officialName": "Minimum Day",
+      "days": ["2026-08-13"]
+    },
+    "rally": {
+      "officialName": "Rally",
+      "days": ["2026-08-28", "2026-10-01", "2027-05-25"]
+    },
+    "finalReverse": {
+      "officialName": "B Period Final - Reverse",
+      "days": ["2026-12-15"]
+    },
+    "finalShort1+4": {
+      "officialName": "Final Periods 1/4",
+      "days": ["2026-12-16"]
+    },
+    "finalShort1+4+B": {
+      "officialName": "Final Periods 1/4/B",
+      "days": ["2027-06-01"]
+    },
+    "finalShort2+5": {
+      "officialName": "Final Periods 2/5",
+      "days": ["2026-12-17", "2027-06-02"]
+    },
+    "finalShort3+6": {
+      "officialName": "Final Periods 3/6",
+      "days": ["2026-12-18", "2027-06-03"]
+    },
+    "caaspp-1-5-6": {
+      "officialName": "CAASPP 1-5-6",
+      "days": []
+    },
+    "caaspp-2-3-4": {
+      "officialName": "CAASPP 2-3-4",
+      "days": []
+    }
+  }
+}

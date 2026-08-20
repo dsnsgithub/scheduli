@@ -1,0 +1,18 @@
+appId: com.scheduli.schedulimobile
+---
+- startRecording: .maestro/recordings/darkMode
+- clearState
+- launchApp
+- extendedWaitUntil:
+    visible:
+      text: "Scheduli"
+    timeout: 60000
+- tapOn: "Settings"
+- tapOn: Toggle Dark Mode
+- tapOn: Home
+- tapOn: Schedule
+- tapOn: Settings
+- tapOn: General Settings
+- tapOn: Back
+- tapOn: Routine Settings
+- tapOn: Back

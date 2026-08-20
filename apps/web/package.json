@@ -1,0 +1,37 @@
+{
+  "name": "@scheduli/web",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test:setup": "playwright install --with-deps chromium",
+    "test": "playwright test",
+    "create-test": "playwright codegen http://localhost:3000",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@formkit/auto-animate": "^0.8.1",
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-brands-svg-icons": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@headlessui/react": "^1.7.17",
+    "@headlessui/tailwindcss": "^0.2.0",
+    "@scheduli/types": "workspace:*",
+    "next": "16.0.10",
+    "posthog-js": "^1.276.0",
+    "posthog-node": "^5.10.0",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

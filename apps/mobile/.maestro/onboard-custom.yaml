@@ -1,0 +1,12 @@
+appId: com.scheduli.schedulimobile
+---
+- startRecording: .maestro/recordings/onboard-custom
+- clearState
+- launchApp
+- extendedWaitUntil:
+    visible:
+      text: "Scheduli"
+    timeout: 60000
+- tapOn: Create New Schedule
+- assertVisible: Edit Routine 1 Routine
+- assertVisible: Add Routine

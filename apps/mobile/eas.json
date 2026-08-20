@@ -1,0 +1,40 @@
+{
+  "cli": {
+    "version": ">= 5.2.0",
+    "promptToConfigurePushNotifications": false,
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "distribution": "internal",
+      "android": {
+        "gradleCommand": ":app:assembleDebug"
+      },
+      "ios": {
+        "buildConfiguration": "Debug"
+      }
+    },
+    "preview": {
+      "distribution": "internal"
+    },
+    "production": {
+      "autoIncrement": true
+    },
+    "e2e-test": {
+      "withoutCredentials": true,
+      "ios": {
+        "simulator": true
+      },
+      "android": {
+        "buildType": "apk"
+      }
+    }
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "ascAppId": "6470429917"
+      }
+    }
+  }
+}

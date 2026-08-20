@@ -1,0 +1,8 @@
+{
+  "name": "@scheduli/types",
+  "private": true,
+  "description": "Shared TypeScript types for Scheduli",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts"
+}

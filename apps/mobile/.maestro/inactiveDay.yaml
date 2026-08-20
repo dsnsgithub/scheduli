@@ -1,0 +1,28 @@
+appId: com.scheduli.schedulimobile
+---
+- startRecording: .maestro/recordings/inactiveDay
+- clearState
+- launchApp
+- extendedWaitUntil:
+    visible:
+      text: "Scheduli"
+    timeout: 60000
+- tapOn: "Settings"
+- tapOn: Import Schedule
+- tapOn: Import Default Schedule
+- tapOn: Back
+- tapOn: Inactive Day Settings
+- tapOn: Add Inactive Day
+- tapOn: Finish
+- tapOn: Schedule
+- assertVisible: New Inactive Day
+- tapOn: Home
+- tapOn: Important Dates
+- tapOn: Settings
+- tapOn: Back
+- tapOn: Inactive Day Settings
+- tapOn: Edit Inactive Date - New Inactive Day
+- tapOn: Delete Inactive Day
+- tapOn: OK
+- tapOn: Schedule
+# - assertVisible: Routine 1

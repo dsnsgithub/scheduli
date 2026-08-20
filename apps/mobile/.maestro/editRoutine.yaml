@@ -1,0 +1,38 @@
+appId: com.scheduli.schedulimobile
+---
+- startRecording: .maestro/recordings/editRoutine
+- clearState
+- launchApp
+- extendedWaitUntil:
+    visible:
+      text: "Scheduli"
+    timeout: 60000
+- tapOn: "Settings"
+- tapOn: "Import Schedule"
+- assertVisible: "Import Default Schedule"
+- tapOn: "Import SRVUSD Schedule"
+- tapOn: "Import DVHS Schedule"
+- tapOn: "Settings"
+- tapOn: "Routine Settings"
+- assertVisible: "Edit Wednesday Block Routine"
+- assertVisible: "Edit Thursday Block Routine"
+- tapOn: "Edit Minimum Day Routine"
+- tapOn: "Edit Routine Properties"
+- assertVisible: "Create Active Day"
+- tapOn: "Finish"
+- tapOn: "Edit Event 1"
+- tapOn: "Edit Name"
+- inputText: "testing"
+- tapOn: "Finish"
+- tapOn: "Finish"
+- tapOn:
+    text: "Finish"
+    optional: true
+- assertVisible: "Edit Event 1testing"
+- tapOn: "Edit Routine Properties"
+- tapOn: "Delete Routine"
+- tapOn: "OK"
+- tapOn: "Settings"
+- tapOn: "Routine Settings"
+- assertNotVisible: "Edit Minimum Day Routine"
+- assertVisible: "Edit Wednesday Block Routine"

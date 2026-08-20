@@ -1,0 +1,15 @@
+appId: com.scheduli.schedulimobile
+---
+- startRecording: .maestro/recordings/onboard-import
+- clearState
+- launchApp
+- extendedWaitUntil:
+    visible:
+      text: "Scheduli"
+    timeout: 60000
+- tapOn: Import Schedule
+- assertVisible: Import SRVUSD Schedule
+- assertVisible: Import UCI Schedule
+- tapOn: Import SRVUSD Schedule
+- tapOn: Import DVHS Schedule
+- assertVisible: Important Dates

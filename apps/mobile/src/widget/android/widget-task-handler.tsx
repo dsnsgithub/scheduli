@@ -1,0 +1,44 @@
+import { requestWidgetUpdate, type WidgetTaskHandlerProps } from "react-native-android-widget";
+
+import { ScheduleWidget } from "./ScheduleWidget";
+import { StatusWidget } from "./StatusWidget";
+
+const nameToWidget = {
+  // Hello will be the **name** with which we will reference our widget.
+  StatusWidget: StatusWidget,
+  ScheduleWidget: ScheduleWidget,
+};
+
+export async function widgetTaskHandler(props: WidgetTaskHandlerProps) {
+  const widgetInfo = props.widgetInfo;
+  const Widget = nameToWidget[widgetInfo.widgetName as keyof typeof nameToWidget];
+
+  switch (props.widgetAction) {
+    case "WIDGET_ADDED":
+      props.renderWidget(<Widget currentDate={new Date()} />);
+      break;
+
+    case "WIDGET_UPDATE":
+      props.renderWidget(<Widget currentDate={new Date()} />);
+      break;
+
+    case "WIDGET_RESIZED":
+      // Not needed for now
+      break;
+
+    case "WIDGET_DELETED":
+      // Not needed for now
+      break;
+
+    case "WIDGET_CLICK":
+      requestWidgetUpdate({
+        widgetName: widgetInfo.widgetName,
+        renderWidget: () => <Widget currentDate={new Date()} />,
+        widgetNotFound: () => {},
+      });
+      break;
+
+    default:
+      break;
+  }
+}

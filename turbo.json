@@ -1,0 +1,46 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "ui": "tui",
+  "globalEnv": [
+    "EXPO_TOKEN",
+    "TURBO_TOKEN",
+    "TURBO_TEAM",
+    "MAESTRO_DRIVER_STARTUP_TIMEOUT",
+    "ANDROID_HOME"
+  ],
+  "tasks": {
+    "build:ios": {
+      "dependsOn": ["^build:ios"],
+      "outputs": ["dist/**"]
+    },
+    "build:ios:simulator": {
+      "dependsOn": ["^build:ios:simulator"],
+      "outputs": ["dist/**"]
+    },
+    "build:android": {
+      "dependsOn": ["^build:android"],
+      "outputs": ["dist/**"]
+    },
+    "build:android:simulator": {
+      "dependsOn": ["^build:android:simulator"],
+      "outputs": ["dist/**"]
+    },
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "clean": {
+      "cache": false
+    },
+    "typecheck": {
+      "cache": false
+    },
+    "lint": {
+      "cache": false
+    }
+  }
+}

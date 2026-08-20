@@ -1,0 +1,22 @@
+appId: com.scheduli.schedulimobile
+---
+- startRecording: .maestro/recordings/editPeriodName
+- clearState
+- launchApp
+- extendedWaitUntil:
+    visible:
+      text: "Scheduli"
+    timeout: 60000
+- tapOn: "Settings"
+- tapOn: "Import Schedule"
+- assertVisible: "Import SRVUSD Schedule"
+- tapOn: "Import Default Schedule"
+- tapOn: "Schedule"
+- assertVisible: "Today's Schedule"
+- assertVisible: "Routine 1"
+- assertVisible: "Set Current Date"
+- tapOn: "Event 1"
+- tapOn: "Event 1"
+- inputText: "Calculus Test"
+- tapOn: "Save"
+- assertVisible: "Calculus Test"

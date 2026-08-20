@@ -1,0 +1,13 @@
+diff --git a/src/createMMKV.ts b/src/createMMKV.ts
+index 2d46c6cdc57c1aef317b70a3320f63b7ff6c9a23..397f1c66be98a9590af9382dc1fd6577095403b9 100644
+--- a/src/createMMKV.ts
++++ b/src/createMMKV.ts
+@@ -14,7 +14,7 @@ export const createMMKV = (config: Configuration): NativeMMKV => {
+           getMMKVPlatformContextTurboModule().getAppGroupDirectory();
+         if (appGroupDirectory != null) {
+           // If we have an `AppGroup` in Info.plist, use that as a path.
+-          config.path = appGroupDirectory;
++          config.path = appGroupDirectory + '/mmkv';
+         }
+       } catch (e) {
+         // We cannot throw errors here because it is a sync C++ TurboModule func. idk why.
