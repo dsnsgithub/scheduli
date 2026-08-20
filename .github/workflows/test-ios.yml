@@ -6,22 +6,22 @@ on:
 
 jobs:
   test:
-    runs-on: macos-latest
+    # Pinned image, not `macos-latest`: that alias follows each new macOS
+    # release, which swaps the default Xcode, the simulator runtimes and the
+    # preinstalled CocoaPods underneath a build that never changed.
+    runs-on: macos-26
     timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
 
-      - uses: oven-sh/setup-bun@v2
+      - uses: ./.github/actions/setup
         with:
-          bun-version: latest
+          java: true # Maestro runs on the JVM
+          xcode: true
+          maestro: true
 
       - name: Install dependencies
         run: bun ci
-
-      - name: Install Maestro
-        run: |
-          curl -fsSL "https://get.maestro.mobile.dev" | bash
-          echo "$HOME/.maestro/bin" >> $GITHUB_PATH
 
       - name: Build iOS Simulator App
         env:
@@ -30,9 +30,13 @@ jobs:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
         run: bunx turbo run build:ios:simulator
 
-      - uses: futureware-tech/simulator-action@v4
+      # `os` is pinned as well as `model`: without it the action boots whatever
+      # the newest installed runtime happens to be.
+      - uses: futureware-tech/simulator-action@dab10d813144ef59b48d401cd95da151222ef8cd # v4
         with:
           model: "iPhone 17 Pro"
+          os: "iOS"
+          os_version: "26.5"
           wait_for_boot: true
 
       - name: Install iOS App
@@ -54,7 +58,7 @@ jobs:
 
       - name: Upload Debug Information
         if: failure()
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: debug-info
           path: ./debug-info/
