@@ -15,7 +15,7 @@ import { impactAsync } from "expo-haptics";
 import { router, usePathname } from "expo-router";
 import { styled, useColorScheme } from "nativewind";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Alert, Platform, Pressable, Switch, Text, View } from "react-native";
+import { Alert, Appearance, Platform, Pressable, Switch, Text, View } from "react-native";
 
 import WidgetUpdaterModule from "@/modules/widget-updater/src/WidgetUpdaterModule";
 import Import from "@/src/app/settings/import";
@@ -199,13 +199,11 @@ export default function Settings() {
             thumbColor="#ddeff0"
             trackColor={{ false: "#bfe0e2", true: "#3b757f" }}
             onValueChange={() => {
-              if (colorScheme == "dark") {
-                setColorScheme("light");
-                storage.set("colorScheme", "light");
-              } else {
-                setColorScheme("dark");
-                storage.set("colorScheme", "dark");
-              }
+              const nextScheme = colorScheme == "dark" ? "light" : "dark";
+
+              storage.set("colorScheme", nextScheme);
+              Appearance.setColorScheme(nextScheme);
+              setColorScheme(nextScheme);
 
               WidgetUpdaterModule.update();
               impactAsync();

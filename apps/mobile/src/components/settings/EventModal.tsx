@@ -14,6 +14,7 @@ import {
 } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
+import { findEventConflict } from "@/src/utils/eventValidation";
 import storage from "@/src/utils/storage";
 
 import TextModal from "./TextModal";
@@ -56,45 +57,6 @@ function createCustomDateString(timestamp: number) {
   return timeString;
 }
 
-function createCustomTime(inputTime: string) {
-  const currentDate = new Date();
-
-  const [inputHourRaw, inputMinuteRaw] = inputTime.split(":");
-  const inputMinute = inputMinuteRaw.replace(/[A-Za-z]/g, ""); // Remove any non-numeric characters
-
-  currentDate.setHours(parseInt(inputHourRaw), parseInt(inputMinute), 0, 0);
-  return currentDate.getTime();
-}
-
-function areEventsValid(events: UnparsedEvent[]) {
-  if (events.length <= 1) {
-    return true; // Single event is always valid
-  }
-
-  for (let i = 0; i < events.length; i++) {
-    const currentEvent = events[i];
-
-    const startTime = createCustomTime(currentEvent.startTime);
-    const endTime = createCustomTime(currentEvent.endTime);
-
-    if (startTime >= endTime) {
-      return false; // End time is not after start time
-    }
-
-    if (i < events.length - 1) {
-      // Check for event overlap
-      const nextEvent = events[i + 1];
-      const nextStartTime = createCustomTime(nextEvent.startTime);
-
-      if (endTime > nextStartTime) {
-        return false; // Events overlap
-      }
-    }
-  }
-
-  return true; // All events are valid
-}
-
 function modifyEvent(
   schedule: UnparsedSchedule,
   setSchedule: React.Dispatch<React.SetStateAction<UnparsedSchedule>>,
@@ -127,15 +89,15 @@ function modifyEventTimes(
     newSchedule["routines"][currentRoutine]["events"],
   );
 
-  if (!areEventsValid(newSchedule["routines"][currentRoutine]["events"])) {
-    return Alert.alert(
-      "Error",
-      "This event overlaps with another event or has an invalid start/end time.",
-    );
+  const conflict = findEventConflict(newSchedule["routines"][currentRoutine]["events"]);
+  if (conflict) {
+    Alert.alert("Error", conflict);
+    return false;
   }
 
   setSchedule(newSchedule);
   storage.set("currentSchedule", JSON.stringify(newSchedule));
+  return true;
 }
 
 function removeEvent(
@@ -420,10 +382,7 @@ export default function EventModal(props: {
                 return Alert.alert("Error", "End time must be after start time.");
               }
 
-              props.setStartTime(updatedStartTime);
-              props.setEndTime(updatedEndTime);
-
-              modifyEventTimes(
+              const saved = modifyEventTimes(
                 props.scheduleDB,
                 props.setScheduleDB,
                 props.currentRoutine,
@@ -432,6 +391,10 @@ export default function EventModal(props: {
                 createCustomDateString(updatedEndTime.getTime()),
               );
 
+              if (!saved) return;
+
+              props.setStartTime(updatedStartTime);
+              props.setEndTime(updatedEndTime);
               props.setModalVisible(false);
             }}
           >

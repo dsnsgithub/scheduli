@@ -29,13 +29,17 @@ function createNewRoutine(
   name: string,
   weekdays: number[],
 ) {
-  if (!name) return Alert.alert("Error", "You must provide a name.");
-
-  const newSchedule = { ...schedule };
-
-  if (newSchedule["routines"][name]) {
-    return Alert.alert("Error", "Routine with same name already exists.");
+  if (!name) {
+    Alert.alert("Error", "You must provide a name.");
+    return false;
   }
+
+  if (schedule["routines"][name]) {
+    Alert.alert("Error", `A routine named "${name}" already exists. Pick a different name.`);
+    return false;
+  }
+
+  const newSchedule = JSON.parse(JSON.stringify(schedule)) as UnparsedSchedule;
 
   newSchedule["routines"][name] = {
     officialName: name,
@@ -55,6 +59,7 @@ function createNewRoutine(
   storage.set("currentSchedule", JSON.stringify(newSchedule));
 
   Alert.alert("Success", "Successfully created a new routine.");
+  return true;
 }
 
 export default function AddRoutineModal(props: {
@@ -138,7 +143,17 @@ export default function AddRoutineModal(props: {
             accessibilityLabel="Finish"
             className="mt-4 bg-wedgewood-300 rounded shadow-xl p-4 border-2 border-wedgewood-400 active:bg-wedgewood-500 dark:active:bg-wedgewood-800 flex flex-row items-center justify-center dark:bg-wedgewood-950 dark:border-wedgewood-600"
             onPress={() => {
-              createNewRoutine(props.scheduleDB, props.setScheduleDB, name, weekdays);
+              const created = createNewRoutine(
+                props.scheduleDB,
+                props.setScheduleDB,
+                name,
+                weekdays,
+              );
+
+              if (!created) return;
+
+              setName("New Routine!");
+              setWeekdays([]);
               props.setModalVisible(false);
             }}
           >
