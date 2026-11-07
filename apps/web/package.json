@@ -11,27 +11,27 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@formkit/auto-animate": "^0.8.1",
-    "@fortawesome/fontawesome-svg-core": "^6.4.2",
-    "@fortawesome/free-brands-svg-icons": "^6.4.2",
-    "@fortawesome/free-solid-svg-icons": "^6.4.2",
-    "@fortawesome/react-fontawesome": "^0.2.0",
-    "@headlessui/react": "^1.7.17",
-    "@headlessui/tailwindcss": "^0.2.0",
+    "@formkit/auto-animate": "0.8.4",
+    "@fortawesome/fontawesome-svg-core": "6.7.2",
+    "@fortawesome/free-brands-svg-icons": "6.7.2",
+    "@fortawesome/free-solid-svg-icons": "6.7.2",
+    "@fortawesome/react-fontawesome": "0.2.6",
+    "@headlessui/react": "1.7.19",
+    "@headlessui/tailwindcss": "0.2.2",
     "@scheduli/types": "workspace:*",
     "next": "16.0.10",
-    "posthog-js": "^1.276.0",
-    "posthog-node": "^5.10.0",
+    "posthog-js": "1.309.1",
+    "posthog-node": "5.17.4",
     "react": "catalog:",
     "react-dom": "catalog:"
   },
   "devDependencies": {
-    "@playwright/test": "^1.57.0",
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@playwright/test": "1.57.0",
+    "@tailwindcss/postcss": "4.1.18",
+    "@types/node": "20.19.27",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "tailwindcss": "^4",
-    "typescript": "^5"
+    "tailwindcss": "4.1.18",
+    "typescript": "5.9.3"
   }
 }

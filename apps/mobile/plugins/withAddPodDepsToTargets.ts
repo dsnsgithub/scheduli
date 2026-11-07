@@ -14,13 +14,17 @@ target "StatusWidget" do
 end
 `;
 
+const PINNED_PODS = `
+  pod "PostHog", "3.69.8"
+`;
+
 export const withAddPodDepsToTargets: ConfigPlugin = (config) => {
   return withDangerousMod(config, [
     "ios",
     async (config) => {
       const file = path.join(config.modRequest.platformProjectRoot, "Podfile");
       const contents = await fs.promises.readFile(file, "utf8");
-      await fs.promises.writeFile(file, addPodDepsToTargets(contents), "utf8");
+      await fs.promises.writeFile(file, pinPods(addPodDepsToTargets(contents)), "utf8");
       return config;
     },
   ]);
@@ -35,4 +39,23 @@ function addPodDepsToTargets(src: string) {
     offset: 0,
     comment: "#",
   }).contents;
+}
+
+function pinPods(src: string) {
+  const result = mergeContents({
+    tag: `with-pinned-pods`,
+    src,
+    newSrc: PINNED_PODS.replace(/\n$/, ""),
+    anchor: /use_expo_modules!/,
+    offset: 1,
+    comment: "#",
+  });
+
+  if (!result.didMerge) {
+    throw new Error(
+      "withAddPodDepsToTargets: could not find `use_expo_modules!` in the Podfile, so pinned pods were not applied.",
+    );
+  }
+
+  return result.contents;
 }
